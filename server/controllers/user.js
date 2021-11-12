@@ -77,10 +77,41 @@ const findUser = async (req, res) => {
   });
 };
 
+const updateUser = async (req, res) => {
+  const { id } = req.params;
+  const { error } = schema.validate(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
+
+  const user = await User.findByPk(id);
+
+  if (!user) {
+    return res.status(404).json({ message: 'User not found' });
+  }
+
+  user.name = req.body.name;
+  user.email = req.body.email;
+  user.password = req.body.password;
+  user.phone = req.body.phone;
+
+  try {
+    await user.save();
+    res.status(200).json({
+      message: 'success',
+      data: user,
+    });
+  } catch (err) {
+    res.status(400).json({
+      message: 'fail',
+      data: err,
+    });
+  }
+};
+
 module.exports = {
   findAll,
   createUser,
   findUser,
+  updateUser,
 };
 
 

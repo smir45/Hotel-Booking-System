@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
-const routes = require('./routes')
+const userRoutes = require('./routes/user')
+const postRoutes = require('./routes/post')
 const bodyParser = require("body-parser");
 const cors = require("cors");
 require("dotenv").config();
@@ -13,7 +14,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // handle pre-flight requests
 app.options("*", cors());
 
-app.use('/api/auth/user',routes)
+app.use('/api/auth/user',userRoutes)
+app.use('/api/blog/post',postRoutes)
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
