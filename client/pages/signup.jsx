@@ -1,5 +1,5 @@
 import * as React from 'react';
-
+import Axios from 'axios';
 const SignupElements = () => {
 
     const url = "http://localhost:8000/api/auth/user/";
@@ -78,7 +78,7 @@ const SignupElements = () => {
                         <input onChange={(e) => handleChange(e)} type="number" class="block w-full px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-pmry focus:ring-opacity-50" name="phone" placeholder="Phone" id="phone"/>
                     </div>
                     <div class="relative">
-                        <a href="#_" class="inline-block w-full px-5 py-4 text-lg font-medium text-center text-white transition duration-200 bg-pmry rounded-lg hover:bg-pmry ease">Create Account</a>
+                        <button type="submit" class="inline-block w-full px-5 py-4 text-lg font-medium text-center text-white transition duration-200 bg-pmry rounded-lg hover:bg-pmry ease">Create Account</button>
                         <a href="#_" class="inline-block w-full px-5 py-4 mt-3 text-lg font-bold text-center text-gray-900 transition duration-200 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 ease">Sign up with Google</a>
                     </div>
                 </div>
