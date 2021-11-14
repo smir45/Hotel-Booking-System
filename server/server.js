@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.options("*", cors());
 
 app.use('/api/auth/user',userRoutes)
-app.use('/api/blog/post',postRoutes)
+app.use('/api/blog/',postRoutes)
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);

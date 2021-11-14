@@ -57,8 +57,10 @@ const createUser = async (req, res) => {
     try {
       const saveUser = await userdata.save();
       res.send("Registration Successful");
+      console.log("Success")
     } catch (err) {
       res.json(err);
+      console.log("Error")
     }
 };
 
