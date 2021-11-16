@@ -109,11 +109,33 @@ const updateUser = async (req, res) => {
   }
 };
 
+const deleteUser = async (req, res) => {
+  const { id } = req.params;
+  const user = await User.findByPk(id);
+  if (!user) {
+    return res.status(404).json({ message: 'User not found' });
+  }
+  try {
+    await user.destroy();
+    res.status(200).json({
+      message: 'success',
+      data: user,
+    });
+  }
+  catch (err) {
+    res.status(400).json({
+      message: 'fail',
+      data: err,
+    });
+  }
+}
+
 module.exports = {
   findAll,
   createUser,
   findUser,
   updateUser,
+  deleteUser
 };
 
 
