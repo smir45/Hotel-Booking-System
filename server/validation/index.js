@@ -24,4 +24,7 @@ const loginValidation = (data) => {
   return Joi.validate(data, schema);
 };
 
-module.exports = { UserPasswordSchema, loginValidation };
+
+
+
+module.exports = { UserPasswordSchema, loginValidation,};

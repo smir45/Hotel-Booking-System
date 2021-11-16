@@ -80,8 +80,14 @@ const findUser = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
+  const Updateschema = Joi.object({
+    name: Joi.string().min(6),
+    email: Joi.string().min(6).email(),
+    password: Joi.string().min(8),
+    phone: Joi.number().min(10),
+  });
   const { id } = req.params;
-  const { error } = schema.validate(req.body);
+  const { error } = Updateschema.validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
   const user = await User.findByPk(id);
