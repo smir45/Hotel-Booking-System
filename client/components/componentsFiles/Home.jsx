@@ -1,5 +1,6 @@
 import * as react from "react";
 import HomeDatas from "../componentDatas/HomeData";
+import DashboardBanner from "./dashboardBanner";
 import BannerSec from "./BannerSec";
 import HostBanner from "./HostBanner";
 import Services from "./Services";
@@ -15,7 +16,7 @@ const IndexElements = (props) => {
       </header>
     </head>
       <Navbar />
-      <BannerSec/>
+      <DashboardBanner/>
       <HostBanner />
       <Services />
       <Footer />
