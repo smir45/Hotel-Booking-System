@@ -16,7 +16,8 @@ const IndexElements = (props) => {
       </header>
     </head>
       <Navbar />
-      <DashboardBanner/>
+      {/* <DashboardBanner/> */}
+      <BannerSec/>
       <HostBanner />
       <Services />
       <Footer />
