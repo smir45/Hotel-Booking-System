@@ -14,7 +14,7 @@ const schema = Joi.object({
   phone: Joi.number().min(10).required(),
 });
 
-const findAll = async (req, res) => {
+module.exports.findAll = async (req, res, next) => {
   try{
     const users = await User.findAll();
     res.status(200).json({
@@ -31,7 +31,7 @@ const findAll = async (req, res) => {
  
 };
 
-const createUser = async (req, res) => {
+module.exports.createUser = async (req, res, next) => {
   const { error } = schema.validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
   
@@ -64,7 +64,7 @@ const createUser = async (req, res) => {
     }
 };
 
-const findUser = async (req, res) => {
+module.exports.findUser = async (req, res) => {
   const { id } = req.params;
 
   const user = await User.findByPk(id);
@@ -79,7 +79,7 @@ const findUser = async (req, res) => {
   });
 };
 
-const updateUser = async (req, res) => {
+module.exports.updateUser = async (req, res) => {
   const Updateschema = Joi.object({
     name: Joi.string().min(6),
     email: Joi.string().min(6).email(),
@@ -115,7 +115,7 @@ const updateUser = async (req, res) => {
   }
 };
 
-const deleteUser = async (req, res) => {
+module.exports.deleteUser = async (req, res) => {
   const { id } = req.params;
   const user = await User.findByPk(id);
   if (!user) {
@@ -136,12 +136,5 @@ const deleteUser = async (req, res) => {
   }
 }
 
-module.exports = {
-  findAll,
-  createUser,
-  findUser,
-  updateUser,
-  deleteUser
-};
 
 
