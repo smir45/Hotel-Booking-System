@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+// const userValidation = require('../middlewares/UserValidation')
 const { createPost, getAllPosts,getPostById, updatePost, deletePost} = require('../controllers/post')
 
 router.post('/post', createPost);

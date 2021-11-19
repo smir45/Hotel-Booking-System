@@ -7,19 +7,11 @@ const BlogData = () => {
   const datas = Blog;
 
   useEffect(() => {
-    async function fetchData() {
-      // try {
-      //   const response = await fetch("http://localhost:8000/api/blog/post/");
-      //   const data = await response.json();
-      //   setBlog(data);
-      //   setIsLoading(false);
-      // } catch (error) {
-      //   setIsLoading(false);
-      // }
-      // fetch data using Axios
-
-      const response = await axios.get("http://localhost:8000/api/blog/post/");
-      setBlog(response.data);
+    const fetchData = async () => {
+      const result = await axios(
+        "http://localhost:8000/api/blog/post/"
+      );
+      setBlog(result.data);
       setIsLoading(false);
     }
     fetchData();
