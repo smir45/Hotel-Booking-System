@@ -37,7 +37,7 @@ const BannerSecElements = () => {
               </div>
             </div>
             <div class="w-full md:-mt-20 md:w-1/2">
-              <div class="w-full h-auto overflow-hidden rounded-md ">
+              <div class="w-full h-auto overflow-hidden rounded-md select-none ">
                     <img src="https://image.freepik.com/free-photo/fun-3d-panda-backpacker-cartoon-character_183364-81203.jpg" alt=""/>
                     
               </div>
