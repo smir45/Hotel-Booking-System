@@ -8,16 +8,15 @@ import Navbar from "./navbar";
 import Footer from "./footer";
 const IndexElements = (props) => {
   return (
-    
     <div>
       <head>
-      <header>
-        <title>Accommod | Home</title>
-      </header>
-    </head>
+        <header>
+          <title>Accommod | Home</title>
+        </header>
+      </head>
       <Navbar />
-      {/* <DashboardBanner/> */}
-      <BannerSec/>
+      <BannerSec />
+      <DashboardBanner />
       <HostBanner />
       <Services />
       <Footer />
