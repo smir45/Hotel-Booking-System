@@ -9,7 +9,11 @@
     "models-post": "npx sequelize-cli model:generate --name Post --attributes title:string,description:string",
     "models-user": "npx sequelize-cli model:generate --name User --attributes name:string,email:string",
     "migrate": "npx sequelize-cli db:migrate",
-    "undo": "npx sequelize-cli db:migrate:undo"
+    "migrate:status": "npx sequelize-cli db:migrate:status",
+    "migrate:rollback": "npx sequelize-cli db:migrate:undo",
+    "migrate:reset": "npx sequelize-cli db:migrate:undo:all",
+    "seeder-generate": "npx sequelize seed:generate --name default-root",
+    "seed:all": "npx sequelize db:seed:all"
   },
   "keywords": [],
   "author": "",

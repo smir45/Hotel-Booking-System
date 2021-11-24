@@ -148,9 +148,7 @@ module.exports.userLogin = async (req, res, next) => {
   const validPassword = await bcrypt.compare(req.body.password, user.password);
   if (!validPassword) return res.status(400).send("Invalid Password");
 
-  const token = jwt.sign({ id: user.id }, process.env.TOKEN_SECRET, {
-    expiresIn: "1h",
-  });
+  const token = jwt.sign({ id: user.id }, process.env.TOKEN_SECRET, {expiresIn: '1h'});
 
   res.header("auth-token", token).json({
     message: "Logged in successfully",
