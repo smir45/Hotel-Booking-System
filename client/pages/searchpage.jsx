@@ -1,10 +1,11 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { FiSearch } from "react-icons/fi";
+import SearchDatas from "./api/postdatas/SearchDatas";
 import DateRangeComponent from "../components/componentsFiles/DateRangeComponent";
 
 const SearchPageElements = () => {
-    const [searchInput, setSearchInput] = useState("");
-   
+  const [searchInput, setSearchInput] = useState("");
+
   return (
     <main>
       <div className="container p-5 min-w-full">
@@ -21,9 +22,10 @@ const SearchPageElements = () => {
               <FiSearch className="text-2xl" />
             </div>
           </div>
-          <div className="date">
-              {/* <DateRangeComponent /> */}
-          </div>
+          <div className="date">{/* <DateRangeComponent /> */}</div>
+        </div>
+        <div className="datas">
+          <SearchDatas />
         </div>
       </div>
     </main>
