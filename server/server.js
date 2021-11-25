@@ -8,11 +8,12 @@ require("dotenv").config();
 const port = process.env.PORT
 
 app.use(cors());
+app.options("*", cors());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 // handle pre-flight requests
-app.options("*", cors());
+
 
 app.use('/api/auth/user',userRoutes)
 app.use('/api/blog/',postRoutes)
