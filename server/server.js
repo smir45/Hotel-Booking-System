@@ -12,7 +12,7 @@ app.options("*", cors());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-// handle pre-flight requests
+
 
 
 app.use('/api/auth/user',userRoutes)
