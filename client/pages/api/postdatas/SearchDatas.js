@@ -2,41 +2,34 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 
-const SearchDatas = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [Blog, setBlog] = useState(null);
-  const datas = Blog;
+export async function getStaticProps() {
+  const response = await fetch("https://jsonplaceholder.typicode.com/todos/");
+  const data = await response.json();
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await fetch("http://localhost:8000/api/blog/post/");
-        const data = await response.json();
-        setBlog(data);
-        setIsLoading(false);
-      } catch (error) {
-        setIsLoading(false);
-      }
-    }
-    fetchData();
-  }, []);
-  if (isLoading) {
-    return <div className="login-back-loading">Loading...</div>;
-  }
-  console.log(datas);
+  return {
+    props: {
+      elements : data
+    },
+  };
+}
+
+function SearchDatas({ elements }) {
   return (
-    <div>
-      <div>
-        {datas.map((data) => (
-          <div key={data.id}>
-            <div>
-                <h1>{data.title}</h1>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
+    <>
+      <h1>Search Datas</h1>
+      {elements.map((element) => {
+        return (
+          <main key={element.id}>
+            <h1>
+              {element.title} {element.id}
+            </h1>
+            {console.log(element.id)}
+          </main>
+          
+        );
+      })}
+    </>
   );
-};
+}
 
 export default SearchDatas;

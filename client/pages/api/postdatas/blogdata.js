@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import router from "next/router";
 import axios from "axios";
 
 const BlogData = () => {
@@ -9,7 +10,7 @@ const BlogData = () => {
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios(
-        "http://localhost:8000/api/blog/post/"
+        "http://localhost:8000/api/blog/post/get"
       );
       setBlog(result.data);
       setIsLoading(false);
@@ -25,7 +26,6 @@ const BlogData = () => {
       <div>
         {datas.map((data) => (
           <div key={data.id}>
-            {console.log(data.title)}
             <h1>{data.title}</h1>
           </div>
         ))}
