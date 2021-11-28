@@ -15,8 +15,9 @@ const createPost = async (req, res) => {
 const getAllPosts = async (req, res) => {
   try {
     const posts = await Post.findAll();
-    res.status(200).json({ message: "Success", data: posts });
+    res.status(200).json( posts );
     console.log(posts);
+    
   } catch (err) {
     res.status(400).json({
       message: "fail",
