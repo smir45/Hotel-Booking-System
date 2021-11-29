@@ -1,11 +1,20 @@
 const express = require("express");
 const router = express.Router();
+const slugify = require("slugify");
 const { Post } = require("../models");
 
 const createPost = async (req, res) => {
   const postData = req.body;
+  const slug = slugify(postData.title, {
+    replacement: "-",
+    remove: /[*+~.()'"!:@]/g,
+    lower: true,
+  });
   try {
-    const post = await Post.create(postData);
+    const post = await Post.create({
+      ...postData,
+      slug
+    });
     res.status(201).json(post);
   } catch (err) {
     res.status(400).json(err);
@@ -26,10 +35,10 @@ const getAllPosts = async (req, res) => {
   }
 };
 
-const getPostById = async (req, res) => {
-  const { id } = req.params;
+const getPostBySlug = async (req, res) => {
+  const { slug } = req.params;
   const post = await Post.findOne({
-    where: { id },
+    where: { slug: slug },
   });
   if (!post) {
     res.status(404).json({
@@ -38,7 +47,9 @@ const getPostById = async (req, res) => {
   }
   try {
     const post = await Post.findOne({
-      where: { id },
+      where: { 
+        slug: slug
+      }
     });
     res.status(200).json({ post });
   } catch (err) {
@@ -91,7 +102,7 @@ const deletePost = async (req, res) => {
 module.exports = {
   createPost,
   getAllPosts,
-  getPostById,
+  getPostBySlug,
   updatePost,
   deletePost,
 };

@@ -22,6 +22,9 @@ module.exports = {
         allowNull: false
 
       },
+      slug:{
+        type:Sequelize.STRING,
+      },
       author:{
         type:Sequelize.STRING,
         allowNull:false,

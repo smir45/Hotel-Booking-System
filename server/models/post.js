@@ -39,6 +39,9 @@ module.exports = (sequelize, DataTypes) => {
       allowNull:false,
       defaultValue: 'user'
     },
+    slug:{
+      type:DataTypes.STRING,
+    },
     hearts:{
       type:DataTypes.INTEGER,
       defaultValue:0

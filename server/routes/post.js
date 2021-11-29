@@ -5,14 +5,14 @@ const { Post } = require("../models");
 const {
   createPost,
   getAllPosts,
-  getPostById,
+  getPostBySlug,
   updatePost,
   deletePost,
 } = require("../controllers/post");
 
 router.post("/post", createPost);
 router.get('/post/get', getAllPosts);
-router.get("/post/:id", getPostById);
+router.get("/post/:slug", getPostBySlug);
 router.put("/post/:id", updatePost);
 router.delete("/post/:id", deletePost);
 
