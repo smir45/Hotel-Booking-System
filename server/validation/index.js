@@ -25,6 +25,12 @@ const loginValidation = (data) => {
 };
 
 
+const registrationschema = Joi.object({ 
+  name: Joi.string().min(6).required(),
+  email: Joi.string().min(6).required().email(),
+  password: Joi.string().min(8).required().pattern(/[a-z]/, "Password must have atleast one lowercase"),
+  phone: Joi.number().min(10).required(),
+})
 
 
-module.exports = { UserPasswordSchema, loginValidation,};
+module.exports = { UserPasswordSchema, loginValidation,registrationschema };
