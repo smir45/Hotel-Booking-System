@@ -5,13 +5,14 @@ const {
   CreateHostUser,
   GetHostUser,
   GetAllHosts,
-  //   updateUser,
-  //   deleteUser,
+  UpdateAHost,
+  DeleteAHost
   //   userLogin,
 } = require("../controllers/HostUser.controller");
 
 router.post("/", CreateHostUser);
 router.get("/:uuid",GetHostUser);
 router.get("/", GetAllHosts);
-
+router.put("/update/:uuid", UpdateAHost)
+router.delete("/delete/:uuid", DeleteAHost)
 module.exports = router;

@@ -32,5 +32,12 @@ const registrationschema = Joi.object({
   phone: Joi.number().min(10).required(),
 })
 
+const UpdateSchema = Joi.object({ 
+  name: Joi.string().min(6).required(),
+  email: Joi.string().min(6).required().email(),
+  password: Joi.string().min(8).required().pattern(/[a-z]/, "Password must have atleast one lowercase"),
+  phone: Joi.number().min(10).required(),
+  address: Joi.string().min(6).required(),
+})
 
-module.exports = { UserPasswordSchema, loginValidation,registrationschema };
+module.exports = { UserPasswordSchema, loginValidation,registrationschema, UpdateSchema };
