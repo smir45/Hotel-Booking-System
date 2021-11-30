@@ -1,41 +1,62 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
-const Joi = require("joi")
+const Joi = require("joi");
 const { registrationschema } = require("../validation");
-const { Hostusers } = require("../models")
-
+const { Hostusers } = require("../models");
 
 module.exports.CreateHostUser = async (req, res) => {
-    const { error } = registrationschema.validate(req.body);
-    if (error) {
-      return res.status(400).json({
-        message: "fail",
-        data: error.details[0].message
-      });
-    }
-    const email = req.body.email;
+  const { error } = registrationschema.validate(req.body);
+  if (error) {
+    return res.status(400).json({
+      message: "fail",
+      data: error.details[0].message,
+    });
+  }
+  const email = req.body.email;
+  const hostuser = await Hostusers.findOne({
+    where: {
+      email: email,
+    },
+  });
+  if (hostuser) {
+    return res.status(400).send("User already exists");
+  }
+  const salt = await bcrypt.genSalt(10);
+  const hashedpassword = await bcrypt.hash(req.body.password, salt);
+  const newHostuser = new Hostusers({
+    name: req.body.name,
+    email: req.body.email,
+    password: hashedpassword,
+    phone: req.body.phone,
+  });
+  try {
+    const savedHostUser = await newHostuser.save();
+    res.status(200).json(savedHostUser);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+
+module.exports.GetHostUser = async (req, res) => {
     const hostuser = await Hostusers.findOne({
         where: {
-            email: email
-        },
+            uuid: req.params.uuid
+        }
     });
-    if(hostuser){
-        return res.status(400).send("User already exists");
+    if (!hostuser){
+        res.status(500).json({ message: "User Doesn't exists" })
     }
-    const salt = await bcrypt.genSalt(10);
-    const hashedpassword = await bcrypt.hash(req.body.password, salt);
-    const newHostuser = new Hostusers({
-        name: req.body.name,
-        email: req.body.email,
-        password: hashedpassword,
-        phone: req.body.phone,
-    })
-    try{
-        const savedHostUser = await newHostuser.save();
-        res.status(200).json(savedHostUser);
-    }catch(err){
-        res.status(500).json(err);
-    }
-    
+    res.status(200).json(hostuser)
+}
 
+
+module.exports.GetAllHosts = async (req, res) => {
+    try{
+        const hostuser = await Hostusers.findAll()
+        res.status(200).json(hostuser)
+
+    }
+    catch(err){
+        res.status(500).send(err)
+    }
 }
