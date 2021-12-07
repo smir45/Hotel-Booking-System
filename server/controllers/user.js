@@ -57,6 +57,7 @@ module.exports.createUser = async (req, res, next) => {
     try {
       const saveUser = await userdata.save();
       res.send("Registration Successful");
+      // await Nodemailer()
       console.log("Success")
     } catch (err) {
       res.json(err);

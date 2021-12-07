@@ -113,3 +113,30 @@ module.exports.DeleteAHost = async (req, res) => {
     res.status(500).json(err);
   }
 };
+
+module.exports.Login = async (req, res) => {
+  const { error } = Joi.validate(req.body, {
+    email: Joi.string().email().required(),
+    password: Joi.string().required(),
+  });
+  if (error) {
+    return res.status(400).json({
+      message: "fail",
+      data: error.details[0].message,
+    });
+  }
+  const email = req.body.email;
+  const hostuser = await Hostusers.findOne({
+    where: {
+      email: email,
+    },
+  });
+  if (!hostuser) {
+    return res.status(400).send("User doesn't exists");
+  }
+  const validPassword = await bcrypt.compare(req.body.password, hostuser.password);
+  if (!validPassword) {
+    return res.status(400).send("Invalid Password");
+  }
+  res.status(200).json(hostuser);
+}
