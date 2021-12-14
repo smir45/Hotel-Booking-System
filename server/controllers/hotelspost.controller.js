@@ -7,7 +7,7 @@ module.exports.getHotels = async (req, res) => {
   res.json(user);
 };
 
-module.exports.addHotel = async (req, res) => {
-  const slug = req.body.title.slugify();
-  // const hotel = await Hotel.create(...req.body);
-};
+// module.exports.addHotel = async (req, res) => {
+//   const slug = req.body.title.slugify();
+//   // const hotel = await Hotel.create(...req.body);
+// };

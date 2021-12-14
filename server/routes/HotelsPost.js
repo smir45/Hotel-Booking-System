@@ -4,4 +4,5 @@ const { getHotels } = require("../controllers/hotelspost.controller");
 
 router.get('/', getHotels);
 
+
 module.exports = router;

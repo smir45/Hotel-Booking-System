@@ -4,7 +4,7 @@ const Joi = require("joi");
 const { registrationschema, UpdateSchema } = require("../validation");
 const { Hostusers } = require("../models");
 
-module.exports.CreateHostUser = async (req, res) => {
+module.exports.CreateHostUser = async (req, res, next) => {
   const { error } = registrationschema.validate(req.body);
   if (error) {
     return res.status(400).json({

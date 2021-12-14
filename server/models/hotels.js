@@ -82,10 +82,6 @@ module.exports = (sequelize, DataTypes) => {
         type:DataTypes.STRING,
         defaultValue:0
     },
-    services:{
-        type:DataTypes.STRING,
-        defaultValue:0
-    },
     createdAt: {
       allowNull: false,
       type: DataTypes.DATE,
