@@ -9,5 +9,10 @@ module.exports.getHotels = async (req, res) => {
 
 module.exports.addHotel = async (req, res) => {
   const slug = req.body.title.slugify();
-  // const hotel = await Hotel.create(...req.body);
+  const hotel = await Hotel.create(...req.body);
 };
+
+module.exports.getHotel = async (req, res) => {
+  const hotel = await Hotel.findByPk(req.params.id);
+  res.json(hotel);
+}
