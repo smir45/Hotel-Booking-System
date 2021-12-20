@@ -3,16 +3,21 @@ const router = express.Router();
 const { Hotel } = require("../models");
 
 module.exports.getHotels = async (req, res) => {
-  const user = await Hotel.findAll();
-  res.json(user);
+  try{
+    const hotels = await Hotel.findAll();
+    res.json(hotels)
+  }
+  catch(err){
+    res.json(err)
+  }
 };
 
-module.exports.addHotel = async (req, res) => {
-  const slug = req.body.title.slugify();
-  const hotel = await Hotel.create(...req.body);
-};
-
-module.exports.getHotel = async (req, res) => {
-  const hotel = await Hotel.findByPk(req.params.id);
-  res.json(hotel);
+module.exports.postHotels = async (req, res, next) => {
+  try{
+    const datas = req.body
+    res.json(datas)
+  }
+  catch(err){
+    res.json(err)
+  }
 }
