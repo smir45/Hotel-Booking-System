@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { Hotel } = require("../models");
+const {hotelpostSchema} = require("../validation")
 
 module.exports.getHotels = async (req, res) => {
   try{
@@ -15,7 +16,7 @@ module.exports.getHotels = async (req, res) => {
 module.exports.postHotels = async (req, res, next) => {
   try{
     const datas = req.body
-    res.json(datas)
+    res.json("hotelpostSchema")
   }
   catch(err){
     res.json(err)

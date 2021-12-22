@@ -24,20 +24,50 @@ const loginValidation = (data) => {
   return Joi.validate(data, schema);
 };
 
-
-const registrationschema = Joi.object({ 
+const registrationschema = Joi.object({
   name: Joi.string().min(6).required(),
   email: Joi.string().min(6).required().email(),
-  password: Joi.string().min(8).required().pattern(/[a-z]/, "Password must have atleast one lowercase"),
+  password: Joi.string()
+    .min(8)
+    .required()
+    .pattern(/[a-z]/, "Password must have atleast one lowercase"),
   phone: Joi.number().min(10).required(),
-})
+});
 
-const UpdateSchema = Joi.object({ 
+const UpdateSchema = Joi.object({
   name: Joi.string().min(6).required(),
   email: Joi.string().min(6).required().email(),
-  password: Joi.string().min(8).required().pattern(/[a-z]/, "Password must have atleast one lowercase"),
+  password: Joi.string()
+    .min(8)
+    .required()
+    .pattern(/[a-z]/, "Password must have atleast one lowercase"),
   phone: Joi.number().min(10).required(),
   address: Joi.string().min(6).required(),
-})
+});
 
-module.exports = { UserPasswordSchema, loginValidation,registrationschema, UpdateSchema };
+const hotelpostSchema = Joi.object({
+  name: Joi.string().min(5).required(),
+  description: Joi.string().min(30).required(),
+  country: Joi.string().required(),
+  city: Joi.string().required(),
+  zip: Joi.number().required(),
+  image: Joi.string().required(),
+  slug: Joi.string().required(),
+  hearts: Joi.number().required(),
+  rating: Joi.number().required(),
+  review: Joi.number().required(),
+  price: Joi.number().required(),
+  stars: Joi.number().required(),
+  rooms: Joi.number().required(),
+  bathrooms: Joi.number().required(),
+  beds: Joi.number().required(),
+  amenities: Joi.string().required(),
+});
+
+module.exports = {
+  UserPasswordSchema,
+  loginValidation,
+  registrationschema,
+  UpdateSchema,
+  hotelpostSchema,
+};
