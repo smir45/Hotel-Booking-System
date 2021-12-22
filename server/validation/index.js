@@ -55,7 +55,7 @@ const hotelpostSchema = Joi.object({
   slug: Joi.string().required(),
   hearts: Joi.number().required(),
   rating: Joi.number().required(),
-  review: Joi.number().required(),
+  reviews: Joi.number().required(),
   price: Joi.number().required(),
   stars: Joi.number().required(),
   rooms: Joi.number().required(),
