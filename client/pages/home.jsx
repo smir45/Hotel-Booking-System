@@ -1,5 +1,5 @@
 import * as React from "react";
-import Header from "../components/componentsFiles/dashboard";
+import DashboardNavigation from "../components/componentsFiles/dashboard";
 const HomePage = () => {
   return (
     <div>
@@ -11,7 +11,7 @@ const HomePage = () => {
 const Home = () => {
   return (
     <main>
-      <HomePage />
+      <DashboardNavigation />
     </main>
   );
 };

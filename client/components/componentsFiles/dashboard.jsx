@@ -1,118 +1,65 @@
+import Link from "next/link";
+import Image from "next/image";
+import React, { useState, Fragment } from "react";
+import NavHeaderDashboard from "./header";
 
-import { useState } from "react";
-
-import { FaSearch, FaGlobe, FaUserCircle, FaBars, FaUsers } from "react-icons/fa";
-import "react-date-range/dist/styles.css"; // main style file
-import "react-date-range/dist/theme/default.css"; // theme css file
-import { DateRangePicker } from "react-date-range";
-import { useRouter } from "next/dist/client/router";
-
-function Header({ placeholder }) {
-  const [searchInput, setSearchInput] = useState("");
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
-  const [noOfGuests, setNoOfGuests] = useState(1);
-  const router = useRouter();
-
-  const handleSelect = (ranges) => {
-    setStartDate(ranges.selection.startDate);
-    setEndDate(ranges.selection.endDate);
-  };
-
-  const resetInput = () => {
-    setSearchInput("");
-  };
-
-  const search = () => {
-    router.push({
-      pathname: "/search",
-      query: {
-        location: searchInput,
-        startDate: startDate.toISOString(),
-        endDate: endDate.toISOString(),
-        noOfGuests,
-      },
-    });
-  };
-
-  const selectionRange = {
-    startDate: startDate,
-    endDate: endDate,
-    key: "selection",
-  };
-
+const DasboardNavigationElements = () => {
   return (
-    <header className="sticky top-0 z-50 grid grid-cols-3 bg-white shadow-md p-5 md:px-10">
-      {/* left */}
-      <div
-        onClick={() => router.push("/")}
-        className="relative flex items-center h-10 cursor-pointer my-auto"
-      >
-        <img
-          src="https://links.papareact.com/qd3"
-          layout="fill"
-          objectFit="contain"
-          objectPosition="left"
-        />
-      </div>
-
-      {/* middle - search */}
-      <div className="flex items-center md:border-2 rounded-full py-2 md:shadow-sm">
-        <input
-          value={searchInput}
-          onChange={(e) => setSearchInput(e.target.value)}
-          className="flex-grow pl-5 bg-transparent outline-none text-sm text-gray-600 placeholder-gray-400"
-          type="text"
-          placeholder={placeholder || "Start your search"}
-        />
-        <FaSearch className="hidden md:inline-flex h-8 bg-red-400 text-white rounded-full p-2 cursor-pointer md:mx-2" />
-      </div>
-
-      {/* right */}
-      <div className="flex space-x-4 items-center justify-end text-gray-500">
-        <p className="hidden md:inline cursor-pointer">Become a host</p>
-        <FaGlobe className="h-6 cursor-pointer" />
-
-        <div className="flex items-center space-x-2 border-2 p-2 rounded-full">
-          <FaBars className="h-6" />
-          <FaUserCircle className="h-6" />
-        </div>
-      </div>
-
-      {searchInput && (
-        <div className="flex flex-col col-span-3 mx-auto">
-          <DateRangePicker
-            ranges={[selectionRange]}
-            minDate={new Date()}
-            rangeColors={["#FD5B61"]}
-            onChange={handleSelect}
-          />
-
-          <div className="flex items-center border-b mb-4">
-            <h2 className="text-2xl flex-grow font-semibold">
-              Number of Guests
-            </h2>
-            <FaUsers className="h-5" />
-            <input
-              value={noOfGuests}
-              onChange={(e) => setNoOfGuests(e.target.value)}
-              type="number"
-              min={1}
-              className="w-12 pl-2 text-lg outline-none text-red-400"
-            />
-          </div>
-          <div className="flex">
-            <button onClick={resetInput} className="flex-grow text-gray-500">
-              Cancel
-            </button>
-            <button onClick={search} className="flex-grow text-red-500">
-              Search
-            </button>
+    <>
+      <div>
+        <div class="bg-pmry">
+          <div class="max-w-7xl mx-auto py-3 px-3 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between flex-wrap">
+              <div class="w-0 flex-1 flex items-center">
+                <span class="flex p-2 rounded-lg bg-indigo-800">
+                  <svg
+                    class="h-6 w-6 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"
+                    />
+                  </svg>
+                </span>
+                <p class="ml-3 font-medium text-white truncate">
+                  <span class="md:hidden">We announced a new product!</span>
+                  <span class="hidden md:inline">
+                    Get latest information about accommod and its amazing
+                    features.
+                  </span>
+                </p>
+              </div>
+              <div class="order-3 mt-2 flex-shrink-0 w-full sm:order-2 sm:mt-0 sm:w-auto">
+                <a
+                  href="#"
+                  class="flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-whte hover:bg-white"
+                >
+                  Subscribe
+                </a>
+              </div>
+            </div>
           </div>
         </div>
-      )}
-    </header>
+        <NavHeaderDashboard/>
+
+      </div>
+    </>
   );
-}
+};
 
-export default Header;
+const DashboardNavigation = () => {
+  return (
+    <div>
+      <DasboardNavigationElements />
+    </div>
+  );
+};
+
+export default DashboardNavigation;
