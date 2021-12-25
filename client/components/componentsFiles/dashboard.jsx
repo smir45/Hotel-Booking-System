@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import React, { useState, Fragment } from "react";
 import NavHeaderDashboard from "./header";
+import DasboardBannerMain from "./DashComponents/dashboardBannerMain";
 
 const DasboardNavigationElements = () => {
   return (
@@ -47,7 +48,10 @@ const DasboardNavigationElements = () => {
             </div>
           </div>
         </div>
+        <div className="border sticky">
         <NavHeaderDashboard/>
+        </div>
+        <DasboardBannerMain/>
 
       </div>
     </>
