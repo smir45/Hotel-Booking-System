@@ -4,6 +4,8 @@ import React, { useState, Fragment } from "react";
 import NavHeaderDashboard from "./header";
 import DasboardBannerMain from "./DashComponents/dashboardBannerMain";
 import DashboardSearchBox from "./DashComponents/dashboardSearchbox";
+import FeaturesCard from "./DashComponents/featuresCard";
+import DashboardTrending from "./DashComponents/trendingDashboard";
 
 const DasboardNavigationElements = () => {
   return (
@@ -54,6 +56,8 @@ const DasboardNavigationElements = () => {
         </div>
         <DasboardBannerMain/>
         <DashboardSearchBox/>
+        <FeaturesCard/>
+        <DashboardTrending/>
 
       </div>
     </>
