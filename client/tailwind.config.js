@@ -20,6 +20,15 @@ module.exports = {
       primary: ColorPalatte.primary,
       blue: colors.lightBlue,
     },
+    screens: {
+      fold: '280px',
+      xsm: '320px',
+      sm: '420px',
+      md: '640px',
+      lg: '1024px',
+      xl: '1280px',
+
+    },
     extend: {
       backgroundImage: (theme) => ({
         'banner-img': `url('https://images.unsplash.com/photo-1508693926297-1d61ee3df82a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80')`,

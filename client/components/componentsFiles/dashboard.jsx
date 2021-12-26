@@ -3,6 +3,7 @@ import Image from "next/image";
 import React, { useState, Fragment } from "react";
 import NavHeaderDashboard from "./header";
 import DasboardBannerMain from "./DashComponents/dashboardBannerMain";
+import DashboardSearchBox from "./DashComponents/dashboardSearchbox";
 
 const DasboardNavigationElements = () => {
   return (
@@ -52,6 +53,7 @@ const DasboardNavigationElements = () => {
         <NavHeaderDashboard/>
         </div>
         <DasboardBannerMain/>
+        <DashboardSearchBox/>
 
       </div>
     </>
