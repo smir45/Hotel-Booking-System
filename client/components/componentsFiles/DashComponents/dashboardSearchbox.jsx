@@ -6,7 +6,9 @@ const Contents = {
   arraival: "Arrival",
   depature: "Depature",
   date: "Date",
+  number: "Number of person",
   number: "Number of Persons",
+
 };
 
 const DashboardSearchBoxElements = () => {
@@ -55,7 +57,7 @@ const DashboardSearchBoxElements = () => {
           <p className="p-2 select-none text-white">search</p>
           <button
             type="submit"
-            className="mx-1  rounded shadow-lg py-5 px-16 bg-pmry text-white font-bold rounded md:w-full sm:w-full xsm:w-full fold:w-full hover:bg-blue-700 hover:transition-all hover:duration-900"
+            className="mx-1  rounded shadow-lg py-5 px-16 bg-pmry text-white font-bold md:w-full sm:w-full xsm:w-full fold:w-full hover:bg-blue-700 hover:transition-all hover:duration-900"
           >
             Search
           </button>
