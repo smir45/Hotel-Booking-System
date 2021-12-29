@@ -19,7 +19,7 @@ const FeaturesCardElements = () => {
     <main>
       <div className="flex justify-center p-5">
         <div className="w-4/5 flex justify-evenly p-5 md:flex-col lg:flex-row sm:flex-col xsm:flex-col fold:flex-col">
-          <div className=" p-2 mx-2 hover:bg-scndry hover:border-pmry rounded-2xl shadow-lg ">
+          <div className=" p-2 mx-2 hover:bg-scndry hover:border-pmry ">
             <div
               className="border text-3xl text-primary border-gray-300 p-5 rounded-full mx-2"
               style={{ width: "fit-content" }}
@@ -33,7 +33,7 @@ const FeaturesCardElements = () => {
           </div>
           <div
             className="
-         p-2 mx-2 hover:bg-scndry rounded-2xl shadow-lg"
+         p-2 mx-2 hover:bg-scndry"
           >
             <div
               className="border text-3xl text-primary border-gray-300 p-5 rounded-full mx-2"
@@ -48,7 +48,7 @@ const FeaturesCardElements = () => {
           </div>
           <div
             className="
-         p-2 mx-2 hover:bg-scndry rounded-2xl shadow-lg"
+         p-2 mx-2 hover:bg-scndry"
           >
             <div
               className="border text-3xl text-primary border-gray-300 p-5 rounded-full mx-2"
@@ -63,7 +63,7 @@ const FeaturesCardElements = () => {
           </div>
           <div
             className="
-         p-2 mx-2 hover:bg-scndry rounded-2xl shadow-lg"
+         p-2 mx-2 hover:bg-scndry"
           >
             <div
               className="border text-3xl text-primary border-gray-300 p-5 rounded-full mx-2"
@@ -78,6 +78,9 @@ const FeaturesCardElements = () => {
           </div>
         </div>
       </div>
+      {/* --------------------- */}
+     
+      {/* --------------------- */}
     </main>
   );
 };
