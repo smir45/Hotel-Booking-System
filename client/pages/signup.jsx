@@ -1,5 +1,6 @@
-import * as React from 'react';
+import React, {useState, useEffect} from 'react';
 import Axios from 'axios';
+import router, { useRouter } from 'next/router';
 const SignupElements = () => {
 
     const url = "http://localhost:8000/api/auth/user/";
@@ -19,8 +20,11 @@ const SignupElements = () => {
       phone: data.phone,
     })
       .then((res) => {
-        console.log(res.data);
-        router.push('/verifyemail')
+        if (res.data.success) {
+          router.push("/login");
+        } else {
+          alert(res.data.error);
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -76,6 +80,9 @@ const SignupElements = () => {
                     <div class="relative">
                         {/* <label class="font-medium text-gray-900">Phone</label> */}
                         <input onChange={(e) => handleChange(e)} type="number" class="block w-full px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-pmry focus:ring-opacity-50" name="phone" placeholder="Phone" id="phone"/>
+                    </div>
+                    {/* display error message from server */}
+                    <div class="text-red-500 text-sm mt-2">
                     </div>
                     <div class="relative">
                         <button type="submit" class="inline-block w-full px-5 py-4 text-lg font-medium text-center text-white transition duration-200 bg-pmry rounded-lg hover:bg-pmry ease">Create Account</button>

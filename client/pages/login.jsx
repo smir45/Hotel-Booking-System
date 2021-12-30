@@ -1,8 +1,38 @@
-import * as React from "react";
+import React, { useState } from "react";
+import cookie from "js-cookie";
 import Link from "next/link";
+import {useRouter} from 'next/router'
 import {AiFillLock} from 'react-icons/ai'
 
 const LoginElements = () => {
+  const [email,setEmail] = useState("")
+  const [password,setPassword] = useState("")
+   const router  = useRouter()
+  const userLogin = async (e)=>{
+    e.preventDefault()
+    const res =  await fetch(`http://localhost:8000/api/auth/user/login`,{
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify({
+        email,
+        password
+      })
+    })
+
+    const res2 = await res.json()
+    if(res2.error){
+      M.toast({html: res2.error,classes:"red"})
+    }else{
+       console.log(res2)
+       cookie.set('token',res2.token)
+       cookie.set('user',res2.user)
+       router.push('/home')
+    }
+  }
+
+
   return (
     <>
     <head>
@@ -13,7 +43,7 @@ const LoginElements = () => {
       <div className=" w-full">
         <div className="w-full  h-screen flex justify-center items-center md:flex-row">
           <div className="relative sm:w-2/5 z-10 h-auto p-8 py-10 overflow-hidden bg-white border-b-2 border-gray-300 rounded-lg shadow-2xl px-7">
-            <form action="">
+            <form onSubmit={(e)=>userLogin(e)}>
             <div className="bg-pmry text-white text-5xl w-min p-5 rounded-3xl m-auto my-8">
                   <AiFillLock/>
               </div>
@@ -28,6 +58,7 @@ const LoginElements = () => {
                 id="email"
                 placeholder="Email Address"
                 className="block w-full px-4 py-3 mb-4  border-2 border-transparent border-gray-200 rounded-lg focus:ring focus:ring-pmry focus:outline-none "
+                onChange={(e)=>setEmail(e.target.value)}
               />
               <input
                 type="password"
@@ -35,6 +66,7 @@ const LoginElements = () => {
                 id="password"
                 placeholder="Password"
                 className="block w-full px-4 py-3 mb-4  border-2 border-transparent border-gray-200 rounded-lg focus:ring focus:ring-pmry focus:outline-none"
+                onChange={(e)=>setPassword(e.target.value)}
               />
               <button
                 type="submit"

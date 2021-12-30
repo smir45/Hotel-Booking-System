@@ -41,7 +41,7 @@ module.exports.createUser = async (req, res, next) => {
         email: req.body.email,
       },
     });
-    if (user) return res.status(400).send("User already exist");
+    if (user) return res.status(400).json("User already exists");
   
     // generating password hash
     const salt = await bcrypt.genSalt(10);
