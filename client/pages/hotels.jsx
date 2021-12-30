@@ -9,7 +9,7 @@ const searchDatas = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios("http://localhost:8000/api/blog/post/get");
+      const result = await axios("http://localhost:8000/api/blog/hotels");
       setBlog(result.data);
       setIsLoading(false);
     };
@@ -24,7 +24,14 @@ const searchDatas = () => {
       <div>
         {datas.map((data) => (
           <div key={data.id}>
-            <h1>{data.title}</h1>
+            <h1>{data.name}</h1>
+            <h1>{data.description}</h1>
+            <p>{data.country}</p>
+            <p>{data.city}</p>
+            <p>hearts: {data.hearts}</p>
+            <p>Price: {data.price}</p>
+            <p>Stars: {data.stars}</p>
+            <p>Reviews: {data.reviews}</p>
           </div>
         ))}
       </div>
