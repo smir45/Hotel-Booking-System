@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import Axios from 'axios';
 import router, { useRouter } from 'next/router';
+import { useToasts } from 'react-toast-notifications'
+
 const SignupElements = () => {
 
     const url = "http://localhost:8000/api/auth/user/";
@@ -10,8 +12,10 @@ const SignupElements = () => {
     password: "",
     phone: "",
   });
-
+  // fetch error message from server and set it to state
+  const [error, setError] = React.useState("");
   const registration = (e) => {
+    
     e.preventDefault();
     Axios.post(url, {
       name: data.name,
@@ -20,14 +24,15 @@ const SignupElements = () => {
       phone: data.phone,
     })
       .then((res) => {
-        if (res.data.success) {
-          router.push("/login");
-        } else {
-          alert(res.data.error);
-        }
+        console.log(res);
+        router.push('/login');
       })
       .catch((err) => {
-        console.log(err);
+        setError(err.response.data.message);
+        addToast(err.response.data.message, {
+          appearance: 'error'
+        })
+        
       });
   };
 
@@ -35,8 +40,8 @@ const SignupElements = () => {
     const newdata = { ...data };
     newdata[e.target.id] = e.target.value;
     setData(newdata);
-    console.log(newdata);
   };
+  const { addToast } = useToasts()
 
 
     return(
@@ -84,6 +89,7 @@ const SignupElements = () => {
                     {/* display error message from server */}
                     <div class="text-red-500 text-sm mt-2">
                     </div>
+                    
                     <div class="relative">
                         <button type="submit" class="inline-block w-full px-5 py-4 text-lg font-medium text-center text-white transition duration-200 bg-pmry rounded-lg hover:bg-pmry ease">Create Account</button>
                         <a href="#_" class="inline-block w-full px-5 py-4 mt-3 text-lg font-bold text-center text-gray-900 transition duration-200 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 ease">Sign up with Google</a>

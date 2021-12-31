@@ -1,5 +1,6 @@
 import "tailwindcss/tailwind.css";
 import React, { useState, useEffect } from "react";
+import { ToastProvider } from "react-toast-notifications";
 
 import { BarLoader } from "react-spinners";
 
@@ -10,7 +11,7 @@ function MyApp({ Component, pageProps }) {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-    }, );
+    });
   }, []);
 
   const override = `
@@ -30,7 +31,13 @@ function MyApp({ Component, pageProps }) {
           loading={loading}
         />
       ) : (
-        <Component {...pageProps} />
+        <ToastProvider
+          autoDismiss
+          autoDismissTimeout={4000}
+          placement="top-right"
+        >
+          <Component {...pageProps} />
+        </ToastProvider>
       )}
     </>
   );
