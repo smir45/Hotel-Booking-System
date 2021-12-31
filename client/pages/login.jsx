@@ -1,40 +1,42 @@
 import React, { useState } from "react";
 import cookie from "js-cookie";
 import Link from "next/link";
-import {useRouter} from 'next/router'
-import {AiFillLock} from 'react-icons/ai'
-import { useToasts } from 'react-toast-notifications'
+import { useRouter } from "next/router";
+import { AiFillLock } from "react-icons/ai";
+import { useToasts } from "react-toast-notifications";
 
 const LoginElements = () => {
-  const { addToast } = useToasts()
-  const [email,setEmail] = useState("")
+  const { addToast } = useToasts();
+  const [email, setEmail] = useState("");
   const [error, setError] = React.useState("");
-  const [password,setPassword] = useState("")
-   const router  = useRouter()
-  const userLogin = async (e)=>{
-    e.preventDefault()
-    const res =  await fetch(`http://localhost:8000/api/auth/user/login`,{
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json"
+  const [password, setPassword] = useState("");
+  const router = useRouter();
+  const userLogin = async (e) => {
+    e.preventDefault();
+    const res = await fetch(`http://localhost:8000/api/auth/user/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
-      body:JSON.stringify({
+      body: JSON.stringify({
         email,
-        password
-      })
-    })
-
-    const res2 = await res.json()
-    if(res2.error){
-     console.log(res2.message)
-    }else{
-       console.log(res2)
-       cookie.set('token',res2.token)
-       cookie.set('user',res2.user)
-       router.push('/home')
+        password,
+      }),
+    });
+    const res2 = await res.json();
+    if (res2.message === "Invalid email or username") {
+      return addToast(res2.message, { appearance: "error" });
+    }else if (res2.message === "Invalid Password") {
+      return addToast(res2.message, { appearance: "error" });
     }
-    
-  }
+     else {
+      addToast(res2.message, { appearance: "success" });
+      cookie.set("token", res2.data);
+      cookie.set("user", res2.user);
+      console.log(res2.data);
+      router.push("/home");
+    }
+  };
 
   return (
     <>
