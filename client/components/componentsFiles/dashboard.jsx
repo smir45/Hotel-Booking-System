@@ -6,8 +6,13 @@ import DasboardBannerMain from "./DashComponents/dashboardBannerMain";
 import DashboardSearchBox from "./DashComponents/dashboardSearchbox";
 import FeaturesCard from "./DashComponents/featuresCard";
 import DashboardTrending from "./DashComponents/trendingDashboard";
+import { useRouter } from "next/router";
 
 const DasboardNavigationElements = () => {
+  const router = useRouter();
+  
+
+
   return (
     <>
       <div>

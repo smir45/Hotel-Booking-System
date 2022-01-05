@@ -33,7 +33,6 @@ const LoginElements = () => {
       addToast(res2.message, { appearance: "success" });
       cookie.set("token", res2.data);
       cookie.set("user", res2.user);
-      console.log(res2.data);
       router.push("/home");
     }
   };
