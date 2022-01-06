@@ -28,7 +28,7 @@ const DashboardSearchBoxElements = () => {
         <div className="mx-1">
           <p className="font-bold text-primary p-2">{Contents.arraival}</p>
           <input
-            className="p-5  rounded shadow-lg md:w-full sm:w-full xsm:w-full fold:w-full"
+            className="p-5  rounded shadow-lg bg-gray-50 md:w-full sm:w-full xsm:w-full fold:w-full"
             type="date"
             name="arrival"
             id="arrival"
@@ -37,7 +37,7 @@ const DashboardSearchBoxElements = () => {
         <div className="mx-1">
           <p className="font-bold text-primary p-2">{Contents.depature}</p>
           <input
-            className="p-5 rounded shadow-lg md:w-full sm:w-full xsm:w-full fold:w-full"
+            className="p-5 rounded shadow-lg bg-gray-50 md:w-full sm:w-full xsm:w-full fold:w-full"
             type="date"
             name="departure"
             id="departure"

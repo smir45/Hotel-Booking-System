@@ -1,12 +1,33 @@
 const express = require("express");
+const { checkPreferences } = require("joi");
 const router = express.Router();
 const { Hotel } = require("../models");
 const {hotelpostSchema} = require("../validation")
 
+
+function getCookie(name) {
+  var nameEQ = name + "=";
+  var ca = document.cookie.split(';');
+  for(var i=0;i < ca.length;i++) {
+      var c = ca[i];
+      while (c.charAt(0)==' ') c = c.substring(1,c.length);
+      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+  }
+  return null;
+}
+
 module.exports.getHotels = async (req, res) => {
   try{
-    const hotels = await Hotel.findAll();
-    res.json(hotels)
+    const hotels = await Hotel.findAll()
+  //  sort by latest five data
+   hoteldata = hotels.sort(function(a, b){
+      return b.id - a.id
+    }
+  )
+  res.json(hoteldata.slice(0,5))
+
+   
+    
   }
   catch(err){
     res.json(err)
@@ -16,13 +37,20 @@ module.exports.getHotels = async (req, res) => {
 module.exports.postHotels = async (req, res, next) => {
   try{
     const datas = req.body
+    const slugdata = datas.name.toLowerCase().replace(/ /g, '-');
     const {error} = hotelpostSchema.validate(datas)
     if(error){
-      res.json(error)
+      res.json(error.details[0].message)
     }
     else{
-      const hotel = await Hotel.create(datas)
-      res.json(hotel)
+      const hotel = await Hotel.create({
+        slug: slugdata,
+        ...datas
+      })
+      res.json({
+        message: 'Successfully added a new hotel',
+        hotel
+      })
     }
   }
   catch(err){

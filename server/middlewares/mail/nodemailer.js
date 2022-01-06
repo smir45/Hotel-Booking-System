@@ -14,8 +14,8 @@ async function Nodemailer() {
     },
   });
   let info = await transporter.sendMail({
-    from: process.env.EMAIL_FROM,
-    to: process.env.EMAIL_TO,
+    from: "smblg46@gmail.com",
+    to: "smir.mishra1551@gmail.com",
     subject: "Hello ✔",
     text: "Hello world?",
     html: "<b>Hello world?</b>",

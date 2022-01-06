@@ -1,25 +1,153 @@
-import * as React from "react";
-import { HiChevronDoubleRight } from "react-icons/hi";
-
-const DasboardStyles = {
-  border: "1px solid red",
-  height: "100vh",
-  width: "100%",
-};
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Link from "next/link";
+import router from "next/router";
+import { useToasts } from "react-toast-notifications";
+import { data } from "autoprefixer";
 
 const DasboardBannerMainElements = () => {
+  const { addToast } = useToasts();
+  const [isLoading, setIsLoading] = useState(true);
+  const [trending, setTrending] = useState(null);
+  const [error, setError] = useState(null);
+  const datas = trending;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios("http://localhost:8000/api/blog/hotels");
+      setTrending(result.data);
+      setIsLoading(false);
+    };
+
+    fetchData();
+    function getCookie(name) {
+      var nameEQ = name + "=";
+      var ca = document.cookie.split(';');
+      for(var i=0;i < ca.length;i++) {
+          var c = ca[i];
+          while (c.charAt(0)==' ') c = c.substring(1,c.length);
+          if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+      }
+      return null;
+    }
+    
+    
+    if(!getCookie("token")){
+      addToast(('Please Login to Continue'), { appearance: "error" });
+      return router.push("/login");
+    }
+  }, []);
+
+
+
+  if (isLoading) {
+    return <div className="login-back-loading">Loading...</div>;
+  }
   return (
     <main>
-      <div
-        style={{ height: "81vh" }}
-        className="min-w-full flex items-center justify-center text-center bg-fixed sm:bg-center bg-hero-pattern bg-cover bg-no-repeat max-w-7xl mx-auto px-4 "
-      >
-        <div className="">
-          <h2 className="text-white font-bold underline">Welcome to Accommod</h2>
-          <h1 className="text-white my-3 text-6xl font-extrabold space-y-4 md:text-5xl sm:text-4xl xsm:text-3xl fold:text-2xl">Make Tour & Explore <br /> Incredible Destinations</h1>
-          <button className="border-pmry bg-pmry text-white my-5 py-3 px-12 rounded " type="submit">Explore More ..</button>
+
+<div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
+      <div className="grid gap-10 lg:grid-cols-2">
+        <div className="flex flex-col justify-center md:pr-8 xl:pr-0 lg:max-w-lg">
+          <div className="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-teal-accent-400">
+            <svg className="text-teal-900 w-7 h-7" viewBox="0 0 24 24">
+              <polyline
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeMiterlimit="10"
+                points=" 8,5 8,1 16,1 16,5"
+                strokeLinejoin="round"
+              />
+              <polyline
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeMiterlimit="10"
+                points="9,15 1,15 1,5 23,5 23,15 15,15"
+                strokeLinejoin="round"
+              />
+              <polyline
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeMiterlimit="10"
+                points="22,18 22,23 2,23 2,18"
+                strokeLinejoin="round"
+              />
+              <rect
+                x="9"
+                y="13"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeMiterlimit="10"
+                width="6"
+                height="4"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </div>
+          <div className="max-w-xl mb-6">
+            <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl sm:leading-none">
+              Let us handle
+              <br className="hidden md:block" />
+              your next{' '}
+              <span className="inline-block text-deep-purple-accent-400">
+                destination
+              </span>
+            </h2>
+            <p className="text-base text-gray-700 md:text-lg">
+              Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+              accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
+              quae. explicabo.
+            </p>
+          </div>
+          <div>
+            <a
+              href="/"
+              aria-label=""
+              className="inline-flex items-center font-semibold transition-colors duration-200 text-deep-purple-accent-400 hover:text-deep-purple-800"
+            >
+              Learn more
+              <svg
+                className="inline-block w-3 ml-2"
+                fill="currentColor"
+                viewBox="0 0 12 12"
+              >
+                <path d="M9.707,5.293l-5-5A1,1,0,0,0,3.293,1.707L7.586,6,3.293,10.293a1,1,0,1,0,1.414,1.414l5-5A1,1,0,0,0,9.707,5.293Z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+        <div className="flex items-center justify-center -mx-4 lg:pl-8">
+          <div className="flex flex-col items-end px-3">
+            <img
+              className="object-cover mb-6 rounded shadow-lg h-28 sm:h-48 xl:h-56 w-28 sm:w-48 xl:w-56"
+              src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80"
+              alt=""
+            />
+            <img
+              className="object-cover w-20 h-20 rounded shadow-lg sm:h-32 xl:h-40 sm:w-32 xl:w-40"
+              src="https://images.unsplash.com/photo-1610886023290-6ba32b20e354?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80"
+              alt=""
+            />
+          </div>
+          <div className="px-3">
+            <img
+              className="object-cover w-40 h-40 rounded shadow-lg sm:h-64 xl:h-80 sm:w-64 xl:w-80"
+              src="https://images.unsplash.com/photo-1605590427165-3884d6aa6731?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1035&q=80"
+              alt=""
+            />
+          </div>
         </div>
       </div>
+    </div>
+
     </main>
   );
 };

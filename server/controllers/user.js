@@ -4,6 +4,7 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { loginValidation } = require("../validation");
+const {Nodemailer} = require('../middlewares/mail/nodemailer')
 const Joi = require("joi");
 require("dotenv").config();
 
@@ -55,7 +56,7 @@ module.exports.createUser = async (req, res, next) => {
   try {
     const saveUser = await userdata.save();
     res.json({message: "User created successfully"});
-    // await Nodemailer()
+    await Nodemailer()
     console.log("Success");
   } catch (err) {
     res.json(err);
@@ -153,5 +154,22 @@ module.exports.userLogin = async (req, res, next) => {
     message: "Logged in successfully",
     data: token,
   });
+
   next();
 };
+
+module.exports.userLogout = async (req, res) => {
+  try{
+    const tokendata = req.cookies.token
+    const token = jwt.verify(tokendata, process.env.TOKEN_SECRET)
+    if(token){
+      res.clearCookie('token')
+      res.send({message: 'Logged out successfully'})
+    }
+  }
+  catch(err){
+    res.status(400).json({
+      message: "fail",
+    });
+  }
+}

@@ -52,7 +52,6 @@ const hotelpostSchema = Joi.object({
   city: Joi.string().required(),
   zip: Joi.number().required(),
   image: Joi.string().required(),
-  slug: Joi.string().required(),
   hearts: Joi.number().required(),
   rating: Joi.number().required(),
   reviews: Joi.number().required(),
