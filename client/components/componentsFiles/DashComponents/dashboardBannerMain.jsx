@@ -49,48 +49,8 @@ const DasboardBannerMainElements = () => {
 <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
       <div className="grid gap-10 lg:grid-cols-2">
         <div className="flex flex-col justify-center md:pr-8 xl:pr-0 lg:max-w-lg">
-          <div className="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-teal-accent-400">
-            <svg className="text-teal-900 w-7 h-7" viewBox="0 0 24 24">
-              <polyline
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeMiterlimit="10"
-                points=" 8,5 8,1 16,1 16,5"
-                strokeLinejoin="round"
-              />
-              <polyline
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeMiterlimit="10"
-                points="9,15 1,15 1,5 23,5 23,15 15,15"
-                strokeLinejoin="round"
-              />
-              <polyline
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeMiterlimit="10"
-                points="22,18 22,23 2,23 2,18"
-                strokeLinejoin="round"
-              />
-              <rect
-                x="9"
-                y="13"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeMiterlimit="10"
-                width="6"
-                height="4"
-                strokeLinejoin="round"
-              />
-            </svg>
+          <div className="flex items-center justify-center w-20 h-20 mb-4 rounded-full bg-teal-accent-400 transition-all ">
+            <img src="https://i.imgur.com/uRasnuo.png" alt="travel" />
           </div>
           <div className="max-w-xl mb-6">
             <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl sm:leading-none">
@@ -98,25 +58,23 @@ const DasboardBannerMainElements = () => {
               <br className="hidden md:block" />
               your next{' '}
               <span className="inline-block text-deep-purple-accent-400">
-                destination
+                Vacation
               </span>
             </h2>
             <p className="text-base text-gray-700 md:text-lg">
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-              accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
-              quae. explicabo.
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam, explicabo minus nobis consequuntur corporis, earum officia repellat id, sapiente incidunt aliquam doloremque blanditiis dignissimos! Ipsa corporis sint minima totam ad!
             </p>
           </div>
           <div>
             <a
               href="/"
               aria-label=""
-              className="inline-flex items-center font-semibold transition-colors duration-200 text-deep-purple-accent-400 hover:text-deep-purple-800"
+              className="inline-flex items-center font-semibold transition-colors border-2 text-white bg-pmry border-pmry py-3 px-5 rounded-lg  duration-200 text-deep-purple-accent-400 hover:text-deep-purple-800"
             >
               Learn more
               <svg
                 className="inline-block w-3 ml-2"
-                fill="currentColor"
+                fill="white"
                 viewBox="0 0 12 12"
               >
                 <path d="M9.707,5.293l-5-5A1,1,0,0,0,3.293,1.707L7.586,6,3.293,10.293a1,1,0,1,0,1.414,1.414l5-5A1,1,0,0,0,9.707,5.293Z" />

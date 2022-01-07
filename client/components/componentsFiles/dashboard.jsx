@@ -15,15 +15,23 @@ const DasboardNavigationElements = () => {
 
   return (
     <>
+    <header>
+      <head>
+        <title>Accmmod | Home</title>
+      </head>
+    </header>
       <div>
       
-        <div className="border sticky">
+        <div className="flex">
         <NavHeaderDashboard/>
-        </div>
+        <div className="w-screen overflow-x-auto" style={{height: "100vh" }}>
         <DasboardBannerMain/>
         <DashboardSearchBox/>
         <FeaturesCard/>
         <DashboardTrending/>
+        </div>
+        </div>
+        
 
       </div>
     </>

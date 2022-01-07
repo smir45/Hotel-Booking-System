@@ -18,7 +18,7 @@ const FeaturesCardElements = () => {
   return (
     <main>
       <div className="flex justify-center p-5">
-        <div className="w-4/5 flex justify-evenly p-5 md:flex-col lg:flex-row sm:flex-col xsm:flex-col fold:flex-col">
+        <div className="w-10/12 mx-auto flex justify-evenly p-5 md:flex-col lg:flex-row sm:flex-col xsm:flex-col fold:flex-col">
           <div className="p-2 mx-2 hover:bg-scndry hover:border-pmry ">
             <div
               className=" mx-2 border border-gray-300 rounded-full p-3"
