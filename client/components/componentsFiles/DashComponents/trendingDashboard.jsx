@@ -41,58 +41,24 @@ const DashboardTrendingElements = () => {
   }
   return (
     <main>
-      {/* <div className="w-full my-5">
-        <div className="font-bold text-2xl text-primary mx-auto">
-          <p
-            className="w-full border-b-4 py-2 px-4 border-pmry mx-auto my-5 uppercase"
-            style={{ width: "fit-content" }}
-          >
-            upcomming
-          </p>
-          <h1 className="p-2 font-extrabold text-5xl text-center mb-5">
-            Feature Tours
-          </h1>
-        </div>
-        <div className="grid grid-flow-row grid-cols-5 order-5 gap-2 w-4/5 mx-auto">
-          {datas.map((data) => (
-            <div key={data.id}> 
-              <div className="">
-                <Link href="/hotel/[slug]" as={`/hotel/${data.slug}`} className="hover:cursor-pointer">
-                  {/* <a href=""> */}
-      {/* <div>
-                  <img
-                    className="object-cover border bg-gray-600 rounded-3xl"
-                    style={{ height: "350px", maxWidth: "250px" }}
-                    src={data.image}
-                    alt=""
-                  />
+    <section className="container p-6 mx-auto bg-white dark:bg-gray-800">
+        <h2 className="text-xl font-medium text-gray-800 capitalize dark:text-white md:text-2xl pb-5 border-pmry border-b-4" style={{width:"fit-content"}}>Trending Destinations</h2>
+
+        <div className="flex items-center justify-center">
+            <div className="grid gap-8 mt-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                {datas.map((data) => (
+                <div className="w-full max-w-xs text-center">
+                    <img className="object-cover object-center w-full h-48 mx-auto rounded-lg" src={data.image} alt="avatar"/>
+
+                    <div className="mt-2">
+                        <h3 className="text-lg font-medium text-gray-700 dark:text-gray-200">{data.name}</h3>
+                        <span className="mt-1 font-medium text-gray-600 dark:text-gray-300">{data.city}</span>
+                    </div>
                 </div>
-                {/* </a> */}
-      {/* </Link>
-
-              </div>
+                ))}
             </div>
-          ))}
         </div>
-      </div> */}
-
-      <div className="flex w-11/12 mx-auto md:flex-col sm:flex-col xsm:flex-col lg:w-10/12 xl:mx-auto lg:flex-row sm:w-8/12 xsm:w-4/5">
-        {datas.map((data) => (
-          <div class="max-w-xs mx-2 overflow-hidden rounded-lg shadow-2xl sm:my-5 xsm:my-5 md:my-5 lg:my-2 dark:bg-gray-800" key={data.id}>
-          <div class="px-4 py-2">
-              <h1 class="text-3xl text-primary font-bold text-gray-800 uppercase dark:text-white">{data.name}</h1>
-              <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">{data.description}</p>
-          </div>
-  
-          <img class="object-cover w-full h-48 mt-2" src={data.image} alt={data.name}/>
-  
-          <div class="flex items-center justify-between px-4 py-2 bg-gray-900">
-              <h1 class="text-lg font-bold text-white">${data.price}</h1>
-              <button class="px-2 py-1 text-xs font-semibold text-gray-900 uppercase transition-colors duration-200 transform bg-white rounded hover:bg-gray-200 focus:bg-gray-400 focus:outline-none">Add to cart</button>
-          </div>
-      </div>
-        ))}
-      </div>
+    </section>
     </main>
   );
 };

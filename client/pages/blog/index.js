@@ -22,52 +22,103 @@ const BlogData = () => {
   console.log(datas);
   return (
     <div>
-      <div>
-        {datas.map((data) => (
-          <div key={data.id}>
-            <Link href={"/blog/" + data.slug} class="bg-white">
-              <div class="w-full px-5 py-6 mx-auto space-y-5 sm:py-8 md:py-12 sm:space-y-8 md:space-y-16 max-w-7xl">
-                <div class="flex flex-col items-center sm:px-5 md:flex-row">
-                  <div class="w-full md:w-1/2">
-                    <a href="#_" class="block">
-                      <img
-                        class="object-cover w-full h-full rounded-lg max-h-64 sm:max-h-96"
-                        src={data.image}
-                      />
-                    </a>
-                  </div>
-                  <div class="flex flex-col items-start justify-center w-full h-full py-6 mb-6 md:mb-0 md:w-1/2">
-                    <div class="flex flex-col items-start justify-center h-full space-y-3 transform md:pl-10 lg:pl-16 md:space-y-5">
-                      <div class="bg-pink-500 flex items-center pl-2 pr-3 py-1.5 leading-none rounded-full text-xs font-medium uppercase text-white inline-block">
-                        <svg
-                          class="w-3.5 h-3.5 mr-1"
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-                        </svg>
-                        <span>{data.catagory}</span>
-                      </div>
-                      <h1 class="text-4xl font-bold leading-none lg:text-5xl xl:text-6xl">
-                        <a href="#_">{data.title}</a>
-                      </h1>
-                      <p class="pt-2 text-sm font-medium">
-                        by{" "}
-                        <a href="#_" class="mr-1 underline">
-                          {data.author}
-                        </a>{" "}
-                        · <span class="mx-1">{data.createdAt}</span> ·{" "}
-                        <span class="mx-1 text-gray-600">5 min. read</span>
-                      </p>
-                    </div>
-                  </div>
+      {datas.map((data) => (
+      <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20" key={data.id}>
+      <div className="grid gap-5 lg:grid-cols-3 sm:max-w-sm sm:mx-auto lg:max-w-full">
+        <div className="overflow-hidden transition-shadow duration-300 bg-white rounded">
+          <a href="/" aria-label="Article">
+            <img
+              src={data.image}
+              className="object-cover w-full h-64 rounded"
+              alt=""
+            />
+          </a>
+          <div className="py-5">
+            <p className="mb-2 text-xs font-semibold text-gray-600 uppercase">
+              {data.createdAt}
+            </p>
+            <a
+              href="/"
+              aria-label="Article"
+              className="inline-block mb-3 text-black transition-colors duration-200 hover:text-deep-purple-accent-700"
+            >
+              <p className="text-2xl font-bold leading-5">{data.title}</p>
+            </a>
+            <p className="bg-pmry text-white rounded-full py-1 px-3" style={{width: "fit-content"}}>{data.catagory}</p>
+            <p className="mb-4 text-gray-700">
+              {data.description}
+            </p>
+            <div className="flex space-x-4">
+              <a
+                href="/"
+                aria-label="Likes"
+                className="flex items-start text-gray-800 transition-colors duration-200 hover:text-deep-purple-accent-700 group"
+              >
+                <div className="mr-2">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    className="w-5 h-5 text-gray-600 transition-colors duration-200 group-hover:text-deep-purple-accent-700"
+                  >
+                    <polyline
+                      points="6 23 1 23 1 12 6 12"
+                      fill="none"
+                      strokeMiterlimit="10"
+                    />
+                    <path
+                      d="M6,12,9,1H9a3,3,0,0,1,3,3v6h7.5a3,3,0,0,1,2.965,3.456l-1.077,7A3,3,0,0,1,18.426,23H6Z"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeMiterlimit="10"
+                    />
+                  </svg>
                 </div>
-              </div>
-            </Link>
+                <p className="font-semibold">{data.hearts}</p>
+              </a>
+              <a
+                href="/"
+                aria-label="Comments"
+                className="flex items-start text-gray-800 transition-colors duration-200 hover:text-deep-purple-accent-700 group"
+              >
+                <div className="mr-2">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    stroke="currentColor"
+                    className="w-5 h-5 text-gray-600 transition-colors duration-200 group-hover:text-deep-purple-accent-700"
+                  >
+                    <polyline
+                      points="23 5 23 18 19 18 19 22 13 18 12 18"
+                      fill="none"
+                      strokeMiterlimit="10"
+                    />
+                    <polygon
+                      points="19 2 1 2 1 14 5 14 5 19 12 14 19 14 19 2"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeMiterlimit="10"
+                    />
+                  </svg>
+                </div>
+                <p className="font-semibold">81</p>
+              </a>
+            </div>
           </div>
-        ))}
+        </div>
       </div>
+    </div>
+      ))}
     </div>
   );
 };
