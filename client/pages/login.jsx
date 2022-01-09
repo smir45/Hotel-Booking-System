@@ -23,6 +23,7 @@ const LoginElements = () => {
         password,
       }),
     });
+    // console.log(res);
     const res2 = await res.json();
     if (res2.message === "Invalid email or username") {
       return addToast(res2.message, { appearance: "error" });
