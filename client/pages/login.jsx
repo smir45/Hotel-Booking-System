@@ -30,7 +30,7 @@ const LoginElements = () => {
       return addToast(res2.message, { appearance: "error" });
     }
      else {
-      addToast(res2.message, { appearance: "success" });
+      addToast(res2.message.success, { appearance: "success" });
       cookie.set("token", res2.data);
       cookie.set("user", res2.user);
       router.push("/home");

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import axios from "axios";
-import { Popover, Transition } from "@headlessui/react";
-import { FaBuilding, FaHome, FaAirbnb } from "react-icons/fa";
+import jwt from "jsonwebtoken";
 import { FiLogOut, FiMessageSquare, FiBell } from "react-icons/fi";
 import router from "next/router";
 
@@ -10,6 +9,7 @@ export default function NavHeaderDashboard() {
   const [isLoading, setIsLoading] = useState(true);
   const [trending, setTrending] = useState(null);
   const [logout, setLogout] = useState(null);
+  const [user, setUser] = useState("");
   const datas = trending;
 
   useEffect(() => {
@@ -30,7 +30,10 @@ export default function NavHeaderDashboard() {
       }
       return null;
     }
-    console.log(document.cookie);
+    if(!getCookie("token")){
+      return router.push("/login");
+    }
+    setUser(jwt.decode(getCookie("token")));
   }, []);
 
   if (isLoading) {
@@ -188,8 +191,9 @@ export default function NavHeaderDashboard() {
               src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"
               alt="avatar"
             />
+            
             <h4 className="mx-2 font-medium text-gray-800 dark:text-gray-200 hover:underline">
-              John Doe
+              {user.name}
             </h4>
           </div>
         </div>
