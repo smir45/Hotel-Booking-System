@@ -48,16 +48,17 @@ const Item = ({ title, children }) => {
   
 const Faq = () => {
     const [isLoading, setIsLoading] = useState(true);
-  const [trending, setTrending] = useState(null);
+  const [faq, setFaq] = useState(null);
   const [logout, setLogout] = useState(null);
   const [user, setUser] = useState("");
-  const datas = trending;
+  const datas = faq;
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios("http://localhost:8000/api/blog/hotels");
-      setTrending(result.data);
+      const result = await axios("http://localhost:8000/api/faq/get");
+      setFaq(result.data);
       setIsLoading(false);
+      console.log(faq)
     };
 
     fetchData();
@@ -75,7 +76,6 @@ const Faq = () => {
       return router.push("/login");
     }
     setUser(jwt.decode(getCookie("token")));
-    console.log(user);
   }, []);
 
   if (isLoading) {
@@ -124,24 +124,13 @@ const Faq = () => {
               </p>
             </div>
           </div>
-          <div className="space-y-4">
-            <Item title="The quick, brown fox jumps over a lazy dog?">
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-              accusantium doloremque rem aperiam, eaque ipsa quae.
-            </Item>
-            <Item title="The first mate and his Skipper too will do?">
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-              accusantium doloremque rem aperiam, eaque ipsa quae.
-            </Item>
-            <Item title="Is the Space Pope reptilian!?">
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-              accusantium doloremque rem aperiam, eaque ipsa quae.
-            </Item>
-            <Item title="How much money you got on you?">
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-              accusantium doloremque rem aperiam, eaque ipsa quae.
+          {datas.map((data) => (
+          <div className="space-y-4" key={data.id}>
+            <Item title={data.title}>
+              {data.description}
             </Item>
           </div>
+          ))}
         </div>
       </div>
     );
