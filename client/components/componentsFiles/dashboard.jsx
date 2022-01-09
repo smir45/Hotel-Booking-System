@@ -6,6 +6,7 @@ import DasboardBannerMain from "./DashComponents/dashboardBannerMain";
 import DashboardSearchBox from "./DashComponents/dashboardSearchbox";
 import FeaturesCard from "./DashComponents/featuresCard";
 import DashboardTrending from "./DashComponents/trendingDashboard";
+import { Catagories } from "./DashComponents/catagories";
 import { useRouter } from "next/router";
 
 const DasboardNavigationElements = () => {
@@ -29,6 +30,7 @@ const DasboardNavigationElements = () => {
         <DashboardSearchBox/>
         <FeaturesCard/>
         <DashboardTrending/>
+        <Catagories/>
         </div>
         </div>
         

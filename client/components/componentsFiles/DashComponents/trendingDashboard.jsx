@@ -47,14 +47,16 @@ const DashboardTrendingElements = () => {
         <div className="flex items-center justify-center">
             <div className="grid gap-8 mt-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 {datas.map((data) => (
-                <div className="w-full max-w-xs text-center">
+                  <Link href={`/${encodeURIComponent(data.slug)}`}>
+                <div className="w-full max-w-xs text-center hover:opacity-30 hover:cursor-pointer duration-1000" key={data.id}>
                     <img className="object-cover object-center w-full h-48 mx-auto rounded-lg" src={data.image} alt="avatar"/>
 
                     <div className="mt-2">
-                        <h3 className="text-lg font-medium text-gray-700 dark:text-gray-200">{data.name}</h3>
+                        <h3 className="text-lg font-bold text-gray-700 dark:text-gray-200 capitalize">{data.name}</h3>
                         <span className="mt-1 font-medium text-gray-600 dark:text-gray-300">{data.city}</span>
                     </div>
                 </div>
+                </Link>
                 ))}
             </div>
         </div>

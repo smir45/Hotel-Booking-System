@@ -145,7 +145,7 @@ module.exports.userLogin = async (req, res, next) => {
   const validPassword = await bcrypt.compare(req.body.password, user.password);
   if (!validPassword)
     return res.status(400).json({ message: "Invalid Password" });
-  const token = jwt.sign({ id: user.id, email: user.email, name: user.name }, process.env.TOKEN_SECRET, {
+  const token = jwt.sign({ id: user.id, email: user.email, name: user.name, image: user.image}, process.env.TOKEN_SECRET, {
     expiresIn: Math.floor(Date.now() / 1000) + 60 * 60,
   });
 
@@ -159,10 +159,6 @@ module.exports.userLogin = async (req, res, next) => {
 
   next();
 };
-
-
-
-
 
 module.exports.userLogout = async (req, res) => {
   try{

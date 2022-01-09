@@ -30,6 +30,18 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: true,
       },
+      image: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      isHost: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
+      },
+      isVerified: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
