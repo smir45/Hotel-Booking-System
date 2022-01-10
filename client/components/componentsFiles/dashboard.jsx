@@ -7,34 +7,35 @@ import DashboardSearchBox from "./DashComponents/dashboardSearchbox";
 import FeaturesCard from "./DashComponents/featuresCard";
 import DashboardTrending from "./DashComponents/trendingDashboard";
 import { Catagories } from "./DashComponents/catagories";
+import Footer from "./footer";
+import { HowItWorks } from "./DashComponents/howitworks";
 import { useRouter } from "next/router";
+import Blog from "../../pages/blog";
 
 const DasboardNavigationElements = () => {
   const router = useRouter();
-  
-
 
   return (
     <>
-    <header>
-      <head>
-        <title>Accmmod | Home</title>
-      </head>
-    </header>
+      <header>
+        <head>
+          <title>Accmmod | Home</title>
+        </head>
+      </header>
       <div>
-      
         <div className="flex">
-        <NavHeaderDashboard/>
-        <div className="w-screen overflow-x-auto" style={{height: "100vh" }}>
-        <DasboardBannerMain/>
-        <DashboardSearchBox/>
-        <FeaturesCard/>
-        <DashboardTrending/>
-        <Catagories/>
+          <NavHeaderDashboard />
+          <div className="w-screen overflow-x-auto" style={{ height: "100vh" }}>
+            <DasboardBannerMain />
+            <DashboardSearchBox />
+            <FeaturesCard />
+            <DashboardTrending />
+            <Catagories />
+            <Blog/>
+            <HowItWorks />
+            <Footer/>
+          </div>
         </div>
-        </div>
-        
-
       </div>
     </>
   );

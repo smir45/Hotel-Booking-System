@@ -24,8 +24,7 @@ module.exports.getHotels = async (req, res) => {
       return b.id - a.id
     }
   )
-  res.json(hoteldata.slice(0,4))
-  // res.json(hoteldata)
+  res.json(hoteldata)
 
    
     

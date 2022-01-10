@@ -77,7 +77,7 @@ export default function NavHeaderDashboard() {
           <nav>
             <a
               className="flex items-center px-4 py-2 text-gray-700 bg-gray-200 rounded-md dark:bg-gray-700 dark:text-gray-200"
-              href="#"
+              href="/home"
             >
               <svg
                 className="w-5 h-5"
@@ -99,7 +99,7 @@ export default function NavHeaderDashboard() {
 
             <a
               className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-200 transform rounded-md dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-gray-200 hover:text-gray-700"
-              href="#"
+              href="/account"
             >
               <svg
                 className="w-5 h-5"
@@ -128,7 +128,7 @@ export default function NavHeaderDashboard() {
 
             <a
               className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-200 transform rounded-md dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-gray-200 hover:text-gray-700"
-              href="#"
+              href="/messages"
             >
               <FiMessageSquare />
 
@@ -137,7 +137,7 @@ export default function NavHeaderDashboard() {
 
             <a
               className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-200 transform rounded-md dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-gray-200 hover:text-gray-700"
-              href="#"
+              href="/settings"
             >
               <svg
                 className="w-5 h-5"
@@ -168,7 +168,7 @@ export default function NavHeaderDashboard() {
 
             <a
               className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-200 transform rounded-md dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-gray-200 hover:text-gray-700"
-              href="#"
+              href="/notification"
             >
               <FiBell />
 

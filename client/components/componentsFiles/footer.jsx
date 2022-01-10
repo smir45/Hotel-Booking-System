@@ -31,7 +31,7 @@ const Footer = () => {
               <rect x="14" y="11" width="7" height="12" />
             </svg>
             <span className="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase">
-              Company
+              Accommod
             </span>
           </a>
           <div className="mt-6 lg:max-w-sm">
@@ -68,7 +68,7 @@ const Footer = () => {
               title="Our email"
               className="transition-colors duration-300 text-deep-purple-accent-400 hover:text-deep-purple-800"
             >
-              info@lorem.mail
+              info@accommod.mail
             </a>
           </div>
           <div className="flex">
@@ -124,12 +124,13 @@ const Footer = () => {
       </div>
       <div className="flex flex-col-reverse justify-between pt-5 pb-10 border-t lg:flex-row">
         <p className="text-sm text-gray-600">
-          &copy; Copyright 2020 Acccommoc Inc. All rights reserved.
+          &copy; Copyright {new Date().getFullYear()} Acccommod Inc. All rights reserved.
+          
         </p>
         <ul className="flex flex-col mb-3 space-y-2 lg:mb-0 sm:space-y-0 sm:space-x-5 sm:flex-row">
           <li>
             <a
-              href="/"
+              href="/faq"
               className="text-sm text-gray-600 transition-colors duration-300 hover:text-deep-purple-accent-400"
             >
               F.A.Q

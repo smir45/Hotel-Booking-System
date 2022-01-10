@@ -8,13 +8,15 @@ const DashboardTrendingElements = () => {
   const { addToast } = useToasts();
   const [isLoading, setIsLoading] = useState(true);
   const [trending, setTrending] = useState(null);
-  const [error, setError] = useState(null);
+  const [trendData, setTrendData] = useState(null);
   const datas = trending;
+  const secdata = trendData;
 
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios("http://localhost:8000/api/blog/hotels");
       setTrending(result.data);
+      setTrendData(result.data.slice(0, 4));
       setIsLoading(false);
     };
 
@@ -46,7 +48,7 @@ const DashboardTrendingElements = () => {
 
         <div className="flex items-center justify-center">
             <div className="grid gap-8 mt-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                {datas.map((data) => (
+                {secdata.map((data) => (
                   <Link href={`/${encodeURIComponent(data.slug)}`}>
                 <div className="w-full max-w-xs text-center hover:opacity-30 hover:cursor-pointer duration-1000" key={data.id}>
                     <img className="object-cover object-center w-full h-48 mx-auto rounded-lg" src={data.image} alt="avatar"/>
