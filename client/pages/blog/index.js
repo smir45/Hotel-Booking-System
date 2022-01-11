@@ -18,7 +18,6 @@ const BlogData = () => {
       setDash(result.data.slice(0, 3));
     };
     fetchData();
-    // filter first three data
   }, []);
   if (isLoading) {
     return <div className="login-back-loading">Loading...</div>;

@@ -31,7 +31,7 @@ const DasboardNavigationElements = () => {
             <FeaturesCard />
             <DashboardTrending />
             <Catagories />
-            <Blog/>
+            {/* <Blog/> */}
             <HowItWorks />
             <Footer/>
           </div>
