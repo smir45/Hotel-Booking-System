@@ -29,24 +29,9 @@ const AccountSetting = () => {
   return (
       <main>
           <h1 className="text-primary text-3xl font-bold mt-10 text-center">Account Settings</h1>
-          <form action="">
-            <div className="p-5 border-2 capitalize">
-              <p className="y-2">name</p>
-              <input className="border-2 border-pmry rounded-lg w-3/6 p-4" type="text" name="name" />
-            </div>
-            <div className="p-5 border-2 capitalize">
-              <p className="y-2">email</p>
-              <input className="border-2 border-pmry rounded-lg w-3/6 p-4" type="email" name="email" />
-            </div>
-            <div className="p-5 border-2 capitalize">
-              <p className="y-2">gender</p>
-              <input className="border-2 border-pmry rounded-lg w-3/6 p-4" type="password" name="password" />
-            </div>
-            <div className="p-5 border-2 capitalize">
-              <p className="y-2">date og birth</p>
-              <input className="border-2 border-pmry rounded-lg w-3/6 p-4" type="date" name="dob" />
-            </div>
-          </form>
+          <div>
+            
+          </div>
       </main>
   )
 };

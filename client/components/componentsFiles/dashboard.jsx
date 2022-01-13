@@ -7,6 +7,7 @@ import DashboardSearchBox from "./DashComponents/dashboardSearchbox";
 import FeaturesCard from "./DashComponents/featuresCard";
 import DashboardTrending from "./DashComponents/trendingDashboard";
 import { Catagories } from "./DashComponents/catagories";
+import BestHotels from "./DashComponents/bestHotels";
 import Footer from "./footer";
 import { HowItWorks } from "./DashComponents/howitworks";
 import { useRouter } from "next/router";
@@ -31,6 +32,7 @@ const DasboardNavigationElements = () => {
             <FeaturesCard />
             <DashboardTrending />
             <Catagories />
+            <BestHotels />
             {/* <Blog/> */}
             <HowItWorks />
             <Footer/>
