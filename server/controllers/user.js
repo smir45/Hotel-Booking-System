@@ -15,6 +15,39 @@ const schema = Joi.object({
   phone: Joi.number().min(10).required(),
 });
 
+function Verification(){
+	// const mailgun = require('mailgun-js');
+
+var API_KEY = '9761f77ebe471c97fdb29e6118324e61-9ad3eb61-70b1bed9';
+var DOMAIN = 'sandboxbe752972ae5e4aeaa75b6b8460d0cd34.mailgun.org';
+var mailgun = require('mailgun-js')
+       ({apiKey: API_KEY, domain: DOMAIN});
+ 
+sendMail = function(sender_email, receiver_email,
+         email_subject, email_body){
+ 
+  const data = {
+    "from": sender_email,
+    "to": receiver_email,
+    "subject": email_subject,
+    "text": email_body
+  };
+   
+  mailgun.messages().send(data, (error, body) => {
+    if(error) console.log(error)
+    else console.log(body);
+  });
+}
+ 
+var sender_email = 'info@accommod.com'
+var receiver_email = receiverEmail
+var email_subject = 'Welcome to Accommod'
+var email_body = 'This is demo mail sent by Mailgun'
+ 
+// User-defined function to send email
+sendMail(sender_email, receiver_email,
+            email_subject, email_body)
+}
 module.exports.findAll = async (req, res, next) => {
   try {
     const users = await User.findAll();
@@ -29,7 +62,7 @@ module.exports.findAll = async (req, res, next) => {
     });
   }
 };
-
+var receiverEmail
 module.exports.createUser = async (req, res, next) => {
   const { error } = schema.validate(req.body);
   if (error) return res.status(400).json({ message: error.details[0].message });
@@ -54,10 +87,11 @@ module.exports.createUser = async (req, res, next) => {
     phone: req.body.phone,
   });
   try {
+    receiverEmail = userdata.email
     const saveUser = await userdata.save();
-    res.json({message: "User created successfully"});
-    // await Nodemailer()
-    console.log("Success");
+    res.json({ message: "User created successfully" });
+    Verification();
+    console.log(receiverEmail)
   } catch (err) {
     res.json(err);
     console.log("Error");
@@ -145,32 +179,32 @@ module.exports.userLogin = async (req, res, next) => {
   const validPassword = await bcrypt.compare(req.body.password, user.password);
   if (!validPassword)
     return res.status(400).json({ message: "Invalid Password" });
-  const token = jwt.sign({ id: user.id, email: user.email, name: user.name, image: user.image}, process.env.TOKEN_SECRET, {
-    expiresIn: Math.floor(Date.now() / 1000) + 60 * 60,
-  });
+  const token = jwt.sign(
+    { id: user.id, email: user.email, name: user.name, image: user.image },
+    process.env.TOKEN_SECRET,
+    {
+      expiresIn: Math.floor(Date.now() / 1000) + 60 * 60,
+    }
+  );
 
-  res.header("auth-token",token).json({
+  res.header("auth-token", token).json({
     message: {
       success: "Logged in successfully",
     },
     data: token,
   });
 
-
   next();
 };
 
 module.exports.userLogout = async (req, res) => {
-  try{
-    const tokendata = req.cookies.token
-    const token = jwt.verify(tokendata, process.env.TOKEN_SECRET)
-    if(token){
-      res.clearCookie('token').json({message: 'Logged out successfully'})
-    }
-  }
-  catch(err){
+  try {
+    res
+      .clearCookie("auth-token", "", { maxAge: 1 })
+      .json({ message: "Logged out successfully" });
+  } catch (err) {
     res.status(400).json({
       message: "fail",
     });
   }
-}
+};
