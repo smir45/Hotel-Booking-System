@@ -18,8 +18,8 @@ const schema = Joi.object({
 function Verification(){
 	// const mailgun = require('mailgun-js');
 
-var API_KEY = '9761f77ebe471c97fdb29e6118324e61-9ad3eb61-70b1bed9';
-var DOMAIN = 'sandboxbe752972ae5e4aeaa75b6b8460d0cd34.mailgun.org';
+var API_KEY = process.env.MAILGUN_API_KEY;
+var DOMAIN = process.env.MAILGUN_DOMAIN;
 var mailgun = require('mailgun-js')
        ({apiKey: API_KEY, domain: DOMAIN});
  
@@ -208,3 +208,23 @@ module.exports.userLogout = async (req, res) => {
     });
   }
 };
+
+
+module.exports.getUserByUuid = async (req, res) => {
+  try{
+    const {uuidv4} = req.params.uuid
+    const userdetails = await User.findOne({
+      where: {
+        uuid: uuidv4
+      }
+    })
+    if(!userdetails) return res.status(404).json({message: 'user doesnot exists'})
+    res.status(200).json({
+      message: "Success",
+      data: userdetails
+    })
+
+  }catch(err){
+    res.status(400).json({message: err})
+  }
+}

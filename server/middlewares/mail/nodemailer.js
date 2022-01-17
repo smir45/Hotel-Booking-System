@@ -31,5 +31,3 @@ var email_body = 'This is demo mail sent by Mailgun'
 sendMail(sender_email, receiver_email,
             email_subject, email_body)
 }
-
-module.exports = Verification;
