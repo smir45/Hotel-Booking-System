@@ -52,7 +52,7 @@ const BestHotelsElements = () => {
         {datas.slice(0,3).map((data) => (
           
         <div className=" w-96 rounded-2xl my-5 shadow-lg"  key={data.id}>
-          {/* {console.log(data)} */}
+          
           <div>
             <img
               className="rounded-tl-2xl rounded-tr-2xl"
@@ -83,7 +83,7 @@ const BestHotelsElements = () => {
               <span className="flex my-1 mr-2">
                 <FiStar style={{ color: "gold" }} key={data.stars} />
               </span>
-              <p>{data.reviews}</p>
+              <p>{data.reviews}&nbsp; reviews</p>
             </div>
             <div>
               <p>number of days for offer</p>
