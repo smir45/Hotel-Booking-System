@@ -9,11 +9,12 @@ module.exports = {
   theme: {
     colors: {
       gray: colors.coolGray,
+      greyish: ColorPalatte.greyish,
       blue: colors.lightBlue,
       red: colors.rose,
       pink: colors.fuchsia,
       pmry: ColorPalatte.primary,
-      scndry: ColorPalatte.whte,
+      scndry: "#fffff",
     },
     textColor: {
       white: "#FFF",
