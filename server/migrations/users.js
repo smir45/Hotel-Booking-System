@@ -30,6 +30,22 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: true,
       },
+      country: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      state: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      city: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      zipcode: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
       image: {
         type: Sequelize.STRING,
         allowNull: true,

@@ -114,12 +114,6 @@ module.exports.findUser = async (req, res) => {
 };
 
 module.exports.updateUser = async (req, res) => {
-  const Updateschema = Joi.object({
-    name: Joi.string().min(6),
-    email: Joi.string().min(6).email(),
-    password: Joi.string().min(8),
-    phone: Joi.number().min(10),
-  });
   const { id } = req.params;
   const { error } = Updateschema.validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
@@ -129,12 +123,9 @@ module.exports.updateUser = async (req, res) => {
   if (!user) {
     return res.status(404).json({ message: "User not found" });
   }
+  // random password
 
-  user.name = req.body.name;
-  user.email = req.body.email;
-  user.password = req.body.password;
-  user.phone = req.body.phone;
-
+  const datas = req.body;
   try {
     await user.save();
     res.status(200).json({
@@ -180,7 +171,7 @@ module.exports.userLogin = async (req, res, next) => {
   if (!validPassword)
     return res.status(400).json({ message: "Invalid Password" });
   const token = jwt.sign(
-    { id: user.id, email: user.email, name: user.name, image: user.image },
+    { id: user.id, email: user.email, name: user.name, image: user.image, phone: user.phone, city: user.city, state: user.state, country: user.country, zipcode: user.zipcode, address: user.address, },
     process.env.TOKEN_SECRET,
     {
       expiresIn: Math.floor(Date.now() / 1000) + 60 * 60,

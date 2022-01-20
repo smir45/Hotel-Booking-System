@@ -33,6 +33,10 @@ module.exports = (sequelize, DataTypes) => {
     email: DataTypes.STRING,
     password: DataTypes.STRING,
     phone: DataTypes.STRING,
+    country: DataTypes.STRING,
+    state: DataTypes.STRING,
+    city: DataTypes.STRING,
+    zipcode: DataTypes.STRING,
     image: DataTypes.STRING,
     isHost: {
       type: DataTypes.BOOLEAN,
