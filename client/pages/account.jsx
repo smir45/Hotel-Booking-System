@@ -6,7 +6,7 @@ import SettingTab from "../components/componentsFiles/userAccount/settingTabs";
 
 const AccountSetting = () => {
   return (
-    <main className="bg-greyish p-5" style={{ margin: "-4vh", height: "104vh" }}>
+    <main className="bg-greyish p-5" style={{ height: "104vh" }}>
       <h1 className="text-primary text-3xl font-bold mt-10 text-center">
         Account Settings
       </h1>

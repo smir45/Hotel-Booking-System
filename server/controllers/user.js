@@ -123,7 +123,6 @@ module.exports.updateUser = async (req, res) => {
   if (!user) {
     return res.status(404).json({ message: "User not found" });
   }
-  // random password
 
   const datas = req.body;
   try {
