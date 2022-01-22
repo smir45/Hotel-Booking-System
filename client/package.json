@@ -13,7 +13,7 @@
     "js-cookie": "^3.0.1",
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.29.1",
-    "next": "latest",
+    "next": "12",
     "react": "^17.0.2",
     "react-date-range": "^1.4.0",
     "react-dom": "^17.0.2",
