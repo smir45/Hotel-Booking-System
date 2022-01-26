@@ -34,10 +34,10 @@ const SettingTab = () => {
         className="flex w-4/5 mx-auto my-5 rounded-xl"
         style={{ background: "#ffffff" }}
       >
-        <div className="flex p-5 mx-auto w-full rounded-xl">
+        <div className="flex p-5 mx-auto w-full rounded-xl sm:flex-col md:flex-col xsm:flex-col lg:flex-col xl:flex-row fold:flex-col ">
           <div className="">
             <img
-              className="border-2 border-pmry h-52 w-52 rounded-lg"
+              className="border-2 border-pmry h-52 w-52 rounded-lg sm:mx-5 md:mx-5 xsm:mx-5 lg:mx-0 xl:mx-0"
               src={user.image}
               alt=""
             />

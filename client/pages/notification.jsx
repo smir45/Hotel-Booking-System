@@ -7,6 +7,7 @@ const Notification = () => {
         <main>
             <head>
                 <title>Accommod | Notifications</title>
+                {/* format timestamp */}
             </head>
         </main>
     )

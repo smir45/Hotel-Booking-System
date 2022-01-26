@@ -2,9 +2,45 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Link from "next/link";
 import SettingTab from "../components/componentsFiles/userAccount/settingTabs";
-
+import { useToasts } from 'react-toast-notifications'
 
 const AccountSetting = () => {
+  // const url = "http://localhost:8000/api/auth/user/";
+  const [data, setData] = React.useState({
+    name: "",
+    gender: "",
+    phone: "",
+  });
+  const [error, setError] = React.useState("");
+  const updateAccount = (e) => {
+    
+    e.preventDefault();
+    Axios.post(url, {
+      name: data.name,
+      gender: data.gender,
+      phone: data.phone,
+    })
+      .then((res) => {
+        console.log(res);
+        
+        // router.push('/login');
+      })
+      .catch((err) => {
+        setError(err.response.data.message);
+        addToast(err.response.data.message, {
+          appearance: 'error'
+        })
+        
+      });
+      
+  };
+  const handleChange = (e) => {
+    const newdata = { ...data };
+    newdata[e.target.id] = e.target.value;
+    setData(newdata);
+  };
+  console.log(data);
+  const { addToast } = useToasts()
   return (
     <main className="bg-greyish p-5" style={{ height: "104vh" }}>
       <h1 className="text-primary text-3xl font-bold mt-10 text-center">
@@ -18,32 +54,37 @@ const AccountSetting = () => {
             <Link href="/useraddress"><a className="border-pmry capitalize outline-none p-5 rounded-tr-xl rounded-tl-xl hover:bg-pmry hover:text-white hover:duration-1000">address</a></Link>
             </div>
       <div className="flex flex-col w-4/5 mx-auto rounded-tr-xl rounded-bl-xl rounded-br-xl p-5" style={{background: "#ffffff"}}>
-        <form action="">
+        <form action="" onSubmit={(e) => updateAccount(e)}>
         <input
+         onChange={(e) => handleChange(e)}
           className="rounded-md w-3/5 p-3 my-5"
           style={{background: "#f5f5f5"}}
           type="text"
-          name="fullname"
-          id="fullname"
+          name="name"
+          id="name"
           placeholder="Full Name"
         />
         <input
+         onChange={(e) => handleChange(e)}
           className="rounded-md w-3/5 p-3 my-5"
           style={{background: "#f5f5f5"}}
           type="email"
           name="email"
           id="email"
           placeholder="email"
+          disabled
         />
         <input
+         onChange={(e) => handleChange(e)}
           className="rounded-md w-3/5 p-3 my-5"
           style={{background: "#f5f5f5"}}
-          type="gender"
+          type="text"
           name="gender"
           id="gender"
           placeholder="gender"
         />
         <input
+         onChange={(e) => handleChange(e)}
           className="rounded-md w-3/5 p-3 my-5"
           style={{background: "#f5f5f5"}}
           type="number"
