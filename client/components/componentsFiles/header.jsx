@@ -65,12 +65,13 @@ export default function NavHeaderDashboard() {
               ></path>
             </svg>
           </span>
-
+          <form action="">
           <input
             type="text"
             className="w-full py-3 pl-10 pr-4 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
             placeholder="Search"
           />
+          </form>
         </div>
 
         <div className="flex flex-col justify-between flex-1 mt-6">
