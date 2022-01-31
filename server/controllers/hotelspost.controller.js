@@ -3,6 +3,11 @@ const { checkPreferences } = require("joi");
 const router = express.Router();
 const { Hotel } = require("../models");
 const { hotelpostSchema } = require("../validation");
+const fs = require("fs");
+const { url } = require("inspector");
+// for amadeus
+// const amadus = require('amadeus');
+require("dotenv").config();
 
 function getCookie(name) {
   var nameEQ = name + "=";
@@ -27,6 +32,22 @@ module.exports.getHotels = async (req, res) => {
     res.json(err);
   }
 };
+
+
+
+
+module.exports.getAHotel = async (req, res, next) => {
+  try{
+    const hotel = await Hotel.findByPk(req.params.id);
+    res.status(200).json(hotel);
+  }
+  catch(err){
+    res.status(500).json(err);
+  }
+}
+
+
+
 
 module.exports.postHotels = async (req, res, next) => {
   try {
@@ -178,3 +199,18 @@ module.exports.getHotelByRooms = async (req, res) => {
     res.json(err);
   }
 };
+
+// ---------------------------------------------------------------------------------
+
+module.exports.postAmadeusHotels = async (req, res) => {
+  try {
+    const json = require("../json/booking_hotels.json");
+    const hotels = await Hotel.bulkCreate(json);
+    res.json({
+      message: "Successfully added a new hotel",
+      data: hotels,
+    });
+  } catch (err) {
+    await res.json(err);
+  }
+}

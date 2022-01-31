@@ -1,3 +1,4 @@
+
 'use strict';
 const {
   Model
@@ -6,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
   class Hotel extends Model {
     /**
      * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
+     * This method is not a part of DataTypes lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
@@ -18,84 +19,215 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
     },
-    name: {
-      type: DataTypes.STRING
+    totalCheckIns: {
+      type: DataTypes.JSONB,
+      allowNull: true,
     },
-    description: {
-      type: DataTypes.STRING
-    },
-    country: {
+    domain:{
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true,
     },
-    city: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    zip: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    image:{
+    uniqueKey: {
       type: DataTypes.STRING,
-      allowNull: false,
-      defaultValue: "https://images.unsplash.com/photo-1529032980400-2f6c425c0ec5?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2940&q=80",
+      allowNull: true,
     },
-    slug:{
-      type:DataTypes.STRING,
+    listing_id: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
-    hearts:{
-      type:DataTypes.INTEGER,
-      defaultValue:0
+    url: {
+      type: DataTypes.JSONB,
+      allowNull: true,
     },
-    reviews:{
-        type:DataTypes.INTEGER,
-        defaultValue:0
+    checkIn:{
+      type: DataTypes.STRING,
+      allowNull: true,
     },
-    rating:{
-        type:DataTypes.FLOAT,
-        defaultValue:0
+    checkOut:{
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    title:{
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    review_score:{
+      type: DataTypes.DECIMAL,
+      allowNull: true,
+    },
+    review_count:{
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    review_title:{
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    distance:{
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    longitude:{
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    last_booked:{
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    only_left:{
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    thumbnail:{
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    currency:{
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    star:{
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    search_person:{
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    search_night:{
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    id_hotel:{
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    id_room:{
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    id_price:{
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    roomType:{
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     price:{
-        type:DataTypes.INTEGER,
-        defaultValue:0
+      type: DataTypes.STRING,
+      allowNull: true,
     },
-    stars:{
-        type:DataTypes.INTEGER,
-        defaultValue:0
+    taxes:{
+      type: DataTypes.STRING,
+      allowNull: true,
     },
-    rooms:{
-        type:DataTypes.INTEGER,
-        defaultValue:0
+    roomTypeAvailability:{
+      type: DataTypes.INTEGER,
+      allowNull: true,
     },
-    bathrooms:{
-        type:DataTypes.INTEGER,
-        defaultValue:0
+    roomTypeAvailabilityText:{
+      type: DataTypes.STRING,
+      allowNull: true,
     },
-    beds:{
-        type:DataTypes.INTEGER,
-        defaultValue:0
+    price_unit:{
+      type: DataTypes.DECIMAL,
+      allowNull: true,
+    },
+    priceConditions:{
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    priceMaxPerson:{
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    priceForRoomCount:{
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    roomTypeBeds:{
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     amenities:{
-        type:DataTypes.STRING,
-        defaultValue:0
+      type: DataTypes.JSONB,
+      allowNull: true,
+    },
+    roomsize:{
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    nr_of_facilities:{
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    photos_count:{
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    beds:{
+      type: DataTypes.JSONB,
+      allowNull: true,
+    },
+    full_address:{
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    images:{
+      type: DataTypes.JSONB,
+      allowNull: true,
+    },
+    description: {
+      type: DataTypes.JSONB,
+      allowNull: true,
+    },
+    facilities: {
+      type: DataTypes.JSONB,
+      allowNull: true,
+    },
+    restaurants: {
+      type: DataTypes.JSONB,
+      allowNull: true,  
+    },
+    parking: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    languages_spoken: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    payment_methods: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    latitude: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    timestamp: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     createdAt: {
       allowNull: false,
       type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW
+      defaultValue: DataTypes.NOW,
     },
     updatedAt: {
       allowNull: false,
       type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW
+      defaultValue: DataTypes.NOW,
     },
     deletedAt: {
       type: DataTypes.DATE,
-      allowNull: true
-    }
+      allowNull: true,
+    },
+
   }, {
     sequelize,
     modelName: 'Hotel',

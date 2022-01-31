@@ -23,8 +23,6 @@ app.use("/api/auth/host/user", HostUserRoutes);
 app.use("/api/blog/hotels", hotelsPost);
 app.use("/api/faq", FaqRoutes);
 
-
-
 app.listen(port, () => {
   // sequelize.sync({ alter: true });
   console.log(`Server running on port ${port}`);

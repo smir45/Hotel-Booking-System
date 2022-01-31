@@ -51,11 +51,11 @@ const DashboardTrendingElements = () => {
                 {secdata.map((data) => (
                   <Link href={`/${encodeURIComponent(data.slug)}`}>
                 <div className="w-full max-w-xs text-center hover:opacity-30 hover:cursor-pointer duration-1000" key={data.id}>
-                    <img className="object-cover object-center w-full h-48 mx-auto rounded-lg" src={data.image} alt="avatar"/>
+                    <img className="object-cover object-center w-full h-48 mx-auto rounded-lg" src={data.images} alt="avatar"/>
 
                     <div className="mt-2">
-                        <h3 className="text-lg font-bold text-gray-700 dark:text-gray-200 capitalize">{data.name}</h3>
-                        <span className="mt-1 font-medium text-gray-600 dark:text-gray-300">{data.city}</span>
+                        <h3 className="text-lg font-bold text-gray-700 dark:text-gray-200 capitalize">{data.title}</h3>
+                        <span className="mt-1 font-medium text-gray-600 dark:text-gray-300">{data.full_address}</span>
                     </div>
                 </div>
                 </Link>

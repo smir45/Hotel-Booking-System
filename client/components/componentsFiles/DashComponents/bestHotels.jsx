@@ -14,8 +14,9 @@ const BestHotelsElements = () => {
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios("http://localhost:8000/api/blog/hotels");
-      setTrending(result.data);
-      setTrendData(result.data.slice(0, 4));
+      const data = result.data.reverse();
+      setTrending(data);
+      setTrendData(data.slice(0, 4));
       setIsLoading(false);
     };
 
@@ -35,6 +36,7 @@ const BestHotelsElements = () => {
   if (isLoading) {
     return <div className="login-back-loading">Loading...</div>;
   }
+  console.log(trending);
 
   return (
     <main>
@@ -56,7 +58,7 @@ const BestHotelsElements = () => {
           <div>
             <img
               className="rounded-tl-2xl rounded-tr-2xl"
-              src={data.image}
+              src={data.images}
               alt="img"
             />
           </div>
@@ -69,7 +71,7 @@ const BestHotelsElements = () => {
             </div>
             <div className="flex justify-between">
               <a href="#" className="text-primary font-bold text-2xl">
-                {data.name}
+                {data.title}
               </a>
               <a
                 href="#"
@@ -81,9 +83,9 @@ const BestHotelsElements = () => {
             </div>
             <div className="flex">
               <span className="flex my-1 mr-2">
-                <FiStar style={{ color: "gold" }} key={data.stars} />
+                <FiStar style={{ color: "gold" }} key={data.star} />
               </span>
-              <p>{data.reviews}&nbsp; reviews</p>
+              <p>{data.review_count}&nbsp; reviews</p>
             </div>
             <div>
               <p>number of days for offer</p>

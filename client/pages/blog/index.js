@@ -36,8 +36,8 @@ const BlogData = () => {
           <div className="p-5 border border-t-0">
             <p className="mb-3 text-xs font-semibold tracking-wide uppercase">
               <a
-                href="/"
-                className="transition-colors duration-200 text-blue-gray-900 hover:text-deep-purple-accent-700"
+                href="#"
+                className="transition-colors  duration-200 text-blue-gray-900 hover:text-deep-purple-accent-700"
                 aria-label="Category"
                 title="traveling"
               >
@@ -45,6 +45,7 @@ const BlogData = () => {
               </a>
               <span className="text-gray-600">— 28 Dec 2020</span>
             </p>
+            <Link href="/blog/[id]" as={`/blog/${data.slug}`}>
             <a
               href="/"
               aria-label="Category"
@@ -53,6 +54,7 @@ const BlogData = () => {
             >
               {data.title}
             </a>
+            </Link>
             <p className="mb-2 text-gray-700">
               {data.description}
             </p>

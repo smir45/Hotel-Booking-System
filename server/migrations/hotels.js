@@ -11,68 +11,197 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      name: {
+      totalCheckIns: {
+        type: Sequelize.JSONB,
+        allowNull: true,
+      },
+      domain:{
         type: Sequelize.STRING,
+        allowNull: true,
+      },
+      uniqueKey: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      listing_id: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      url: {
+        type: Sequelize.JSONB,
+        allowNull: true,
+      },
+      checkIn:{
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      checkOut:{
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      title:{
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      review_score:{
+        type: Sequelize.DECIMAL,
+        allowNull: true,
+      },
+      review_count:{
+        type: Sequelize.INTEGER,
+        allowNull: true,
+      },
+      review_title:{
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      distance:{
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      longitude:{
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      last_booked:{
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      only_left:{
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      thumbnail:{
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      currency:{
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      star:{
+        type: Sequelize.INTEGER,
+        allowNull: true,
+      },
+      search_person:{
+        type: Sequelize.INTEGER,
+        allowNull: true,
+      },
+      search_night:{
+        type: Sequelize.INTEGER,
+        allowNull: true,
+      },
+      id_hotel:{
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      id_room:{
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      id_price:{
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      roomType:{
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      price:{
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      taxes:{
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      roomTypeAvailability:{
+        type: Sequelize.INTEGER,
+        allowNull: true,
+      },
+      roomTypeAvailabilityText:{
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      price_unit:{
+        type: Sequelize.DECIMAL,
+        allowNull: true,
+      },
+      priceConditions:{
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      priceMaxPerson:{
+        type: Sequelize.INTEGER,
+        allowNull: true,
+      },
+      priceForRoomCount:{
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      roomTypeBeds:{
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      amenities:{
+        type: Sequelize.JSONB,
+        allowNull: true,
+      },
+      roomsize:{
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      nr_of_facilities:{
+        type: Sequelize.INTEGER,
+        allowNull: true,
+      },
+      photos_count:{
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      beds:{
+        type: Sequelize.JSONB,
+        allowNull: true,
+      },
+      full_address:{
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      images:{
+        type: Sequelize.JSONB,
+        allowNull: true,
       },
       description: {
+        type: Sequelize.JSONB,
+        allowNull: true,
+      },
+      facilities: {
+        type: Sequelize.JSONB,
+        allowNull: true,
+      },
+      restaurants: {
+        type: Sequelize.JSONB,
+        allowNull: true,  
+      },
+      parking: {
         type: Sequelize.STRING,
+        allowNull: true,
       },
-      country: {
+      languages_spoken: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
-      city: {
+      payment_methods: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
-      zip: {
+      latitude: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
-      image: {
+      timestamp: {
         type: Sequelize.STRING,
-        allowNull: false,
-        defaultValue:
-          "https://images.unsplash.com/photo-1529032980400-2f6c425c0ec5?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2940&q=80",
-      },
-      slug: {
-        type: Sequelize.STRING,
-      },
-      hearts: {
-        type: Sequelize.INTEGER,
-        defaultValue: 0,
-      },
-      reviews: {
-        type: Sequelize.INTEGER,
-        defaultValue: 0,
-      },
-      rating: {
-        type: Sequelize.FLOAT,
-        defaultValue: 0,
-      },
-      price: {
-        type: Sequelize.INTEGER,
-        defaultValue: 0,
-      },
-      stars: {
-        type: Sequelize.INTEGER,
-        defaultValue: 0,
-      },
-      rooms: {
-        type: Sequelize.INTEGER,
-        defaultValue: 0,
-      },
-      bathrooms: {
-        type: Sequelize.INTEGER,
-        defaultValue: 0,
-      },
-      beds: {
-        type: Sequelize.INTEGER,
-        defaultValue: 0,
-      },
-      amenities: {
-        type: Sequelize.STRING,
-        defaultValue: 0,
+        allowNull: true,
       },
       createdAt: {
         allowNull: false,

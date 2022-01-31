@@ -174,6 +174,7 @@ module.exports.userLogin = async (req, res, next) => {
     process.env.TOKEN_SECRET,
     {
       expiresIn: Math.floor(Date.now() / 1000) + 60 * 60,
+      // expiresInMinutes: 1440,
     }
   );
 
