@@ -1,4 +1,7 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
+import router from "next/router";
+import axios from "axios";
+import Link from "next/link";
 
 const Contents = {
   search: "Search",
@@ -12,40 +15,87 @@ const Contents = {
 };
 
 const DashboardSearchBoxElements = () => {
+  const url = "http://localhost:8000/api/auth/user/";
+  const [data, setData] = React.useState({
+    city_name: "",
+    checkin: "",
+    checkout: "",
+    person: "",
+    country_name: "",
+  });
+  const [error, setError] = React.useState("");
+  const searchHotels = (e) => {
+    e.preventDefault();
+    Axios.post(url, {
+      city_name: data.city_name,
+      checkin: data.checkin,
+      checkout: data.checkout,
+      person: data.person,
+      country_name: data.country_name,
+    })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        setError(err.response.data.message);
+      });
+  };
+
+  const handleChange = (e) => {
+    const newdata = { ...data };
+    newdata[e.target.id] = e.target.value;
+    setData(newdata);
+    console.log(data);
+  };
   return (
     <main className="flex sm:flex-col justify-center mx-auto items-center py-2 pb-10 bg-gray-100 ">
       <div className="flex p-5 sm:flex-col sm:w-screen xsm:w-screen xsm:flex-col fold:flex-col fold:w-screen md:flex-col md:w-screen lg:flex-row lg:w-full lg:justify-center">
         <div className="mx-1">
           <p className="font-bold text-primary p-2">{Contents.dest}</p>
           <input
+            onChange={(e) => handleChange(e)}
             className="p-5 rounded shadow-lg  bg-gray-50 md:w-full sm:w-full xsm:w-full fold:w-full"
-            type="search"
-            name="search"
-            id="search"
+            type="city_name"
+            name="city_name"
+            id="city_name"
             placeholder="Biratnagar"
+          />
+        </div>
+        <div className="mx-1">
+          <p className="font-bold text-primary p-2">{Contents.dest}</p>
+          <input
+            onChange={(e) => handleChange(e)}
+            className="p-5 rounded shadow-lg  bg-gray-50 md:w-full sm:w-full xsm:w-full fold:w-full"
+            type="country_name"
+            name="country_name"
+            id="country_name"
+            placeholder="Nepal"
           />
         </div>
         <div className="mx-1">
           <p className="font-bold text-primary p-2">{Contents.arraival}</p>
           <input
+            onChange={(e) => handleChange(e)}
             className="p-5  rounded shadow-lg bg-gray-50 md:w-full sm:w-full xsm:w-full fold:w-full"
             type="date"
-            name="arrival"
-            id="arrival"
+            name="checkin"
+            id="checkin"
           />
         </div>
         <div className="mx-1">
           <p className="font-bold text-primary p-2">{Contents.depature}</p>
           <input
+            onChange={(e) => handleChange(e)}
             className="p-5 rounded shadow-lg bg-gray-50 md:w-full sm:w-full xsm:w-full fold:w-full"
             type="date"
-            name="departure"
-            id="departure"
+            name="checkout"
+            id="checkout"
           />
         </div>
         <div className="mx-1">
           <p className="font-bold text-primary p-2">{Contents.number}</p>
           <input
+            onChange={(e) => handleChange(e)}
             className="p-5  rounded shadow-lg bg-gray-50 md:w-full sm:w-full xsm:w-full fold:w-full"
             type="number"
             name="person"
@@ -53,6 +103,17 @@ const DashboardSearchBoxElements = () => {
             placeholder="1"
           />
         </div>
+        {/* <div className="mx-1">
+          <p className="font-bold text-primary p-2">{Contents.number}</p>
+          <input
+            onChange={(e) => handleChange(e)}
+            className="p-5  rounded shadow-lg bg-gray-50 md:w-full sm:w-full xsm:w-full fold:w-full"
+            type="number"
+            name="child"
+            id="child"
+            placeholder="1"
+          />
+        </div> */}
         <div>
           <p className="p-2 select-none text-white">search</p>
           <button

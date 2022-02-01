@@ -5,6 +5,7 @@ const { Hotel } = require("../models");
 const { hotelpostSchema } = require("../validation");
 const fs = require("fs");
 const { url } = require("inspector");
+const axios = require("axios");
 // for amadeus
 // const amadus = require('amadeus');
 require("dotenv").config();
@@ -202,15 +203,45 @@ module.exports.getHotelByRooms = async (req, res) => {
 
 // ---------------------------------------------------------------------------------
 
+// module.exports.postAmadeusHotels2 = async (req, res) => {
+//   try {
+//     const json = require("../json/booking_hotels.json");
+//     const hotels = await Hotel.bulkCreate(json);
+//     res.json({
+//       message: "Successfully added a new hotel",
+//       data: hotels,
+//     });
+//   } catch (err) {
+//     await res.json(err);
+//   }
+// }
+
 module.exports.postAmadeusHotels = async (req, res) => {
-  try {
-    const json = require("../json/booking_hotels.json");
-    const hotels = await Hotel.bulkCreate(json);
-    res.json({
-      message: "Successfully added a new hotel",
-      data: hotels,
-    });
-  } catch (err) {
-    await res.json(err);
+  try{
+    const url = "https://travelnext.works/api/hotel-api-v6/hotel_search";
+    const datas = req.body;
+    const envdatas = {
+      user_id: process.env.USER_ID,
+      user_password: process.env.USER_SECRET,
+      access: process.env.ACCESS,
+    }
+    axios({
+      method: "POST",
+      url: url,
+      
+      data: {
+        user_id: envdatas.user_id,
+        user_password: envdatas.user_password,
+        access: envdatas.access,
+        ...datas,
+      }
+    })
+    .then(function (response) {
+      res.json(response.data);
+    }
+    )
+  }
+  catch(err){
+    res.status(500).json(err);
   }
 }
