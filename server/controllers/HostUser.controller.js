@@ -140,8 +140,3 @@ module.exports.Login = async (req, res) => {
   }
   res.status(200).json(hostuser);
 }
-// module.exports.Login = async (req, res) => {
-//   const { error } = Joi.validate(req.body, {
-//     email: Joi.string().email().required(),
-//     password: Joi.string().required(),
-//   });
