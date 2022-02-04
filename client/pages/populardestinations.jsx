@@ -8,12 +8,7 @@ const popularDestinations = () => {
   const [places, setPlaces] = useState([]);
   const imgurl = "https://doaa.gov.np/wp-content/uploads/2017/11/dummy-36.jpg";
   const options = {
-    method: "GET",
     url: "https://travelnext.works/api/hotel-api-v6/moreResults?sessionId=MTU2OTMwNzMzODgyNQ==&nextToken=wbhf&maxResult=20",
-    // headers: {
-    //   "Content-Type": "application/json",
-    //   "x-api-key": "sandb_nYr7vxhUbwYhLwLyXhp8eA1KnJyUORgpTPV1GLei",
-    // },
   };
 
   axios

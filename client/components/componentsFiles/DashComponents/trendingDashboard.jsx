@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Link from "next/link";
 import router from "next/router";
+import Loading from "../Loading";
 import { useToasts } from "react-toast-notifications";
 
 const DashboardTrendingElements = () => {
@@ -49,7 +50,7 @@ const DashboardTrendingElements = () => {
         <div className="flex items-center justify-center">
             <div className="grid gap-8 mt-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 {secdata.map((data) => (
-                  <Link href={`/${encodeURIComponent(data.slug)}`}>
+                  <Link href={`/hotels/${encodeURIComponent(data.uniqueKey)}`}>
                 <div className="w-full max-w-xs text-center hover:opacity-30 hover:cursor-pointer duration-1000" key={data.id}>
                     <img className="object-cover object-center w-full h-48 mx-auto rounded-lg" src={data.images} alt="avatar"/>
 
@@ -61,6 +62,7 @@ const DashboardTrendingElements = () => {
                 </Link>
                 ))}
             </div>
+            {/* <Loading/> */}
         </div>
     </section>
     </main>

@@ -224,6 +224,20 @@ module.exports.postAmadeusHotels = async (req, res) => {
       user_id: process.env.USER_ID,
       user_password: process.env.USER_SECRET,
       access: process.env.ACCESS,
+      
+    }
+    const options = {
+      "occupancy": [
+        {
+          "room_no": 1,
+          "adult": 2,
+          "child": 0,
+          "child_age": [
+            0
+          ]
+        }
+      ],
+      "requiredCurrency": "GBP"
     }
     axios({
       method: "POST",
@@ -233,7 +247,9 @@ module.exports.postAmadeusHotels = async (req, res) => {
         user_id: envdatas.user_id,
         user_password: envdatas.user_password,
         access: envdatas.access,
+        ip_address: 1,
         ...datas,
+        ...options,
       }
     })
     .then(function (response) {

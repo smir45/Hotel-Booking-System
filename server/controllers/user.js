@@ -219,3 +219,8 @@ module.exports.getUserByUuid = async (req, res) => {
     res.status(400).json({message: err})
   }
 }
+
+
+module.exports.uploadImage = async (req, res) => {
+  
+}

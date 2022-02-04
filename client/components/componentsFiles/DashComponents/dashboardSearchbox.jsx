@@ -103,17 +103,6 @@ const DashboardSearchBoxElements = () => {
             placeholder="1"
           />
         </div>
-        {/* <div className="mx-1">
-          <p className="font-bold text-primary p-2">{Contents.number}</p>
-          <input
-            onChange={(e) => handleChange(e)}
-            className="p-5  rounded shadow-lg bg-gray-50 md:w-full sm:w-full xsm:w-full fold:w-full"
-            type="number"
-            name="child"
-            id="child"
-            placeholder="1"
-          />
-        </div> */}
         <div>
           <p className="p-2 select-none text-white">search</p>
           <button
