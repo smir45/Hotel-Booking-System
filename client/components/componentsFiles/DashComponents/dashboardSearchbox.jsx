@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import router from "next/router";
-import axios from "axios";
 import Link from "next/link";
+import Axios from 'axios';
 
 const Contents = {
   search: "Search",
@@ -15,7 +15,7 @@ const Contents = {
 };
 
 const DashboardSearchBoxElements = () => {
-  const url = "http://localhost:8000/api/auth/user/";
+  const url = "http://localhost:8000/api/blog/hotels/json/";
   const [data, setData] = React.useState({
     city_name: "",
     checkin: "",
@@ -50,8 +50,10 @@ const DashboardSearchBoxElements = () => {
   return (
     <main className="flex sm:flex-col justify-center mx-auto items-center py-2 pb-10 bg-gray-100 ">
       <div className="flex p-5 sm:flex-col sm:w-screen xsm:w-screen xsm:flex-col fold:flex-col fold:w-screen md:flex-col md:w-screen lg:flex-row lg:w-full lg:justify-center">
+      <form action="" onSubmit={(e) => searchHotels(e)}>
         <div className="mx-1">
-          <p className="font-bold text-primary p-2">{Contents.dest}</p>
+        
+          <p className="font-bold text-primary p-2">City</p>
           <input
             onChange={(e) => handleChange(e)}
             className="p-5 rounded shadow-lg  bg-gray-50 md:w-full sm:w-full xsm:w-full fold:w-full"
@@ -62,7 +64,7 @@ const DashboardSearchBoxElements = () => {
           />
         </div>
         <div className="mx-1">
-          <p className="font-bold text-primary p-2">{Contents.dest}</p>
+          <p className="font-bold text-primary p-2">Country</p>
           <input
             onChange={(e) => handleChange(e)}
             className="p-5 rounded shadow-lg  bg-gray-50 md:w-full sm:w-full xsm:w-full fold:w-full"
@@ -112,6 +114,7 @@ const DashboardSearchBoxElements = () => {
             Search
           </button>
         </div>
+        </form>
       </div>
     </main>
   );

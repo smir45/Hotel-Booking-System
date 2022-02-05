@@ -36,7 +36,7 @@ const BestHotelsElements = () => {
   if (isLoading) {
     return <div className="login-back-loading">Loading...</div>;
   }
-  console.log(trending);
+  // console.log(trending);
 
   return (
     <main>

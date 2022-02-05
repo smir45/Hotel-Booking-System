@@ -201,20 +201,6 @@ module.exports.getHotelByRooms = async (req, res) => {
   }
 };
 
-// ---------------------------------------------------------------------------------
-
-// module.exports.postAmadeusHotels2 = async (req, res) => {
-//   try {
-//     const json = require("../json/booking_hotels.json");
-//     const hotels = await Hotel.bulkCreate(json);
-//     res.json({
-//       message: "Successfully added a new hotel",
-//       data: hotels,
-//     });
-//   } catch (err) {
-//     await res.json(err);
-//   }
-// }
 
 module.exports.postAmadeusHotels = async (req, res) => {
   try{
@@ -224,6 +210,7 @@ module.exports.postAmadeusHotels = async (req, res) => {
       user_id: process.env.USER_ID,
       user_password: process.env.USER_SECRET,
       access: process.env.ACCESS,
+      
       
     }
     const options = {
@@ -237,7 +224,7 @@ module.exports.postAmadeusHotels = async (req, res) => {
           ]
         }
       ],
-      "requiredCurrency": "GBP"
+      "requiredCurrency": "USD"
     }
     axios({
       method: "POST",
