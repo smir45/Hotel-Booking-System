@@ -15,7 +15,7 @@ const DashboardTrendingElements = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios("http://localhost:8000/api/blog/hotels");
+      const result = await axios("http://localhost:8000/api/hotels");
       setTrending(result.data);
       setTrendData(result.data.slice(0, 4));
       setIsLoading(false);
@@ -56,7 +56,7 @@ const DashboardTrendingElements = () => {
 
                     <div className="mt-2">
                         <h3 className="text-lg font-bold text-gray-700 dark:text-gray-200 capitalize">{data.title}</h3>
-                        <span className="mt-1 font-medium text-gray-600 dark:text-gray-300">{data.full_address}</span>
+                        {/* <span className="mt-1 font-medium text-gray-600 dark:text-gray-300">{data.full_address}</span> */}
                     </div>
                 </div>
                 </Link>

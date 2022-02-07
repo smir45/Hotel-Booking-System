@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const slugify = require("slugify");
-const { Post } = require("../models");
+const { Post } = require("../../models");
 
 const createPost = async (req, res) => {
   const postData = req.body;

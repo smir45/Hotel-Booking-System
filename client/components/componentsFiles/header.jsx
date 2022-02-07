@@ -14,7 +14,7 @@ export default function NavHeaderDashboard() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios("http://localhost:8000/api/blog/hotels");
+      const result = await axios("http://localhost:8000/api/hotels");
       setTrending(result.data);
       setIsLoading(false);
     };

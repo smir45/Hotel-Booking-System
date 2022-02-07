@@ -13,7 +13,7 @@ const BestHotelsElements = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios("http://localhost:8000/api/blog/hotels");
+      const result = await axios("http://localhost:8000/api/hotels");
       const data = result.data.reverse();
       setTrending(data);
       setTrendData(data.slice(0, 4));

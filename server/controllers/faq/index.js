@@ -1,6 +1,6 @@
 const express = require("express");
 const slugify = require("slugify");
-const { Faq } = require("../models");
+const { Faq } = require("../../models");
 
 module.exports.PostQuestion = async (req, res) => {
   try {

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { findAll, createUser, findUser, updateUser, deleteUser, userLogin, userLogout, getUserByUuid, uploadImage } = require('../controllers/user')
+const { findAll, createUser, findUser, updateUser, deleteUser, userLogin, userLogout, getUserByUuid, uploadImage } = require('../../controllers/user')
 
 router.get('/', findAll);
 router.post('/', createUser);

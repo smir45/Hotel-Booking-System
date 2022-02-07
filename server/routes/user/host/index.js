@@ -8,7 +8,7 @@ const {
   UpdateAHost,
   DeleteAHost
   //   userLogin,
-} = require("../controllers/HostUser.controller");
+} = require("../../../controllers/hostUser");
 
 router.post("/", CreateHostUser);
 router.get("/:uuid",GetHostUser);

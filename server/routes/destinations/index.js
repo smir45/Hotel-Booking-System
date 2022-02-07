@@ -1,14 +1,14 @@
 const express = require("express");
 const router = express.Router();
 // const userValidation = require('../middlewares/UserValidation')
-const { Post } = require("../models");
+const { Post } = require("../../models");
 const {
   createPost,
   getAllPosts,
   getPostBySlug,
   updatePost,
   deletePost,
-} = require("../controllers/post");
+} = require('../../controllers/destinations');
 
 router.post("/post", createPost);
 router.get('/post/get', getAllPosts);

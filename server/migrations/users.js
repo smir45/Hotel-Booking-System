@@ -22,6 +22,10 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      DOB:{
+        type: Sequelize.DATE,
+        allowNull: false,
+      },
       password: {
         type: Sequelize.STRING,
         allowNull: false,

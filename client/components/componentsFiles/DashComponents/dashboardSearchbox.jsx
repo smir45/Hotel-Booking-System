@@ -49,8 +49,8 @@ const DashboardSearchBoxElements = () => {
   };
   return (
     <main className="flex sm:flex-col justify-center mx-auto items-center py-2 pb-10 bg-gray-100 ">
-      <div className="flex p-5 sm:flex-col sm:w-screen xsm:w-screen xsm:flex-col fold:flex-col fold:w-screen md:flex-col md:w-screen lg:flex-row lg:w-full lg:justify-center">
-      <form action="" onSubmit={(e) => searchHotels(e)}>
+      <div className="">
+      <form action="" className="flex p-5 sm:flex-col sm:w-screen xsm:w-screen xsm:flex-col fold:flex-col fold:w-screen md:flex-col md:w-screen lg:flex-row lg:w-full lg:justify-center" onSubmit={(e) => searchHotels(e)}>
         <div className="mx-1">
         
           <p className="font-bold text-primary p-2">City</p>
