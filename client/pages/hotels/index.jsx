@@ -9,7 +9,7 @@ const searchDatas = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios("http://localhost:8000/api/blog/hotels/");
+      const result = await axios("http://localhost:8000/api/hotels/");
       setHotels(result.data);
       setIsLoading(false);
     };
@@ -25,15 +25,15 @@ const searchDatas = () => {
       ) : (
         <div>
           {hotels.map((hotel, index) => (
-          <div>
+          <div key={hotel.id}>
             <div>
             <Link href={`/hotels/${encodeURIComponent(hotel.slug)}`}>
             <div className=" flex m-5 rounded-2xl shadow-lg mx-auto" style={{background: "#ffffff", width: "50vw"}}>
-            <img className="rounded-tl-2xl rounded-bl-2xl h-48 w-64" src={hotel.images[0] && hotel.images[0]} alt="img" />
+            <img className="rounded-tl-2xl rounded-bl-2xl h-48 w-64" src={console.log(hotel)} alt="img" />
             <div className="rounded-tr-2xl rounded-br-2xl px-5">
-            <h1 className="text-primary font-extrabold text-2xl">{hotel.title}</h1>
-            <p><span className="font-bold">Address:</span> {hotel.full_address}</p>
-            <p><span className="font-bold">Rating:</span> {hotel.review_score}</p>
+            {/* <h1 className="text-primary font-extrabold text-2xl">{hotel.title}</h1> */}
+            <p><span className="font-bold">Address:</span> {hotel.description}</p>
+            {/* <p><span className="font-bold">Rating:</span> {hotel.review_score}</p> */}
             </div>
             </div>
             </Link>

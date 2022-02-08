@@ -39,7 +39,7 @@ module.exports = (sequelize, DataTypes) => {
     city: DataTypes.STRING,
     zipcode: DataTypes.STRING,
     image: DataTypes.STRING,
-    isHost: {
+    isAdmin: {
       type: DataTypes.BOOLEAN,
       defaultValue: false
     },

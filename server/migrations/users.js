@@ -54,7 +54,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true,
       },
-      isHost: {
+      isAdmin: {
         type: Sequelize.BOOLEAN,
         defaultValue: false
       },
