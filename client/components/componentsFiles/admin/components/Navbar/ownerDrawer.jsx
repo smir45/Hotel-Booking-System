@@ -95,7 +95,7 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-export default function NavDrawer() {
+export default function OwnerDrawer() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -125,7 +125,7 @@ export default function NavDrawer() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-          Admin Dashboard
+            Owners
           </Typography>
         </Toolbar>
       </AppBar>
@@ -140,10 +140,10 @@ export default function NavDrawer() {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <List className="hover:bg-pmry hover:text-white  bg-pmry text-white">
+        <List className="hover:bg-pmry hover:text-white">
           <ListItem button key="Home">
             <a className="flex" href="/admin/dashboard">
-              <ListItemIcon className="mt-1 text-white text-2xl">
+              <ListItemIcon className="mt-1 text-2xl">
                 <FaHome />
               </ListItemIcon>
               <ListItemText primary="Home" />
@@ -183,10 +183,10 @@ export default function NavDrawer() {
           </ListItem>
         </List>
 
-        <List className="hover:bg-pmry hover:text-white">
+        <List className="hover:bg-pmry hover:text-white  bg-pmry text-white">
           <ListItem button key="Owner">
             <a className="flex" href="/admin/owner">
-              <ListItemIcon className="mt-1 text-2xl">
+              <ListItemIcon className="mt-1 text-white text-2xl">
                 <FaUserLock />
               </ListItemIcon>
               <ListItemText primary="Owner" />

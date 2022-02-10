@@ -23,8 +23,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Link from "next/router";
-
-import HomeElements from '../elements/homeelements';
+import DestinationHome from "../DestinationHome";
 
 const drawerWidth = 240;
 
@@ -95,7 +94,7 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-export default function NavDrawer() {
+export default function DestinationDrawer() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -125,7 +124,7 @@ export default function NavDrawer() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-          Admin Dashboard
+          Manage Destinations
           </Typography>
         </Toolbar>
       </AppBar>
@@ -140,10 +139,10 @@ export default function NavDrawer() {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <List className="hover:bg-pmry hover:text-white  bg-pmry text-white">
+        <List className="hover:bg-pmry hover:text-white">
           <ListItem button key="Home">
             <a className="flex" href="/admin/dashboard">
-              <ListItemIcon className="mt-1 text-white text-2xl">
+              <ListItemIcon className="mt-1 text-2xl">
                 <FaHome />
               </ListItemIcon>
               <ListItemText primary="Home" />
@@ -161,10 +160,10 @@ export default function NavDrawer() {
           </ListItem>
         </List>
 
-        <List className="hover:bg-pmry hover:text-white">
+        <List className="hover:bg-pmry hover:text-white  bg-pmry text-white">
           <ListItem button key="Destinations">
             <a className="flex" href="/admin/destinations">
-              <ListItemIcon className="mt-1 text-2xl">
+              <ListItemIcon className="mt-1 text-white text-2xl">
                 <FaMapMarker />
               </ListItemIcon>
               <ListItemText primary="Destinations" />
@@ -197,7 +196,7 @@ export default function NavDrawer() {
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
         <Typography paragraph>
-          <HomeElements/>
+          <DestinationHome />
         </Typography>
       </Box>
     </Box>
