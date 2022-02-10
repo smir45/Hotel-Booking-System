@@ -1,12 +1,11 @@
 import React from 'react';
-import HeaderStats from '../../components/componentsFiles/admin/Headers/HeaderStats'
-import AdminNavbar from '../../components/componentsFiles/admin/Navbars/AdminNavbar'
+import Index from '../../components/componentsFiles/admin/index'
 const dashboard = () => {
-  return <div>
-    <h1>Dashboard</h1>
-    <HeaderStats />
-    <AdminNavbar/>
-  </div>;
+  return (
+    <div>
+      <Index/>
+    </div>
+  )
 };
 
 export default dashboard;
