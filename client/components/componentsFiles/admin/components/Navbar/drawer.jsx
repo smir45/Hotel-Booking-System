@@ -23,6 +23,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Link from "next/router";
+import Index from '../../index'
 
 import HomeElements from '../elements/homeelements';
 
@@ -197,7 +198,7 @@ export default function NavDrawer() {
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
         <Typography paragraph>
-          <HomeElements/>
+          <Index/>
         </Typography>
       </Box>
     </Box>

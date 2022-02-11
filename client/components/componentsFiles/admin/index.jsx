@@ -1,9 +1,15 @@
 import React from 'react'
-import NavDrawer from './components/Navbar/drawer'
+import UserDataTable from '../admin/components/cards/userTable';
+import DestinationTableGrid from '../admin/components/cards/destinationTable';
+import Cards from './components/cards/cards';
 const Index = () => {
   return (
     <div>
-        <NavDrawer/>
+        <Cards />
+        <div className='my-5'>
+        <DestinationTableGrid />
+        </div>
+        <UserDataTable />
     </div>
     
   )

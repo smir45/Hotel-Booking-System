@@ -8,6 +8,7 @@ const userRoutes = require("./routes/user");
 const postRoutes = require("./routes/destinations");
 const hotelsPost = require("./routes/hotels");
 const HostUserRoutes = require("./routes/user/host");
+const HostelRoutes = require('./routes/hostels');
 const FaqRoutes = require("./routes/faqs");
 const bodyParser = require("body-parser");
 
@@ -22,6 +23,7 @@ app.use("/api/blog/", postRoutes);
 app.use("/api/auth/host/user", HostUserRoutes);
 app.use("/api/hotels", hotelsPost);
 app.use("/api/faq", FaqRoutes);
+app.use("/api/hostels", HostelRoutes);
 
 app.listen(port, () => {
   // sequelize.sync({ alter: true });
