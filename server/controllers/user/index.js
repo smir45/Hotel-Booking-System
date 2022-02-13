@@ -94,6 +94,7 @@ var datas = req.body;
     res.json(err);
   }
 };
+// ------------------------------------------------------
 
 module.exports.createUseer = async (req, res) => {
   const { email } = req.body;
