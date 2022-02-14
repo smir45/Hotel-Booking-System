@@ -7,6 +7,7 @@ import {FaQuestion} from 'react-icons/fa'
 
 const Item = ({ title, children }) => {
     const [isOpen, setIsOpen] = useState(false);
+    //console.log("try")
   
     return (
       <div className="border rounded shadow-sm">
