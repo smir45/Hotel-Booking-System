@@ -7,6 +7,7 @@ const { loginValidation } = require("../../middlewares/userLoginValidation");
 const Joi = require("joi");
 const { getTransporter } = require("../../utils/sendEmail");
 const otpGenerator = require('otp-generator')
+const { createAvatar } = require ('@dicebear/avatars')
 require("dotenv").config();
 
 const schema = Joi.object({
@@ -75,23 +76,30 @@ var datas = req.body;
   });
   if (user) return res.status(400).json({ message: "User already exist" });
 
-  // generating password hash
+  // // generating password hash
   const salt = await bcrypt.genSalt(10);
   const hashedpassword = await bcrypt.hash(req.body.password, salt);
 
   // creating user
+  const nameData = datas.name.split(" ").join("")
+  const uniqueid = await bcrypt.hash(nameData, salt)
+
+
+
   const userdata = new User({
     email: datas.email,
     password: hashedpassword,
-    fullname: datas.fullname,
+    name: datas.name,
     phone: datas.phone,
-    DOB: datas.DOB
+    DOB: datas.DOB,
+    image: `https://avatars.dicebear.com/api/bottts/${uniqueid}.svg`
   });
   try {
-    const saveUser = await userdata.save();
-    res.json({ message: "User created successfully" });
+    // const saveUser = await userdata.save();
+    res.json({ message: "User created successfully", data: { userdata} });
   } catch (err) {
     res.json(err);
+    console.log(err)
   }
 };
 // ------------------------------------------------------
@@ -187,8 +195,8 @@ module.exports.findUser = async (req, res) => {
 
 module.exports.updateUser = async (req, res) => {
   const { id } = req.params;
-  const { error } = Updateschema.validate(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  // const { error } = Updateschema.validate(req.body);
+  // if (error) return res.status(400).send(error.details[0].message);
 
   const user = await User.findByPk(id);
 
@@ -198,7 +206,10 @@ module.exports.updateUser = async (req, res) => {
 
   const datas = req.body;
   try {
-    await user.save();
+    await user.save({
+      gender: datas.gender,
+      phone: datas.phone
+    });
     res.status(200).json({
       message: "success",
       data: user,
@@ -273,9 +284,12 @@ module.exports.userLogin = async (req, res, next) => {
 
 module.exports.userLogout = async (req, res) => {
   try {
-    res
-      .clearCookie("auth-token", "", { maxAge: 1 })
-      .json({ message: "Logged out successfully" });
+    res.cookie('token', 'none', {
+      expires: new Date.now(),
+  })
+  res
+      .status(200)
+      .json({ success: true, message: 'User logged out successfully' })
   } catch (err) {
     res.status(400).json({
       message: "fail",

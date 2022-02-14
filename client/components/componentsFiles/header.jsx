@@ -4,6 +4,10 @@ import axios from "axios";
 import jwt from "jsonwebtoken";
 import { FiLogOut, FiMessageSquare, FiBell } from "react-icons/fi";
 import router from "next/router";
+import {
+  getCookie,
+  getdatas,
+} from "../componentDatas/userdetails/userdataCookies";
 
 export default function NavHeaderDashboard() {
   const [isLoading, setIsLoading] = useState(true);
@@ -11,6 +15,12 @@ export default function NavHeaderDashboard() {
   const [logout, setLogout] = useState(null);
   const [user, setUser] = useState("");
   const datas = trending;
+
+  const logOut = (e) => {
+    e.preventDefault();
+    document.cookie = "token= ;"
+    router.push("/login");
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,28 +30,25 @@ export default function NavHeaderDashboard() {
     };
 
     fetchData();
-    function getCookie(name) {
-      var nameEQ = name + "=";
-      var ca = document.cookie.split(";");
-      for (var i = 0; i < ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == " ") c = c.substring(1, c.length);
-        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
-      }
-      return null;
-    }
-    if(!getCookie("token")){
+    const auth = getCookie("token");
+    
+    if (!auth) {
       return router.push("/login");
     }
     setUser(jwt.decode(getCookie("token")));
   }, []);
 
-  if (isLoading) {
-    return <div className="login-back-loading">Loading...</div>;
+  
+
+  if(isLoading){
+    
+    return  <div className="login-back-loading">Loading...</div>;
+    
   }
 
   return (
     <main>
+      
       <div className="flex flex-col w-64 h-screen px-4 py-8 bg-white border-r dark:bg-gray-800 dark:border-gray-600">
         <Link href="/home">
           <h2 className="text-3xl hover:cursor-pointer font-extrabold text-primary dark:text-white">
@@ -66,11 +73,11 @@ export default function NavHeaderDashboard() {
             </svg>
           </span>
           <form action="">
-          <input
-            type="text"
-            className="w-full py-3 pl-10 pr-4 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-            placeholder="Search"
-          />
+            <input
+              type="text"
+              className="w-full py-3 pl-10 pr-4 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+              placeholder="Search"
+            />
           </form>
         </div>
 
@@ -175,10 +182,8 @@ export default function NavHeaderDashboard() {
 
               <span className="mx-4 font-medium">Notifications</span>
             </a>
-            <form>
-              <button
-                className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-200 transform rounded-md dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-gray-200 hover:text-gray-700"
-              >
+            <form onSubmit={(e) => logOut(e)}>
+              <button className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-200 transform rounded-md dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-gray-200 hover:text-gray-700">
                 <FiLogOut />
 
                 <span className="mx-4 font-medium">Log Out</span>
@@ -192,7 +197,7 @@ export default function NavHeaderDashboard() {
               src={user.image}
               alt="avatar"
             />
-            
+
             <h4 className="mx-2 font-medium text-gray-800 dark:text-gray-200 hover:underline">
               {user.name}
             </h4>

@@ -27,7 +27,7 @@ const searchDatas = () => {
           {hotels.map((hotel, index) => (
           <div key={hotel.id}>
             <div>
-            <Link href={`/hotels/${encodeURIComponent(hotel.slug)}`}>
+            <Link href={`/hotels/${encodeURIComponent(hotel.id)}`}>
             <div className=" flex m-5 rounded-2xl shadow-lg mx-auto" style={{background: "#ffffff", width: "50vw"}}>
             <img className="rounded-tl-2xl rounded-bl-2xl h-48 w-64" src={console.log(hotel)} alt="img" />
             <div className="rounded-tr-2xl rounded-br-2xl px-5">

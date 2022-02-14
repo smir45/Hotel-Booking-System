@@ -24,7 +24,7 @@ module.exports = {
       },
       DOB:{
         type: Sequelize.DATE,
-        allowNull: false,
+        allowNull: true,
       },
       password: {
         type: Sequelize.STRING,
@@ -51,7 +51,7 @@ module.exports = {
         allowNull: true,
       },
       image: {
-        type: Sequelize.STRING,
+        type: Sequelize.JSONB,
         allowNull: true,
       },
       isAdmin: {

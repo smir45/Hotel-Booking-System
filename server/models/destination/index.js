@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
   class Destination extends Model {
     /**
      * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
+     * This method is not a part of DataTypes lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
@@ -18,30 +18,43 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
     },
     title: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
     },
     description: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
     },
     slug: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+    },
+    reviews: {
+      allowNull: true,
+      type: DataTypes.STRING,
+    },
+    number_of_reviews: {
+      allowNull: true,
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
+    images:{
+        allowNull: true,
+        type: DataTypes.JSONB
     },
     createdAt: {
       allowNull: false,
       type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW
+      defaultValue: DataTypes.NOW,
     },
     updatedAt: {
       allowNull: false,
       type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW
+      defaultValue: DataTypes.NOW,
     },
     deletedAt: {
       type: DataTypes.DATE,
-      allowNull: true
+      allowNull: true,
     },
   }, {
     sequelize,

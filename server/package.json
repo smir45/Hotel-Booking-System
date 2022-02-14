@@ -19,6 +19,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@dicebear/avatars": "^4.10.2",
+    "@dicebear/avatars-male-sprites": "^4.10.2",
     "amadeus": "^5.7.1",
     "axios": "^0.25.0",
     "bcrypt": "^5.0.1",

@@ -34,7 +34,6 @@ const DashboardSearchBoxElements = () => {
       country_name: data.country_name,
     })
       .then((res) => {
-        console.log(res);
       })
       .catch((err) => {
         setError(err.response.data.message);
@@ -45,7 +44,6 @@ const DashboardSearchBoxElements = () => {
     const newdata = { ...data };
     newdata[e.target.id] = e.target.value;
     setData(newdata);
-    console.log(data);
   };
   return (
     <main className="flex sm:flex-col justify-center mx-auto items-center py-2 pb-10 bg-gray-100 ">

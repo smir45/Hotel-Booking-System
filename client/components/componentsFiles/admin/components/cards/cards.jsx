@@ -3,7 +3,7 @@ import React from 'react'
 const Cards = () => {
   return (
     <div>
-        <div class="mt-4 mx-auto w-4/5 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+        <div class="mt-4 mx-auto my-2 w-11/12 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
             <div class="bg-white shadow-xl rounded-lg p-4 sm:p-6 xl:p-8 ">
               <div class="flex items-center">
                 <div class="flex-shrink-0">
@@ -31,7 +31,7 @@ const Cards = () => {
                 </div>
               </div>
             </div>
-            <div class="bg-white shadow-xl bg-pmry text-white rounded-lg p-4 sm:p-6 xl:p-8 ">
+            <div class="bg-white shadow-xl bg-pmry text-white rounded-lg p-4 sm:p-6 xl:p-8">
               <div class="flex items-center">
                 <div class="flex-shrink-0">
                   <span class="text-2xl sm:text-3xl leading-none font-bold text-gray-900">

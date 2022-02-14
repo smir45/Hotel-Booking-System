@@ -6,9 +6,12 @@ function getCookie(name) {
       while (c.charAt(0) == " ") c = c.substring(1, c.length);
       if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
     }
-    return null;
+    return null;Ï
   }
-  setUser(jwt.decode(getCookie("token")));
 
+function getdatas(){
+  var userdata = getCookie("token");
 
-module.exports = getCookie()
+}
+
+module.exports = {getCookie, getdatas}

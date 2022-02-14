@@ -7,9 +7,9 @@ const hotelId = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [places, setPlaces] = useState([]);
   const router = useRouter();
-  const slugData = router.query.slug;
+  const slugData = router.query.id;
 
-  const url = `http://localhost:8000/api/blog/hotels/slug/${slugData}`;
+  const url = `http://localhost:8000/api/hotels/${slugData}`;
   axios
     .request(url)
     .then(function (response) {
