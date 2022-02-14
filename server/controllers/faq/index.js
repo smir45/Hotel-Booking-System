@@ -28,7 +28,7 @@ module.exports.PostQuestion = async (req, res) => {
 module.exports.GetAllQuestions = async (req, res) => {
   try {
     const faqs = await Faq.findAll();
-    res.status(200).json(faqs);
+    res.status(200).json({ data: faqs });
   } catch (err) {
     res.status(400).json(err);
   }

@@ -7,7 +7,8 @@ const fs = require("fs");
 const { url } = require("inspector");
 const axios = require("axios");
 require("dotenv").config();
-
+const imgur = require('imgur');
+const fileUpload = require('express-fileupload');
 module.exports.getHotels = async (req, res) => {
   try {
     const hotels = await Hotel.findAll();
@@ -84,6 +85,26 @@ module.exports.deleteHotel = async (req, res) => {
   }
 };
 
-module.exports.gethoteels = async (req, res) => {
-  res.send("this is trial")
+module.exports.postImage = async (req, res) => {
+  try {
+    if (!req.files) {
+      return res.status(400).send('No files were uploaded.')
+    }
+  
+    let sampleFile = req.files.sampleFile
+    let uploadPath = __dirname + '/uploads/' + sampleFile.name
+  
+    sampleFile.mv(uploadPath, function (err) {
+      if (err) {
+        return res.status(500).send(err)
+      }
+  
+      imgur.uploadFile(uploadPath).then((urlObject) => {
+        fs.unlinkSync(uploadPath)
+        res.json({ message: "done", link: urlObject.link })
+      })
+    })
+  } catch (err) {
+    res.json(err);
+  }
 }

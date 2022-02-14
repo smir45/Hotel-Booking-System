@@ -6,14 +6,16 @@ const morgan = require("morgan");
 const { sequelize } = require("./models");
 const userRoutes = require("./routes/user");
 const postRoutes = require("./routes/destinations");
-const hotelsPost = require("./routes/hotels");
+const hotelsPost = require('./routes/hotels');
 const HostUserRoutes = require("./routes/user/host");
 const HostelRoutes = require('./routes/hostels');
 const FaqRoutes = require("./routes/faqs");
+const fs = require("fs");
 const bodyParser = require("body-parser");
+const fileUpload = require('express-fileupload')
 
 const port = process.env.PORT;
-
+app.use(fileUpload())
 app.use(cors());
 app.use(bodyParser.json());
 app.use(morgan("tiny"));

@@ -195,6 +195,7 @@ module.exports.findUser = async (req, res) => {
 
 module.exports.updateUser = async (req, res) => {
   const { id } = req.params;
+
   // const { error } = Updateschema.validate(req.body);
   // if (error) return res.status(400).send(error.details[0].message);
 
@@ -206,20 +207,19 @@ module.exports.updateUser = async (req, res) => {
 
   const datas = req.body;
   try {
-    await user.save({
-      gender: datas.gender,
-      phone: datas.phone
+    const updatedUser = await user.update(datas);
+    res.status(200).json({      
+      message: "Updated Successfully",
+      data: updatedUser,
     });
-    res.status(200).json({
-      message: "success",
-      data: user,
-    });
+    console.log("updated")
   } catch (err) {
     res.status(400).json({
       message: "fail",
       data: err,
     });
   }
+  console.log(datas)
 };
 
 module.exports.deleteUser = async (req, res) => {
