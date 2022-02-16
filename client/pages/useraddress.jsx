@@ -93,7 +93,7 @@ const UserAddress = () => {
           type="text"
           name="country"
           id="country"
-          placeholder={"Country" && cookieDatas.country}
+          placeholder={"Country" || cookieDatas.country}
           onChange={(e) => handleChange(e)}
         />
         <input
@@ -102,7 +102,7 @@ const UserAddress = () => {
           type="text"
           name="state"
           id="state"
-          placeholder={"State" && cookieDatas.state}
+          placeholder={"State" || cookieDatas.state}
           onChange={(e) => handleChange(e)}
         />
         <input
@@ -111,7 +111,7 @@ const UserAddress = () => {
           type="text"
           name="city"
           id="city"
-          placeholder={"City" && cookieDatas.city}
+          placeholder={"City" || cookieDatas.city}
           onChange={(e) => handleChange(e)}
         />
         <input

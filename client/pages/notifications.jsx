@@ -52,6 +52,7 @@ const NotificationInfo = () => {
             type="checkbox"
             name="email"
             id="email"
+            checked
           />
           <label className="capitalize" htmlFor="sms">
             sms notification
@@ -70,6 +71,7 @@ const NotificationInfo = () => {
             type="checkbox"
             name="push"
             id="push"
+            checked
           />
 
           <br />

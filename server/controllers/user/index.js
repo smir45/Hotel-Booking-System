@@ -91,11 +91,11 @@ var datas = req.body;
     password: hashedpassword,
     name: datas.name,
     phone: datas.phone,
-    DOB: datas.DOB,
+    DOB: "1996-01-01",
     image: `https://avatars.dicebear.com/api/bottts/${uniqueid}.svg`
   });
   try {
-    // const saveUser = await userdata.save();
+    const saveUser = await userdata.save();
     res.json({ message: "User created successfully", data: { userdata} });
   } catch (err) {
     res.json(err);
