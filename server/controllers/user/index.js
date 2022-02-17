@@ -8,6 +8,7 @@ const Joi = require("joi");
 const { getTransporter } = require("../../utils/sendEmail");
 const otpGenerator = require('otp-generator')
 const { createAvatar } = require ('@dicebear/avatars')
+const crypto = require("crypto");
 require("dotenv").config();
 
 const schema = Joi.object({
@@ -83,18 +84,20 @@ var datas = req.body;
   // creating user
   const nameData = datas.name.split(" ").join("")
   const uniqueid = await bcrypt.hash(nameData, salt)
-
-
+  const otp = otpGenerator.generate(6, { upperCase: false, specialChars: false });
 
   const userdata = new User({
     email: datas.email,
     password: hashedpassword,
     name: datas.name,
     phone: datas.phone,
+    VerificationOtp: otp,
     DOB: "1996-01-01",
     image: `https://avatars.dicebear.com/api/bottts/${uniqueid}.svg`
+
   });
   try {
+    res.send(otp)
     const saveUser = await userdata.save();
     res.json({ message: "User created successfully", data: { userdata} });
   } catch (err) {
@@ -102,6 +105,25 @@ var datas = req.body;
     console.log(err)
   }
 };
+
+module.exports.verifyUser = async (req, res) => {
+  const { email, otp } = req.body;
+  const user = await User.findOne({
+    where: {
+      email: email,
+    },
+  });
+  if (!user) {
+    return res.status(400).json({ message: "User does not exist" });
+  }
+  if (user.VerificationOtp === otp) {
+    user.isVerified = true;
+    user.save();
+    return res.status(200).json({ message: "User verified successfully" });
+  }
+  return res.status(400).json({ message: "Invalid OTP" });
+}
+
 // ------------------------------------------------------
 
 module.exports.createUseer = async (req, res) => {
@@ -264,6 +286,8 @@ module.exports.userLogin = async (req, res, next) => {
       country: user.country,
       zipcode: user.zipcode,
       address: user.address,
+      isHost: user.isHost,
+      isVerified: user.isVerified,
     },
     process.env.TOKEN_SECRET,
     {

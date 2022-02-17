@@ -8,62 +8,70 @@ var datas
 const columns = [
   { field: "id", headerName: "ID", width: 90 },
   {
-    field: "uuid",
+    field: "uniqueKey",
     headerName: "Unique Key",
     type: "text",
-    width: 310,
+    width: 350,
     editable: false,
   },
   {
-    field: "name",
-    headerName: "Full Name",
+    field: "latitude",
+    headerName: "Latitude",
     type: "text",
     width: 210,
     editable: false
   },
   {
-    field: "email",
-    headerName: "Email",
+    field: "longitude",
+    headerName: "Longitude",
     type: "text",
     width: 210,
     editable: false,
   },
   {
-    field: "isAdmin",
-    headerName: "Admin",
+    field: "title",
+    headerName: "Name",
     type: "text",
     width: 210,
     editable: false,
   },
   {
-    field: "edit",
-    headerName: "EDIT",
+    field: "review_score",
+    headerName: "Rating",
     width: 100,
-    type: "button",
+    editable: false,
   }
 
 ];
 export default function DestinationTableGrid() {
   const [rows, setRows] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [destinations, setDestinations] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios("http://localhost:8000/api/auth/host/user/");
-      setRows(result.data);
-      datas = result.data
+      const result = await axios("http://localhost:8000/api/hotels");
+      setRows(result.data || []);
+      // removing datas with same name
+      datas = result.data.reverse()
+      const uniqueData = datas.filter((item, index) => {
+        return datas.findIndex(i => i.title === item.title) === index;
+      });
+
+      setDestinations(uniqueData);
+
+      
       setLoading(false);
     };
     fetchData();
   }, []);
 
-  console.log(rows);
 
   return (
     <div className="shadow-xl mx-auto" style={{ height: 400, border: "none", width: "90%" }}>
       <DataGrid
-        rows={datas}
+        rows={destinations}
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5]}

@@ -39,6 +39,7 @@ module.exports = (sequelize, DataTypes) => {
     city: DataTypes.STRING,
     zipcode: DataTypes.STRING,
     image: DataTypes.JSONB,
+    VerificationOtp: DataTypes.STRING,
     isAdmin: {
       type: DataTypes.BOOLEAN,
       defaultValue: false

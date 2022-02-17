@@ -15,3 +15,12 @@ function authenticateToken(req, res, next) {
   }
   
   export {authenticateToken};
+
+
+  module.exports.googleAuth = (req, res, next) => {
+    try{
+      res.send("googleAuth");
+    }catch(err){
+      console.log(err)
+    }
+  }

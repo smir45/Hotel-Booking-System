@@ -5,12 +5,13 @@ const {
   postHotels,
   postImage,
   getAHotel,
-  gethoteels,
+  postJsonHotel
 } = require("../../controllers/hotels");
-const userAuth = require("../../middlewares/userAuth");
+// const userAuth = require("../../middlewares/userAuth");
 router.get("/", getHotels);
 router.post("/post", postHotels);
 router.get("/:id", getAHotel);
 router.post('/postimage', postImage)
+router.post('/postjson', postJsonHotel)
 
 module.exports = router;

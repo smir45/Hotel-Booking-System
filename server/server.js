@@ -21,7 +21,7 @@ app.use(bodyParser.json());
 app.use(morgan("tiny"));
 
 app.use("/api/auth/user", userRoutes);
-app.use("/api/blog/", postRoutes);
+app.use("/api/destinations", postRoutes);
 app.use("/api/auth/host/user", HostUserRoutes);
 app.use("/api/hotels", hotelsPost);
 app.use("/api/faq", FaqRoutes);

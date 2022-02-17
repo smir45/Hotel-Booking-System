@@ -108,3 +108,16 @@ module.exports.postImage = async (req, res) => {
     res.json(err);
   }
 }
+
+module.exports.postJsonHotel = async (req, res) => {
+  // import json file
+  const jsonfile = require("../../json/booking_hotels.json");
+  try{
+    const datas = jsonfile;
+    const hotels = await Hotel.bulkCreate(datas);
+    res.json(hotels);
+  }
+  catch(err){
+    res.json(err);
+  }
+}

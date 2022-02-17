@@ -12,6 +12,7 @@ import {
 export default function NavHeaderDashboard() {
   const [isLoading, setIsLoading] = useState(true);
   const [trending, setTrending] = useState(null);
+  const [verified, setVerified] = useState(true);
   const [logout, setLogout] = useState(null);
   const [user, setUser] = useState("");
   const datas = trending;
@@ -36,6 +37,11 @@ export default function NavHeaderDashboard() {
       return router.push("/login");
     }
     setUser(jwt.decode(getCookie("token")));
+    setVerified(user.isVerified);
+
+    if (!verified) {
+      return router.push("/verification");
+    }
   }, []);
 
   
@@ -45,7 +51,7 @@ export default function NavHeaderDashboard() {
     return  <div className="login-back-loading">Loading...</div>;
     
   }
-
+  console.log(verified)
   return (
     <main>
       

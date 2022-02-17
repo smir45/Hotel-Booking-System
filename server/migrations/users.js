@@ -54,6 +54,10 @@ module.exports = {
         type: Sequelize.JSONB,
         allowNull: true,
       },
+      VerificationOtp: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       isAdmin: {
         type: Sequelize.BOOLEAN,
         defaultValue: false

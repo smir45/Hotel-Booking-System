@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { findAll, createUser, findUser, updateUser, deleteUser, userLogin, userLogout, getUserByUuid, uploadImage } = require('../../controllers/user')
-// const userAuth = require("../../middlewares/userAuth");
+const { findAll, createUser, findUser, updateUser, deleteUser, userLogin, userLogout, getUserByUuid,verifyUser , uploadImage } = require('../../controllers/user')
 router.get('/', findAll);
 router.post('/', createUser);
 router.post('/login', userLogin);
@@ -10,6 +9,7 @@ router.get('/:uuid', getUserByUuid)
 router.put('/:id', updateUser);
 router.delete('/delete/:id', deleteUser);
 router.post('/logout', userLogout);
+router.post('/verify', verifyUser)
 // router.post('/upload',uploadImage)
 
 
