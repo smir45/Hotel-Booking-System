@@ -10,7 +10,7 @@ const {
 // const userAuth = require("../../middlewares/userAuth");
 router.get("/", getHotels);
 router.post("/post", postHotels);
-router.get("/:id", getAHotel);
+router.get("/:uniqueKey", getAHotel);
 router.post('/postimage', postImage)
 router.post('/postjson', postJsonHotel)
 

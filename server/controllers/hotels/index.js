@@ -23,10 +23,15 @@ module.exports.getHotels = async (req, res) => {
 
 module.exports.getAHotel = async (req, res, next) => {
   try {
-    const hotel = await Hotel.findByPk(req.params.id);
-    res.status(200).json(hotel);
+    const hotel = await Hotel.findOne({
+      where: {
+        uniqueKey: req.params.uniqueKey,
+      },
+    });
+    res.json(hotel);
   } catch (err) {
     res.status(500).json(err);
+    console.log(err);
   }
 };
 
@@ -47,14 +52,6 @@ module.exports.postHotels = async (req, res, next) => {
         hotel,
       });
     }
-  } catch (err) {
-    res.json(err);
-  }
-};
-module.exports.getHotel = async (req, res) => {
-  try {
-    const hotel = await Hotel.findByPk(req.params.id);
-    res.json(hotel);
   } catch (err) {
     res.json(err);
   }

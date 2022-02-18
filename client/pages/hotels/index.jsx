@@ -10,7 +10,10 @@ const searchDatas = () => {
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios("http://localhost:8000/api/hotels/");
-      setHotels(result.data);
+      const singledata = result.data.filter((item, index) => {
+        return result.data.findIndex((i) => i.title === item.title) === index;
+      });
+      setHotels(singledata);
       setIsLoading(false);
     };
 
@@ -27,7 +30,7 @@ const searchDatas = () => {
           {hotels.map((hotel, index) => (
           <div key={hotel.id}>
             <div>
-            <Link href={`/hotels/${encodeURIComponent(hotel.id)}`}>
+            <Link href={`/hotels/${encodeURIComponent(hotel.uniqueKey)}`}>
             <div className=" flex m-5 rounded-2xl shadow-lg mx-auto" style={{background: "#ffffff", width: "50vw"}}>
             <img className="rounded-tl-2xl rounded-bl-2xl h-48 w-64" src={console.log(hotel)} alt="img" />
             <div className="rounded-tr-2xl rounded-br-2xl px-5">

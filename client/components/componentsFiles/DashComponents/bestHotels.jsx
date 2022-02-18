@@ -43,49 +43,52 @@ const BestHotelsElements = () => {
         </h2>
         <div className="flex justify-evenly">
           {trendData.slice(0, 3).map((data, index) => (
-            <div className=" w-96 rounded-2xl my-5 shadow-lg" key={data.id}>
-              <div>
-                <img
-                  className="rounded-tl-2xl rounded-tr-2xl"
-                  src={data.images[2]}
-                  alt="img"
-                />
-              </div>
-              <div className="p-5 capitalize">
-                <div className="flex">
-                  <p className="my-1 mr-1" style={{ color: "grey" }}>
-                    <FiMapPin />
-                  </p>
-                  <p style={{ color: "grey" }}>
-                    {data.city},&nbsp; {data.country}
-                  </p>
-                </div>
-                <div className="flex justify-between">
-                  <a href="#" className="text-primary font-bold text-2xl">
-                    {data.title}
-                  </a>
-                  <a
-                    href="#"
-                    className="text-arimary p-2 rounded-full"
-                    style={{ border: "1px solid rgba(0, 0, 0, .2)" }}
-                  >
-                    <FaRegHeart />
-                  </a>
-                </div>
-                <div className="flex">
-                  <span className="flex my-1 mr-2">
-                    <FiStar style={{ color: "gold" }} key={data.star} />
-                  </span>
-                  <p>{data.review_count}&nbsp; reviews</p>
-                </div>
+            <Link href={`/hotels/${encodeURIComponent(data.uniqueKey)}`}>
+              <div className=" w-96 rounded-2xl my-5 shadow-lg" key={data.id}>
                 <div>
-                  <p>Distance: {data.distance}</p>
-                  <p>
-                    from, <strong>${data.price}</strong>
-                  </p>
+                  <img
+                    className="rounded-tl-2xl h-56 w-full rounded-tr-2xl"
+                    src={data.images[1] && data.images[1]}
+                    alt="img"
+                  />
+                </div>
+                {console.log(data)}
+                <div className="p-5 capitalize">
+                  <div className="flex">
+                    <p className="my-1 mr-1" style={{ color: "grey" }}>
+                      <FiMapPin />
+                    </p>
+                    <p style={{ color: "grey" }}>
+                      {data.city},&nbsp; {data.country}
+                    </p>
+                  </div>
+                  <div className="flex justify-between">
+                    <a href="#" className="text-primary font-bold text-2xl">
+                      {data.title}
+                    </a>
+                    <a
+                      href="#"
+                      className="text-arimary p-2 rounded-full"
+                      style={{ border: "1px solid rgba(0, 0, 0, .2)" }}
+                    >
+                      <FaRegHeart />
+                    </a>
+                  </div>
+                  <div className="flex">
+                    <span className="flex my-1 mr-2">
+                      <FiStar style={{ color: "gold" }} />
+                    </span>
+                    <p>{data.review_score}&nbsp;/ 10</p>
+                  </div>
+                  <div>
+                    <p>Distance: {data.distance}</p>
+                    <p>
+                      from, <strong>${data.price}</strong>
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </section>
