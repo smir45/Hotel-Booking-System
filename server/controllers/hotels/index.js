@@ -7,15 +7,37 @@ const fs = require("fs");
 const { url } = require("inspector");
 const axios = require("axios");
 require("dotenv").config();
-const imgur = require('imgur');
-const fileUpload = require('express-fileupload');
+const imgur = require("imgur");
+const fileUpload = require("express-fileupload");
 module.exports.getHotels = async (req, res) => {
   try {
     const hotels = await Hotel.findAll();
     hoteldata = hotels.sort(function (a, b) {
       return b.id - a.id;
     });
-    res.json(hoteldata);
+
+    const singleHotel = await hoteldata && hoteldata.map((item) => {
+      return {
+        priceForRoomCount: item.priceForRoomCount,
+      }
+    });
+    const hotelName = singleHotel.map((item) => {
+      return item.priceForRoomCount.split(" ");
+    });
+
+    const hotelPrice = hotelName.map((item) => {
+      return item.map((item) => {
+        return item.replace(/[^0-9]/g, " ");
+      });
+    });
+
+    const hotelPrice2 = hotelPrice.map((item) => {
+      return item.filter((item) => item.length > 2);
+    });
+    res.json({
+      data: hoteldata,
+      roomPrice: hotelPrice2,
+    });
   } catch (err) {
     res.json(err);
   }
@@ -28,7 +50,9 @@ module.exports.getAHotel = async (req, res, next) => {
         uniqueKey: req.params.uniqueKey,
       },
     });
-    res.json(hotel);
+    res.json(
+      hotel
+    );
   } catch (err) {
     res.status(500).json(err);
     console.log(err);
@@ -85,36 +109,40 @@ module.exports.deleteHotel = async (req, res) => {
 module.exports.postImage = async (req, res) => {
   try {
     if (!req.files) {
-      return res.status(400).send('No files were uploaded.')
+      return res.status(400).send("No files were uploaded.");
     }
-  
-    let sampleFile = req.files.sampleFile
-    let uploadPath = __dirname + '/uploads/' + sampleFile.name
-  
+
+    let sampleFile = req.files.sampleFile;
+    let uploadPath = __dirname + "/uploads/" + sampleFile.name;
+
     sampleFile.mv(uploadPath, function (err) {
       if (err) {
-        return res.status(500).send(err)
+        return res.status(500).send(err);
       }
-  
+
       imgur.uploadFile(uploadPath).then((urlObject) => {
-        fs.unlinkSync(uploadPath)
-        res.json({ message: "done", link: urlObject.link })
-      })
-    })
+        fs.unlinkSync(uploadPath);
+        res.json({ message: "done", link: urlObject.link });
+      });
+    });
   } catch (err) {
     res.json(err);
   }
-}
+};
 
 module.exports.postJsonHotel = async (req, res) => {
   // import json file
-  const jsonfile = require("../../json/booking_hotels.json");
-  try{
+  const jsonfile = require("../../json/bookin_hotels.json");
+  try {
     const datas = jsonfile;
-    const hotels = await Hotel.bulkCreate(datas);
-    res.json(hotels);
-  }
-  catch(err){
+    const uniqueArray = datas.filter(function (elem, pos) {
+      return datas.indexOf(elem) == pos;
+    });
+    const hotel = await Hotel.bulkCreate(uniqueArray);
+
+    res.send(hotel);
+  } catch (err) {
     res.json(err);
+    console.log(err);
   }
-}
+};

@@ -15,7 +15,7 @@ const BestHotelsElements = () => {
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios("http://localhost:8000/api/hotels");
-      const data = result.data.reverse();
+      const data = result.data.data.reverse();
       setTrending(data);
 
       const uniqueData = data.filter((item, index) => {

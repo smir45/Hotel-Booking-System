@@ -25,7 +25,6 @@ const LoginElements = () => {
     });
     const res2 = await res.json();
     if (res2.message === "Invalid email or username") {
-      
       return addToast(res2.message, { appearance: "error" });
     }else if (res2.message === "Invalid Password") {
 

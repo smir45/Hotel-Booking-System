@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import Loading from "../../components/componentsFiles/Loading";
-import { FaMapMarkerAlt, FaSmokingBan, FaWheelchair } from "react-icons/fa";
+import { FaMapMarkerAlt, FaStar } from "react-icons/fa";
 
 const hotelId = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -10,7 +10,7 @@ const hotelId = () => {
   const [datas, setDatas] = useState([]);
   const router = useRouter();
   const uniquekey = router.query.uniqueKey;
-  var resultdata
+  var resultdata;
 
   const url = `http://localhost:8000/api/hotels/${uniquekey}`;
   useEffect(() => {
@@ -22,34 +22,30 @@ const hotelId = () => {
     fetchData();
   }, []);
 
-
   useEffect(() => {
     const facilityData = resultdata.facilities
-    
-        .split(",")
-        .map((item, index) => (datas = item));
-      setDatas(facilityData);
-      setIsLoading(false);
+
+      .split(",")
+      .map((item, index) => (datas = item));
+    setDatas(facilityData);
+    setIsLoading(false);
     if (places) {
       const data = JSON.stringify(places);
       localStorage.setItem("places", data);
-      localStorage.setItem("expires", Date.now() + 600000);
     }
     return;
   }, [places]);
-  console.log(resultdata)
+  console.log(resultdata);
   const placesdata = JSON.parse(localStorage.getItem("places"));
   resultdata = placesdata;
   useEffect(() => {
     if (datas) {
       const data = JSON.stringify(datas);
       localStorage.setItem("datas", data);
-      localStorage.setItem("expires", Date.now() + 600000);
     }
     return;
   }, [datas]);
   const facility = JSON.parse(localStorage.getItem("datas"));
-  
 
   if (isLoading) {
     return (
@@ -58,7 +54,7 @@ const hotelId = () => {
       </div>
     );
   }
-  
+
   return (
     <div>
       <div>
@@ -121,10 +117,11 @@ const hotelId = () => {
             </p>
             <div className="mx-2">
               <p className="">
-                <strong>{places?.review_title}</strong>
+                <strong>{placesdata.review_title}</strong>
               </p>
               <p className="">{placesdata.review_count} reviews</p>
             </div>
+            
           </div>
           <div className="flex mx-3">
             <div
