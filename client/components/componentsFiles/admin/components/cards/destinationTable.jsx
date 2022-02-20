@@ -6,7 +6,6 @@ import EditIcon from '@mui/icons-material/Edit';
 
 var datas
 const columns = [
-  { field: "id", headerName: "ID", width: 90 },
   {
     field: "uniqueKey",
     headerName: "Unique Key",

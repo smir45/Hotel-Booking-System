@@ -101,7 +101,6 @@ var datas = req.body;
     const saveUser = await userdata.save();
     res.json({ message: "User created successfully", data: { userdata} });
   } catch (err) {
-    res.json(err);
     console.log(err)
   }
 };

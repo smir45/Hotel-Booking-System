@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Component } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import Loading from "../../components/componentsFiles/Loading";
 import { FaMapMarkerAlt, FaStar } from "react-icons/fa";
+import GoogleApiWrapper from "../../components/componentsFiles/map";
 
-const hotelId = () => {
+const hotelId = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [places, setPlaces] = useState("");
   const [datas, setDatas] = useState([]);
@@ -18,7 +19,6 @@ const hotelId = () => {
       const result = await axios(url);
       setPlaces(result.data);
     };
-    console.log(datas);
     fetchData();
   }, []);
 
@@ -35,7 +35,6 @@ const hotelId = () => {
     }
     return;
   }, [places]);
-  console.log(resultdata);
   const placesdata = JSON.parse(localStorage.getItem("places"));
   resultdata = placesdata;
   useEffect(() => {
@@ -45,8 +44,13 @@ const hotelId = () => {
     }
     return;
   }, [datas]);
-  const facility = JSON.parse(localStorage.getItem("datas"));
 
+  const mapStyles = {
+    width: "100%",
+    height: "100%",
+  };
+
+  const facility = JSON.parse(localStorage.getItem("datas"));
   if (isLoading) {
     return (
       <div>
@@ -64,7 +68,6 @@ const hotelId = () => {
               className="mx-1 rounded-2xl"
               style={{ minHeight: "540px", maxHeight: "545px" }}
             >
-              {console.log(places)}
               <img
                 className="w-full rounded-2xl"
                 src={placesdata.images[0]}
@@ -121,7 +124,6 @@ const hotelId = () => {
               </p>
               <p className="">{placesdata.review_count} reviews</p>
             </div>
-            
           </div>
           <div className="flex mx-3">
             <div
@@ -145,32 +147,32 @@ const hotelId = () => {
                 Most Populer Facilities:{" "}
               </strong>
               <div className="grid grid-cols-3 gap-4">
-                <div className="flex border bg-blue-100 rounded-lg py-1 px-2">
+                <div className="flex bg-blue-100 rounded-lg py-1 px-2">
                   <p className=""> {facility[0]}</p>
                 </div>
-                <div className="flex border bg-blue-100 rounded-lg py-1 px-2">
+                <div className="flex bg-blue-100 rounded-lg py-1 px-2">
                   <p className=""> {facility[1]}</p>
                 </div>
-                <div className="flex border bg-blue-100 rounded-lg py-1 px-2">
+                <div className="flex bg-blue-100 rounded-lg py-1 px-2">
                   <p className=""> {facility[2]}</p>
                 </div>
-                <div className="flex border bg-blue-100 rounded-lg py-1 px-2">
+                <div className="flex bg-blue-100 rounded-lg py-1 px-2">
                   <p className=""> {facility[3]}</p>
                 </div>
-                <div className="flex border bg-blue-100 rounded-lg py-1 px-2">
+                <div className="flex bg-blue-100 rounded-lg py-1 px-2">
                   <p className=""> {facility[4]}</p>
                 </div>
-                <div className="flex border bg-blue-100 rounded-lg py-1 px-2">
+                <div className="flex bg-blue-100 rounded-lg py-1 px-2">
                   <p className=""> {facility[7]}</p>
                 </div>
               </div>
               <br />
             </div>
           </div>
+          <div>
           <div
-            className=" p-2 mt-5 mx-5 w-5/12 bg-blue-100"
-            style={{ maxHeight: "35vh" }}
-          >
+            className=" p-2  mt-5 mx-5 w-5/12 bg-blue-100"
+            style={{ maxHeight: "35vh", width: "30vw" }}>
             <div className=" m-5">
               <p className="text-primary p-2 font-bold text-2xl">
                 Property Highlights
@@ -197,11 +199,16 @@ const hotelId = () => {
                 Reserve
               </a>
             </div>
+            <br />
+            
+          </div>
+          <div className="ml-5" style={{ marginTop: "3vh"}}>
+                <GoogleApiWrapper />
+            </div>
           </div>
         </div>
       </div>
     </div>
   );
 };
-
 export default hotelId;
