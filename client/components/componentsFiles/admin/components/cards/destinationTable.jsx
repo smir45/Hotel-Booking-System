@@ -52,9 +52,9 @@ export default function DestinationTableGrid() {
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios("http://localhost:8000/api/hotels");
-      setRows(result.data || []);
+      setRows(result.data.data || []);
       // removing datas with same name
-      datas = result.data.reverse()
+      datas = result.data.data.reverse()
       const uniqueData = datas.filter((item, index) => {
         return datas.findIndex(i => i.title === item.title) === index;
       });
