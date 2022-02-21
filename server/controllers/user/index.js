@@ -3,13 +3,15 @@ const { User } = require("../../models");
 const router = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { loginValidation } = require("../../middlewares/userLoginValidation");
 const Joi = require("joi");
 const { getTransporter } = require("../../utils/sendEmail");
 const otpGenerator = require('otp-generator')
 const { createAvatar } = require ('@dicebear/avatars')
 const crypto = require("crypto");
+const nodemailer = require("nodemailer");
+const hbs = require("nodemailer-handlebars");
 require("dotenv").config();
+
 
 const schema = Joi.object({
   name: Joi.string().min(6).required(),
@@ -18,40 +20,6 @@ const schema = Joi.object({
   phone: Joi.number().min(10).required(),
 });
 
-// function Verification() {
-//   // const mailgun = require('mailgun-js');
-
-//   var API_KEY = process.env.MAILGUN_API_KEY;
-//   var DOMAIN = process.env.MAILGUN_DOMAIN;
-//   var mailgun = require("mailgun-js")({ apiKey: API_KEY, domain: DOMAIN });
-
-//   sendMail = function (
-//     sender_email,
-//     receiver_email,
-//     email_subject,
-//     email_body
-//   ) {
-//     const data = {
-//       from: sender_email,
-//       to: receiver_email,
-//       subject: email_subject,
-//       text: email_body,
-//     };
-
-//     mailgun.messages().send(data, (error, body) => {
-//       if (error) console.log(error);
-//       else console.log(body);
-//     });
-//   };
-
-//   var sender_email = "info@accommod.com";
-//   var receiver_email = receiverEmail;
-//   var email_subject = "Welcome to Accommod";
-//   var email_body = "Please verify your email using this OTP";
-
-//   // User-defined function to send email
-//   sendMail(sender_email, receiver_email, email_subject, email_body);
-// }
 module.exports.findAll = async (req, res, next) => {
   try {
     const users = await User.findAll();
@@ -84,7 +52,8 @@ var datas = req.body;
   // creating user
   const nameData = datas.name.split(" ").join("")
   const uniqueid = await bcrypt.hash(nameData, salt)
-  const otp = otpGenerator.generate(6, { upperCase: false, specialChars: false });
+
+  const otp = otpGenerator.generate(6, { upperCase: true, specialChars: false });
 
   const userdata = new User({
     email: datas.email,
@@ -97,7 +66,33 @@ var datas = req.body;
 
   });
   try {
-    res.send(otp)
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.EMAIL,
+        pass: process.env.PASSWORD,
+      },
+    });
+    const mailOptions = {
+      from: process.env.EMAIL,
+      to: `${datas.email}`,
+      subject: "Verify your email",
+      text: `Your OTP is ${otp}`,
+      template: {
+        path: "../../views/verification.html",
+        context: {
+          email: datas.email,
+          otp: otp,
+        },
+      }
+    };
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Email sent: " + info.response);
+      }
+    });
     const saveUser = await userdata.save();
     res.json({ message: "User created successfully", data: { userdata} });
   } catch (err) {
@@ -294,6 +289,10 @@ module.exports.userLogin = async (req, res, next) => {
       // expiresInMinutes: 1440,
     }
   );
+
+  if(user.isVerified === false){
+    return res.status(400).json({ message: "Please verify your email" });
+  }
 
   res.header("auth-token",token).json({
     message: {

@@ -31,6 +31,13 @@ const LoginElements = () => {
       setError(true);
       return addToast(res2.message, { appearance: "error" });
     }
+    if (res2.message === "Please verify your email") {
+      addToast(res2.message, { appearance: "error" });
+      setTimeout(() => {
+        router.push("/verify");
+      }
+      , 1000);
+    }
      else {
       addToast(res2.message.success, { appearance: "success" });
       cookie.set("token", res2.data);

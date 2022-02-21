@@ -2,7 +2,14 @@ import { useState, useEffect, Component } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import Loading from "../../components/componentsFiles/Loading";
-import { FaMapMarkerAlt, FaStar } from "react-icons/fa";
+import {
+  FaMapMarkerAlt,
+  FaParking,
+  FaStar,
+  FaBed,
+  FaMapSigns,
+  FaRegStar,
+} from "react-icons/fa";
 import GoogleApiWrapper from "../../components/componentsFiles/map";
 
 const hotelId = (props) => {
@@ -170,40 +177,104 @@ const hotelId = (props) => {
             </div>
           </div>
           <div>
-          <div
-            className=" p-2  mt-5 mx-5 w-5/12 bg-blue-100"
-            style={{ maxHeight: "35vh", width: "30vw" }}>
-            <div className=" m-5">
-              <p className="text-primary p-2 font-bold text-2xl">
-                Property Highlights
-              </p>
-              <p className="p-2 text-lg font-bold">
-                {" "}
-                Perfect for {places?.search_night} night stay!
-              </p>
-              <div className="flex p-2">
-                <div className="p-2 text-xl mt-1">
-                  <FaMapMarkerAlt />
-                </div>
-                <p className="p-2">
-                  <strong>Top Location: </strong>
-                  {placesdata.full_address}
+            <div
+              className=" p-2  mt-5 mx-5 w-5/12 bg-blue-100"
+              style={{ width: "30vw" }}
+            >
+              <div className=" m-5">
+                <p className="text-primary p-2 font-bold text-2xl">
+                  Property Highlights
                 </p>
+                <p className="p-2 text-lg font-bold">
+                  {" "}
+                  Perfect for {places?.search_night} night stay!
+                </p>
+                <div className="p-2">
+                  <div className="">
+                    <div className="flex">
+                      <div className="p-2 text-xl mt-1">
+                        <FaMapMarkerAlt />
+                      </div>
+                      <p className="p-2">
+                        <strong>Hotel Location: </strong>
+                        {placesdata.full_address}
+                      </p>
+                    </div>
+
+                    <div className="flex">
+                      <div className="p-2 text-xl mt-1">
+                        <FaMapSigns />
+                      </div>
+                      <p className="p-2">
+                        <strong>Distance: </strong>
+                        {placesdata.distance}
+                      </p>
+                    </div>
+                  </div>
+                  <div>
+                    <p className="p-2">
+                      {console.log(placesdata)}
+                      <strong>Top Features: </strong>
+                    </p>
+                    <p
+                      className="flex py-1 font-bold px-2 mx-3"
+                      style={{ width: "fit-content" }}
+                    >
+                      <span className="mt-1 text-lg mx-1">
+                        <FaParking />
+                      </span>
+                      {placesdata.parking || "Parking not available"}
+                    </p>
+
+                    <p
+                      className="flex py-1 font-bold px-2 mx-3"
+                      style={{ width: "fit-content" }}
+                    >
+                      <span className="mt-1 text-lg mx-1">
+                        <FaBed />
+                      </span>
+                      {placesdata.beds[0]}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="p-2">
+                      <strong>Ratings: </strong>
+                    </p>
+                    <div>
+                      <div className="flex m-2">
+                        <p className="bg-pmry ml-2 p-2 text-white rounded-tl-lg rounded-tr-lg rounded-bl-2xl">
+                          {placesdata.review_score}
+                        </p>
+                        <div className="mx-2">
+                          <p className="">
+                            <strong>{placesdata.review_title}</strong>
+                          </p>
+                          <p className="">{placesdata.review_count} reviews</p>
+                          <div>
+                            <span
+                              className="flex"
+                              style={{ color: "goldenrod" }}
+                            >
+                              {[...Array(placesdata.star)].map((e, i) => (
+                                <span className="ml-1" key={i}>
+                                  {<FaStar />}
+                                </span>
+                              ))}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="mt-10">
+                    <button className="w-full  bg-pmry text-white py-2" href="/booking">Reserve</button>
+                  </div>
+                </div>
               </div>
+              <br />
             </div>
-            <div className="flex justify-center align-middle mt-5">
-              <a
-                className="border bg-pmry text-center align-middle py-2 text-xl px-52 text-white"
-                href="/booking"
-              >
-                Reserve
-              </a>
-            </div>
-            <br />
-            
-          </div>
-          <div className="ml-5" style={{ marginTop: "3vh"}}>
-                <GoogleApiWrapper />
+            <div className="ml-5 relative" style={{ marginTop: "3vh" }}>
+              <GoogleApiWrapper />
             </div>
           </div>
         </div>

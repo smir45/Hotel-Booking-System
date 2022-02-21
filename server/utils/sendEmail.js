@@ -14,7 +14,6 @@ const sendEmail = async (email, subject, text) => {
     });
     await transporter.sendMail({
       from: process.env.EMAIL,
-      to: "smblg46@gmail.com",
       subject: subject,
       text: text,
     });
@@ -23,3 +22,5 @@ const sendEmail = async (email, subject, text) => {
     console.log(error);
   }
 };
+
+module.exports = sendEmail;

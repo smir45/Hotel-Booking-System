@@ -3,7 +3,7 @@ import Link from "next/link";
 import axios from "axios";
 import Loading from "../../components/componentsFiles/Loading";
 import NavHeaderDashboard from "../../components/componentsFiles/header";
-import { FaMapMarkerAlt, FaStar } from "react-icons/fa";
+import { FaMapMarkerAlt, FaStar, FaParking } from "react-icons/fa";
 
 const searchDatas = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -36,7 +36,7 @@ const searchDatas = () => {
   return (
     <>
       <div
-        className="border w-full"
+        className="border w-full "
         style={{ background: "#f5f5f5f5", padding: "5px" }}
       >
         {isLoading ? (
@@ -101,9 +101,10 @@ const searchDatas = () => {
                         </span>
                         <div>
                           <p
-                            className="border py-1 px-2 mx-3 font-bold bg-gray-300"
+                            className="border flex py-1 px-2 mx-3 font-bold bg-gray-300"
                             style={{ width: "fit-content" }}
                           >
+                            <span className="mt-1 text-lg mx-1"><FaParking/></span>
                             {hotel.parking || "Parking not available"}
                           </p>
                           <p className="text-gray-500 mx-5 font-bold text-2xl text-primary float-right">
