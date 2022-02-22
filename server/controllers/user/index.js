@@ -78,13 +78,7 @@ var datas = req.body;
       to: `${datas.email}`,
       subject: "Verify your email",
       text: `Your OTP is ${otp}`,
-      template: {
-        path: "../../views/verification.html",
-        context: {
-          email: datas.email,
-          otp: otp,
-        },
-      }
+      html: `<h3>Verify your email</h3><p>Please verify your email using this <strong>OTP</strong> <br> <h1>${otp}</h1></p>`,
     };
     transporter.sendMail(mailOptions, function (error, info) {
       if (error) {
@@ -112,56 +106,11 @@ module.exports.verifyUser = async (req, res) => {
   }
   if (user.VerificationOtp === otp) {
     user.isVerified = true;
-    user.save();
     return res.status(200).json({ message: "User verified successfully" });
   }
   return res.status(400).json({ message: "Invalid OTP" });
 }
 
-// ------------------------------------------------------
-
-module.exports.createUseer = async (req, res) => {
-  const { email } = req.body;
-  var datas = req.body;
-  try {
-    const user = await User.findOne({
-      where: {
-        email: email,
-      },
-    });
-    if (user) return res.status(302).json({ message: "User already exist" });
-
-    const jwtToken = jwt.sign(
-      datas,
-      process.env.TOKEN_SECRET,
-      { expiresIn: "1h" }
-    );
-
-    const transporter = await getTransporter();
-    const mailOptions = {
-      from: process.env.EMAIL,
-      to: `${email}`,
-      subject: "Verify your email",
-      text: "",
-      template: "accommodregister",
-      context: {
-        email,
-        jwtToken,
-      },
-    };
-
-    res.status(200).json({
-      data: jwtToken,
-      message: "Please verify your email",
-    });
-    const info = await transporter.sendMail(mailOptions);
-  } catch (err) {
-    console.log(err);
-    // return info;
-  }
-};
-
-// ------------------------------------------------------------------------------------------------------------------------------------
 
 module.exports.userEmailVerification = (req, res) => {
   const { token } = req.body;

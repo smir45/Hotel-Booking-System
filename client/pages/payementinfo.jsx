@@ -2,6 +2,8 @@ import * as React from "react";
 import Link from "next/link";
 import axios from "axios";
 import SettingTab from "../components/componentsFiles/userAccount/settingTabs";
+import Khalti from "../components/componentsFiles/DashComponents/khalti/khalti";
+import Stripe from "../components/componentsFiles/DashComponents/stripe/stripe";
 
 const paymentinfo = () => {
     return(
@@ -43,6 +45,8 @@ const paymentinfo = () => {
         className="flex flex-col p-5 w-4/5 mx-auto rounded-tr-xl rounded-bl-xl rounded-br-xl "
         style={{ background: "#ffffff" }}
       >
+        <Khalti/>
+        <Stripe/>
         <form action="">
             
          <br />
