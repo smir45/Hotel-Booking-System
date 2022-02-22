@@ -3,7 +3,6 @@ import Link from "next/link";
 import axios from "axios";
 import SettingTab from "../components/componentsFiles/userAccount/settingTabs";
 import Khalti from "../components/componentsFiles/DashComponents/khalti/khalti";
-import Stripe from "../components/componentsFiles/DashComponents/stripe/stripe";
 
 const paymentinfo = () => {
     return(
@@ -46,7 +45,6 @@ const paymentinfo = () => {
         style={{ background: "#ffffff" }}
       >
         <Khalti/>
-        <Stripe/>
         <form action="">
             
          <br />
