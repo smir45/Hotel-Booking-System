@@ -5,13 +5,12 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const Joi = require("joi");
 const { getTransporter } = require("../../utils/sendEmail");
-const otpGenerator = require('otp-generator')
-const { createAvatar } = require ('@dicebear/avatars')
+const otpGenerator = require("otp-generator");
+const { createAvatar } = require("@dicebear/avatars");
 const crypto = require("crypto");
 const nodemailer = require("nodemailer");
 const hbs = require("nodemailer-handlebars");
 require("dotenv").config();
-
 
 const schema = Joi.object({
   name: Joi.string().min(6).required(),
@@ -36,24 +35,25 @@ module.exports.findAll = async (req, res, next) => {
 };
 var receiverEmail;
 module.exports.createUser = async (req, res, next) => {
-var datas = req.body;
+  var datas = req.body;
   //checking if user already exist
   const user = await User.findOne({
     where: {
       email: req.body.email,
     },
   });
-  if (user) return res.status(400).json({ message: "User already exist" });
+  // if (user) return res.status(400).json({ message: "User already exist" });
 
   // // generating password hash
   const salt = await bcrypt.genSalt(10);
   const hashedpassword = await bcrypt.hash(req.body.password, salt);
 
   // creating user
-  const nameData = datas.name.split(" ").join("")
-  const uniqueid = await bcrypt.hash(nameData, salt)
+  const nameData = datas.name.split(" ").join("");
+  const uniqueid = await bcrypt.hash(nameData, salt);
 
-  const otp = otpGenerator.generate(6, { upperCase: true, specialChars: false });
+  const otp = otpGenerator.generate(6, { alphabets: false, upperCase: false, specialChars: false });
+
 
   const userdata = new User({
     email: datas.email,
@@ -62,8 +62,7 @@ var datas = req.body;
     phone: datas.phone,
     VerificationOtp: otp,
     DOB: "1996-01-01",
-    image: `https://avatars.dicebear.com/api/bottts/${uniqueid}.svg`
-
+    image: `https://avatars.dicebear.com/api/bottts/${uniqueid}.svg`,
   });
   try {
     const transporter = nodemailer.createTransport({
@@ -77,9 +76,24 @@ var datas = req.body;
       from: process.env.EMAIL,
       to: `${datas.email}`,
       subject: "Verify your email",
-      text: `Your OTP is ${otp}`,
-      html: `<h3>Verify your email</h3><p>Please verify your email using this <strong>OTP</strong> <br> <h1>${otp}</h1></p>`,
+      text: '',
+      template: "verification",
+      context: {
+        otp: otp,
+        name: datas.name.split(" ")[0],
+      },
     };
+    transporter.use(
+      "compile",
+      hbs({
+        viewEngine: {
+          partialsDir: "./views/",
+          defaultLayout: "",
+        },
+        viewPath: "./views/",
+        extName: ".hbs",
+      })
+    );
     transporter.sendMail(mailOptions, function (error, info) {
       if (error) {
         console.log(error);
@@ -87,10 +101,10 @@ var datas = req.body;
         console.log("Email sent: " + info.response);
       }
     });
-    const saveUser = await userdata.save();
-    res.json({ message: "User created successfully", data: { userdata} });
+    // const saveUser = await userdata.save();
+    res.json({ message: "User created successfully", data: { userdata } });
   } catch (err) {
-    console.log(err)
+    console.log(err);
   }
 };
 
@@ -109,8 +123,7 @@ module.exports.verifyUser = async (req, res) => {
     return res.status(200).json({ message: "User verified successfully" });
   }
   return res.status(400).json({ message: "Invalid OTP" });
-}
-
+};
 
 module.exports.userEmailVerification = (req, res) => {
   const { token } = req.body;
@@ -139,7 +152,6 @@ module.exports.userEmailVerification = (req, res) => {
     }
   });
 };
-
 
 // ------------------------------------------------------------------------------------------------------------------------------------
 
@@ -173,18 +185,18 @@ module.exports.updateUser = async (req, res) => {
   const datas = req.body;
   try {
     const updatedUser = await user.update(datas);
-    res.status(200).json({      
+    res.status(200).json({
       message: "Updated Successfully",
       data: updatedUser,
     });
-    console.log("updated")
+    console.log("updated");
   } catch (err) {
     res.status(400).json({
       message: "fail",
       data: err,
     });
   }
-  console.log(datas)
+  console.log(datas);
 };
 
 module.exports.deleteUser = async (req, res) => {
@@ -239,11 +251,11 @@ module.exports.userLogin = async (req, res, next) => {
     }
   );
 
-  if(user.isVerified === false){
+  if (user.isVerified === false) {
     return res.status(400).json({ message: "Please verify your email" });
   }
 
-  res.header("auth-token",token).json({
+  res.header("auth-token", token).json({
     message: {
       success: "Logged in successfully",
     },
@@ -255,12 +267,12 @@ module.exports.userLogin = async (req, res, next) => {
 
 module.exports.userLogout = async (req, res) => {
   try {
-    res.cookie('token', 'none', {
+    res.cookie("token", "none", {
       expires: new Date.now(),
-  })
-  res
+    });
+    res
       .status(200)
-      .json({ success: true, message: 'User logged out successfully' })
+      .json({ success: true, message: "User logged out successfully" });
   } catch (err) {
     res.status(400).json({
       message: "fail",
