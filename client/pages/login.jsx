@@ -34,6 +34,7 @@ const LoginElements = () => {
     if (res2.message === "Please verify your email") {
       addToast(res2.message, { appearance: "error" });
       setTimeout(() => {
+        localStorage.setItem("email", JSON.stringify(email));
         router.push("/verify");
       }
       , 1000);
