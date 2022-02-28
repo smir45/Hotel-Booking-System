@@ -96,6 +96,11 @@ const LoginElements = () => {
                    Sign Up
                  </a>
                </p>
+               <p className="w-full mt-4 text-sm text-center text-gray-500">
+                <a href="/forgotpassword" className="underline text-blue-600">
+                  Forgot Password ?
+                </a>
+              </p>
              </form>
            </div>
           ):(
@@ -134,6 +139,11 @@ const LoginElements = () => {
                 Don't have an account?{" "}
                 <a href="/signup" className="underline text-blue-600">
                   Sign Up
+                </a>
+              </p>
+              <p className="w-full mt-4 text-sm text-center text-gray-500">
+                <a href="/forgotpassword" className="underline text-blue-600">
+                  Forgot Password ?
                 </a>
               </p>
             </form>
