@@ -12,7 +12,7 @@ const ForgotPassword = () => {
   const [error, setError] = useState(false);
   const router = useRouter();
   
-  const url = "http://localhost:8000/api/auth/user/emailverification";
+  const url = "http://localhost:8000/api/auth/user/forgotpassword";
   const verify = async (e) => {
     e.preventDefault();
     const res = await fetch(url, {
@@ -85,7 +85,7 @@ const ForgotPassword = () => {
                 type="text"
                 name="otp"
                 style={{minWidth: "300px"}}
-                placeholder="Enter OTP"
+                placeholder="Enter your Email"
                 id="otp"
               />
               <div class="relative my-5">

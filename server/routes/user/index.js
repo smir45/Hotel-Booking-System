@@ -6,7 +6,7 @@ router.get('/', findAll);
 router.post('/', createUser);
 router.post('/login', userLogin);
 router.put('/emailverification', emailVerification);
-router.post('/forgotpassword', forgotPassword);
+// router.post('/forgotpassword', forgotPassword);
 router.post('/verifyresetotp', verifyResetOtp);
 router.put('/resetpassword', resetPassword);
 router.get('/:id', findUser);
