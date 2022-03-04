@@ -1,5 +1,4 @@
 
-
 let config = {
     // replace this key with yours
     "publicKey": "test_public_key_0f13f178dc5146b0bef2c6cf1330bd90",

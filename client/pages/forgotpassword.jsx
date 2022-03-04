@@ -5,39 +5,34 @@ import { useToasts } from "react-toast-notifications";
 
 const ForgotPassword = () => {
     const { addToast } = useToasts();
-  var userEmail;
-  userEmail = localStorage.getItem("email").replace(/['"]+/g, "");
   const [email, setEmail] = useState("");
-  const [otp, setOtp] = useState("");
   const [error, setError] = useState(false);
   const router = useRouter();
   
-  const url = "http://localhost:8000/api/auth/user/forgotpassword";
+  const url = "http://localhost:8000/api/auth/user/sendresetotp";
   const verify = async (e) => {
     e.preventDefault();
     const res = await fetch(url, {
-      method: "PUT",
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email: userEmail,
-        otp,
+        email,
       }),
     });
     const res2 = await res.json();
-    if (res2.message === "User already verified") {
+    if(res2.message === "User not found"){
       return addToast(res2.message, { appearance: "error" });
     }
-    if (res2.message === "Invalid OTP") {
+    if (res2.message === "Something went wrong") {
       return addToast(res2.message, { appearance: "error" });
     }
-    if (res2.message === "User verified successfully") {
+    if (res2.message === "OTP sent successfully") {
       addToast(res2.message, { appearance: "success" });
       setTimeout(() => {
-        router.push("/login");
-      }
-      , 1000);
+        router.push("/otp");
+      }, 1000);
     }
   };
   return (
@@ -72,28 +67,19 @@ const ForgotPassword = () => {
             <div>
               <input
                 onChange={(e) => setEmail(e.target.value)}
-                type="text"
-                disabled
-                style={{display: "none"}}
-                name="userEmail"
-                id="userEmail"
-                value={userEmail}
-              />
-              <input
-                onChange={(e) => setOtp(e.target.value)}
-                className="rounded-lg w-full p-5 my-2 bg-gray-200"
-                type="text"
-                name="otp"
-                style={{minWidth: "300px"}}
-                placeholder="Enter your Email"
-                id="otp"
+                type="email"
+                className="rounded-lg p-5 my-2 bg-gray-200"
+                style={{width: "300px"}}
+                name="email"
+                id="email"
+                placeholder="Email"
               />
               <div class="relative my-5">
                 <button
                   type="submit"
                   class="inline-block w-full px-5 py-4 text-lg font-medium text-center text-white transition duration-200 bg-pmry rounded-lg hover:bg-pmry ease"
                 >
-                  Verify
+                  Send OTP
                 </button>
               </div>
             </div>

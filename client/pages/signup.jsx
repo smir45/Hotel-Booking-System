@@ -5,7 +5,7 @@ import { useToasts } from 'react-toast-notifications'
 
 const SignupElements = () => {
 
-    const url = "http://localhost:8000/api/auth/user/";
+    const url = "http://localhost:8000/api/auth/user/create";
   const [data, setData] = React.useState({
     name: "",
     email: "",

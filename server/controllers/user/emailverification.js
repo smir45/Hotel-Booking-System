@@ -20,7 +20,7 @@ module.exports.emailVerification = async (req, res) => {
   return res.status(500).json({ message: "Invalid OTP" });
 };
 
-module.exports.forgotPassword = async (req, res) => {
+module.exports.sendResetOtp = async (req, res) => {
   const { email } = req.body;
   const user = await User.findOne({
     where: { email: email },
@@ -40,9 +40,9 @@ module.exports.forgotPassword = async (req, res) => {
     const mailOptions = {
       from: process.env.EMAIL,
       to: `${email}`,
-      subject: "Verify your email",
+      subject: "Reset Password",
       text: "",
-      template: "verification",
+      template: "forgotpassword",
       context: {
         otp: otp,
         name: user.name.split(" ")[0],
@@ -69,9 +69,9 @@ module.exports.forgotPassword = async (req, res) => {
     user.VerificationOtp = otp;
     user.save();
     return res.status(200).json({ message: "OTP sent successfully" });
+    // console.log("trying")
   } catch (err) {
-    console.log(err);
-    return res.status(500).json({ message: "Something went wrong" });
+    return res.status(500).json({ message: "Something went wrong", data: err });
   }
 };
 

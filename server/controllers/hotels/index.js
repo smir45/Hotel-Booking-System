@@ -2,6 +2,7 @@ const express = require("express");
 const { checkPreferences } = require("joi");
 const router = express.Router();
 const { Hotel } = require("../../models");
+const { Restaurent } = require("../../models")
 const { hotelpostSchema } = require("../../validation");
 const fs = require("fs");
 const { url } = require("inspector");
@@ -12,7 +13,7 @@ const fileUpload = require("express-fileupload");
 module.exports.getHotels = async (req, res) => {
   try {
     const hotels = await Hotel.findAll();
-    hoteldata = hotels.sort(function (a, b) {
+     hoteldata = hotels.sort(function (a, b) {
       return b.id - a.id;
     });
 
@@ -38,6 +39,7 @@ module.exports.getHotels = async (req, res) => {
       data: hoteldata,
       roomPrice: hotelPrice2,
     });
+    // res.send(hotelName)
   } catch (err) {
     res.json(err);
   }
@@ -138,6 +140,7 @@ module.exports.postJsonHotel = async (req, res) => {
     const uniqueArray = datas.filter(function (elem, pos) {
       return datas.indexOf(elem) == pos;
     });
+    // bulk create 
     const hotel = await Hotel.bulkCreate(uniqueArray);
 
     res.send(hotel);
