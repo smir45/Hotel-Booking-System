@@ -1,7 +1,7 @@
 import * as React from "react";
 import DashboardNavigation from "../components/componentsFiles/dashboard";
 
-const HomePage = () => {    
+const HomePage = () => {
   return (
     <div>
       <Header />

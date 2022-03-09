@@ -9,6 +9,7 @@ const searchDatas = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [hotels, setHotels] = useState(null);
   const [prices, setPrices] = useState(null);
+  const [data, setData] = useState(null);
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios("http://localhost:8000/api/hotels/");
@@ -24,6 +25,7 @@ const searchDatas = () => {
       const hotels = JSON.parse(localStorage.getItem("hotels"));
       const pricesss = JSON.parse(localStorage.getItem("prices"));
       setHotels(singledata || hotels);
+      setData(singledata);
       setPrices(prices || pricesss);
       setIsLoading(false);
     };
@@ -33,11 +35,20 @@ const searchDatas = () => {
   localStorage.setItem("hotels", JSON.stringify(hotels));
   localStorage.setItem("prices", JSON.stringify(prices));
 
+  // filter data according to the search
+  const filterData = (e) => {
+    const filter = e.target.value;
+    let filteredData = data.filter((item) => {
+      return item.title.toLowerCase().includes(filter.toLowerCase());
+    });
+    setHotels(filteredData);
+
+  };
   return (
     <>
       <div
         className="border w-full "
-        style={{ background: "#f5f5f5f5", padding: "5px" }}
+        style={{ background: "#f5f5f5f5", padding: "5px", height: "100vh" }}
       >
         {isLoading ? (
           <div className="flex justify-center items-center h-screen">
@@ -45,6 +56,11 @@ const searchDatas = () => {
           </div>
         ) : (
           <div>
+            <div>
+              <div className="flex justify-center items-center">
+                  <input className="p-3 my-2 w-2/5 border focus:shadow-lg outline-none hover:shadow-lg duration-100 rounded-lg" type="search" name="search" onChange={filterData} id="search" placeholder="Enter hotel to search.." />
+              </div>
+            </div>
             {hotels.map((hotel, index) => (
               <div key={hotel.uniqueKey}>
                 <div>
@@ -104,7 +120,9 @@ const searchDatas = () => {
                             className="border flex py-1 px-2 mx-3 font-bold bg-gray-300"
                             style={{ width: "fit-content" }}
                           >
-                            <span className="mt-1 text-lg mx-1"><FaParking/></span>
+                            <span className="mt-1 text-lg mx-1">
+                              <FaParking />
+                            </span>
                             {hotel.parking || "Parking not available"}
                           </p>
                           <p className="text-gray-500 mx-5 font-bold text-2xl text-primary float-right">

@@ -199,6 +199,7 @@ module.exports.userLogin = async (req, res, next) => {
       address: user.address,
       isHost: user.isHost,
       isVerified: user.isVerified,
+      isAdmin: user.isAdmin,
     },
     process.env.TOKEN_SECRET,
     {

@@ -1,10 +1,13 @@
 import React from "react";
+import NavHeaderDashboard from "../components/componentsFiles/header";
 
 const Messages = () => {
+  
   return (
-    <div>
-      <div class="container mx-auto">
-        <div class="min-w-full border  rounded lg:grid lg:grid-cols-3">
+    <div className="flex">
+      <NavHeaderDashboard />
+      <div class="container">
+        <div class="min-w-full h-full border-l  rounded lg:grid lg:grid-cols-3">
           <div class="border-r border-gray-300 lg:col-span-1">
             <div class="mx-3 my-3">
               <div class="relative text-gray-600">
@@ -56,7 +59,7 @@ const Messages = () => {
             </ul>
           </div>
           <div class="hidden lg:col-span-2 lg:block">
-            <div class="w-full">
+            <div class="w-full min-w-full">
               <div class="relative flex items-center p-3 border-b border-gray-300">
                 <img
                   class="object-cover w-10 h-10 rounded-full"
@@ -166,6 +169,7 @@ const Messages = () => {
           </div>
         </div>
       </div>
+
     </div>
   );
 };
