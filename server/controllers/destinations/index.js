@@ -17,3 +17,18 @@ module.exports.getAllPosts = async (req, res, next) => {
     console.log(err)
  }
 }
+
+module.exports.postDestination = async (req, res, next) => {
+  const data = req.body;
+  try{
+    const post = await Destinations.create(data);
+    res.status(200).json(post);
+    console.log(post);
+  }catch(err){
+    res.status(500).json({
+      message: "Error creating destination",
+      error: err
+    });
+    console.log(err)
+  }
+}

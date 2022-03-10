@@ -61,6 +61,7 @@ const DashboardTrendingElements = () => {
         </h2>
 
         <div className="flex items-center justify-center">
+
           <div className="grid gap-8 mt-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {secdata.map((data) => (
               <Link href={`/hotels/${encodeURIComponent(data.title)}`}>
@@ -87,6 +88,11 @@ const DashboardTrendingElements = () => {
           {/* <Loading/> */}
         </div>
       </section>
+      <div className="w-11/12">
+        <Link href="/destinations">
+          <p className="underline cursor-pointer float-right">View More..</p>
+        </Link>
+      </div>
     </main>
   );
 };

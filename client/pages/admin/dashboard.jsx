@@ -10,17 +10,13 @@ const dashboard = () => {
   const [error, setError] = useState(false);
   const user = getCookie("token");
   const userData = Jwt.decode(user);
-  if (userData.isAdmin === false) {
-    useEffect(() => {
+  // display error message if user is not admin and redirect to login page
+  useEffect(() => {
+    if (userData.isAdmin === false) {
       setError(true);
-      <div>
-        <h1>You are not authorized to view this page</h1>
-      </div>
-      setTimeout(() => {
-        router.push("/");
-      }, 1000);
-    }, []);
-  }
+      Router.push("/login");
+    }
+  }, []);
   return (
     <div>
       <NavDrawer />
