@@ -7,6 +7,8 @@ import { useToasts } from "react-toast-notifications";
 
 const LoginElements = () => {
   const { addToast } = useToasts();
+
+
   const [email, setEmail] = useState("");
   const [error, setError] = useState(false);
   const [password, setPassword] = useState("");
@@ -23,6 +25,9 @@ const LoginElements = () => {
         password,
       }),
     });
+
+
+
     const res2 = await res.json();
     if (res2.message === "Invalid email or username") {
       return addToast(res2.message, { appearance: "error" });
