@@ -33,7 +33,7 @@ const DasboardBannerMainElements = () => {
     }
     
     
-    if(!getCookie("token")){
+    if(!getCookie("token") || !getCookie("loginData")){
       addToast(('Please Login to Continue'), { appearance: "error" });
       return router.push("/login");
     }

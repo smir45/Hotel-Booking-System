@@ -32,6 +32,7 @@ export default function NavHeaderDashboard() {
 
     fetchData();
     const auth = getCookie("token");
+    const auth2 = getCookie("loginData");
     
     if (!auth) {
       return router.push("/login");

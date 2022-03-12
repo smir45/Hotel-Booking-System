@@ -26,7 +26,8 @@ const DashboardTrendingElements = () => {
 
     fetchData();
     var auth = getCookie("token");
-    if (!auth) {
+    var auth2 = getCookie("loginData");
+    if (!auth || !auth2) {
       addToast("Please Login to Continue", { appearance: "error" });
       return router.push("/login");
     }

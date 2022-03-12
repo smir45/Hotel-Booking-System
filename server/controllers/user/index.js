@@ -251,3 +251,34 @@ module.exports.getUserByUuid = async (req, res) => {
     res.status(400).json({ message: err });
   }
 };
+
+
+module.exports.googleAuthentication = async (req, res, next) => {
+  const { idToken } = req.body;
+  try {
+      console.log("google auth")
+     const data =  req.body;
+      const googleLogin = jwt.sign(
+          {
+              data
+          },
+          process.env.TOKEN_SECRET,
+          {
+              expiresIn: Math.floor(Date.now() / 1000) + 60 * 60,
+          }
+      );
+      res.header("auth-token", googleLogin).json({
+          message: {
+              success: "Logged in successfully",
+          },
+          googleData: googleLogin,
+      });
+      console.log(data)
+    next();
+  } catch (err) {
+    res.status(400).json({
+      message: "fail",
+      data: err,
+    });
+    }
+};

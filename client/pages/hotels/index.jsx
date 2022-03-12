@@ -22,16 +22,26 @@ const searchDatas = () => {
       const prices = result.data.roomPrice.map((item) => {
         return item[1];
       });
+
+
+
+
       const hotels = JSON.parse(localStorage.getItem("hotels"));
       const pricesss = JSON.parse(localStorage.getItem("prices"));
+
+
       setHotels(singledata || hotels);
       setData(singledata);
+
+
       setPrices(prices || pricesss);
       setIsLoading(false);
     };
 
     fetchData();
   }, []);
+
+
   localStorage.setItem("hotels", JSON.stringify(hotels));
   localStorage.setItem("prices", JSON.stringify(prices));
 

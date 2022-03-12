@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { AiFillLock } from "react-icons/ai";
 import { useToasts } from "react-toast-notifications";
+import GoogleAuthentication from "../components/componentsFiles/googleAuth";
 
 const LoginElements = () => {
   const { addToast } = useToasts();
@@ -140,6 +141,9 @@ const LoginElements = () => {
               >
                 Login
               </button>
+              <div className="w-full flex justify-center mt-2">
+                <GoogleAuthentication />
+              </div>
               <p className="w-full mt-4 text-sm text-center text-gray-500">
                 Don't have an account?{" "}
                 <a href="/signup" className="underline text-blue-600">

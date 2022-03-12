@@ -27,7 +27,7 @@ const IndexElements = (props) => {
     }
     
     
-    if(getCookie("token")){
+    if(getCookie("token") || getCookie("loginData")){
       return router.push("/home");
     }
   }, []);

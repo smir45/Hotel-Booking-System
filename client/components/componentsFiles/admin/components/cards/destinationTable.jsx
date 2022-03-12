@@ -1,47 +1,83 @@
 import React, { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import axios from 'axios';
-import EditIcon from '@mui/icons-material/Edit';
+import { FaEdit, FaTrash } from 'react-icons/fa';
 
 
 var datas
 const columns = [
   {
-    field: "uniqueKey",
-    headerName: "Unique Key",
+    field: "id",
+    headerName: "ID",
+    width: 100,
+    type: "numericColumn",
+    sortable: true,
+  },
+  {
+    field: "title",
+    headerName: "Title",
     type: "text",
     width: 350,
     editable: false,
   },
   {
-    field: "latitude",
-    headerName: "Latitude",
+    field: "description",
+    headerName: "Description",
     type: "text",
     width: 210,
     editable: false
   },
   {
-    field: "longitude",
-    headerName: "Longitude",
+    field: "images",
+    headerName: "Image",
     type: "text",
     width: 210,
     editable: false,
   },
   {
-    field: "title",
-    headerName: "Name",
+    field: "city",
+    headerName: "City",
     type: "text",
     width: 210,
     editable: false,
   },
   {
-    field: "review_score",
-    headerName: "Rating",
+    field: "slug",
+    headerName: "Slug",
     width: 100,
     editable: false,
-  }
+  },
+  {
+    field: "delete",
+    headerName: "Delete",
+    minWidth: 100,
+    editable: false,
+    headerAlign: "center",
+    renderCell: (params) => {
+      console.log(params.row.id)
+      const Delete = (e) => {
+        e.preventDefault();
+        axios.delete(`http://localhost:8000/api/destinations/${params.id}`)
+          .then(res => {
+            console.log(res)
+            window.location.reload()
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      }
+      return (
+        <button
+            onClick={Delete }
+        >
+          <FaTrash />
+        </button>
 
+      );
+    },
+  }
 ];
+
 export default function DestinationTableGrid() {
   const [rows, setRows] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -50,15 +86,10 @@ export default function DestinationTableGrid() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios("http://localhost:8000/api/hotels");
-      setRows(result.data.data || []);
-      // removing datas with same name
-      datas = result.data.data.reverse()
-      const uniqueData = datas.filter((item, index) => {
-        return datas.findIndex(i => i.title === item.title) === index;
-      });
+      const result = await axios("http://localhost:8000/api/destinations/");
+      setRows(result.data || []);
 
-      setDestinations(uniqueData);
+      setDestinations(rows);
 
       
       setLoading(false);
@@ -67,15 +98,17 @@ export default function DestinationTableGrid() {
   }, []);
 
 
+
   return (
     <div className="shadow-xl mx-auto" style={{ height: 400, border: "none", width: "90%" }}>
       <DataGrid
-        rows={destinations}
+        rows={rows}
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5]}
         checkboxSelection
         disableSelectionOnClick
+
       />
     </div>
   );

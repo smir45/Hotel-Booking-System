@@ -17,6 +17,7 @@ const dashboard = () => {
       Router.push("/login");
     }
   }, []);
+  console.log(userData);
   return (
     <div>
       <NavDrawer />

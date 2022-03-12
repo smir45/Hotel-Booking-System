@@ -17,6 +17,9 @@ module.exports = {
       slug: {
         type: Sequelize.STRING,
       },
+      city: {
+        type: Sequelize.STRING,
+      },
       reviews: {
         allowNull: true,
         type: Sequelize.STRING,

@@ -10,7 +10,6 @@ const Contents = {
   depature: "Depature",
   date: "Date",
   number: "Number of person",
-  number: "Number of Persons",
 
 };
 

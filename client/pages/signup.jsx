@@ -12,8 +12,6 @@ const SignupElements = () => {
     password: "",
     phone: "",
   });
-  // fetch error message from server and set it to state
-  const [error, setError] = React.useState("");
   const registration = (e) => {
     
     e.preventDefault();
@@ -32,15 +30,6 @@ const SignupElements = () => {
         addToast(err.response.data.message, {
           appearance: 'error'
         })
-        if(err.response.data.message === 'User already exist'){
-          setTimeout(() => {
-            router.push('/login')
-            addToast('Please login to Continue', {
-              appearance: 'error'
-            })
-          }
-          , 1000);
-        }
         
       });
   };

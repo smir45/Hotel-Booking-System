@@ -5,14 +5,15 @@ const { Post } = require("../../models");
 const {
   getAllPosts,
   postDestination,
-    getDestinationByCity
+    getDestinationByCity,
+    deleteDestination,
+    getDestinationBySlug
 } = require('../../controllers/destinations');
 
 router.post("/post", postDestination);
 router.get('/', getAllPosts);
+router.get("/:slug", getDestinationBySlug);
 router.get("/:city", getDestinationByCity);
-// router.get("/post/:slug", getPostBySlug);
-// router.put("/post/:id", updatePost);
-// router.delete("/post/:id", deletePost);
+router.delete("/delete/:id", deleteDestination);
 
 module.exports = router;

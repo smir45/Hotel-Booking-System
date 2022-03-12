@@ -1,6 +1,57 @@
-import React from "react";
+import React,{ useState, useEffect} from "react";
+import cookie from "js-cookie";
+import { useRouter } from "next/router";
+import { AiFillLock } from "react-icons/ai";
+import { useToasts } from "react-toast-notifications";
 
 const HostLogin = () => {
+  const { addToast } = useToasts();
+
+
+  const [email, setEmail] = useState("");
+  const [error, setError] = useState(false);
+  const [password, setPassword] = useState("");
+  const router = useRouter();
+  const userLogin = async (e) => {
+    e.preventDefault();
+    const res = await fetch(`http://localhost:8000/api/auth/host/user/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    });
+
+
+
+    const res2 = await res.json();
+    if (res2.message === "Invalid email or username") {
+      return addToast(res2.message, { appearance: "error" });
+    }else if (res2.message === "Invalid Password") {
+
+      setError(true);
+      return addToast(res2.message, { appearance: "error" });
+    }
+    if (res2.message === "Please verify your email") {
+      addToast(res2.message, { appearance: "error" });
+      setTimeout(() => {
+            localStorage.setItem("email", JSON.stringify(email));
+            router.push("/verify");
+          }
+          , 1000);
+    }
+    else {
+      addToast(res2.message.success, { appearance: "success" });
+      cookie.set("token", res2.data);
+      cookie.set("user", res2.user);
+      router.push("/admin/dashboard");
+    }
+
+
+  };
   return (
     <>
       <div className="bg-white dark:bg-gray-900">
@@ -26,7 +77,7 @@ const HostLogin = () => {
             <div className="flex-1">
               <div className="text-center">
                 <h2 className="text-4xl font-bold text-center text-gray-700 dark:text-white">
-                  Brand
+                  Accommod
                 </h2>
 
                 <p className="mt-3 text-gray-500 dark:text-gray-300">
@@ -35,7 +86,7 @@ const HostLogin = () => {
               </div>
 
               <div className="mt-8">
-                <form>
+                <form onSubmit={(e) => userLogin(e)}>
                   <div>
                     <label
                       for="email"
@@ -49,6 +100,7 @@ const HostLogin = () => {
                       id="email"
                       placeholder="example@example.com"
                       className="block w-full p-5 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                      onChange={(e) => setEmail(e.target.value)}
                     />
                   </div>
 
@@ -74,6 +126,7 @@ const HostLogin = () => {
                       id="password"
                       placeholder="Your Password"
                       className="block w-full p-5 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                      onChange={(e) => setPassword(e.target.value)}
                     />
                   </div>
 

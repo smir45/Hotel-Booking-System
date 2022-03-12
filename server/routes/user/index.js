@@ -9,6 +9,7 @@ const {
   userLogin,
   userLogout,
   getUserByUuid,
+    googleAuthentication,
   uploadImage,
 } = require("../../controllers/user");
 const {
@@ -26,6 +27,7 @@ router.put("/emailverification", emailVerification);
 router.post("/verifyresetotp", verifyResetOtp);
 router.get("/:id", findUser);
 router.get("/:uuid", getUserByUuid);
+router.post("/google", googleAuthentication);
 router.put("/:id", updateUser);
 router.delete("/delete/:id", deleteUser);
 router.put("/logout", userLogout);

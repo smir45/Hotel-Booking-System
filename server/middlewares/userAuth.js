@@ -2,7 +2,7 @@ const {User} = require('../models')
 const jwt = require("jsonwebtoken")
 
 module.exports = async function (req, res, next) {
-    if (!("authorization" in req.headers)) {
+    if (!("auth-token" in req.headers)) {
       return res.status(401).json({ message: "Unauthorized" });
     }
     const [bearer, token] = req.headers.authorization.split(" ");

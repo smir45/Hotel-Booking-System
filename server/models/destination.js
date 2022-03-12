@@ -29,6 +29,9 @@ module.exports = (sequelize, DataTypes) => {
     slug: {
       type: DataTypes.STRING,
     },
+    city: {
+      type: DataTypes.STRING,
+    },
     reviews: {
       allowNull: true,
       type: DataTypes.STRING,

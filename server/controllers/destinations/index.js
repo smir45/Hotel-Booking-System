@@ -19,9 +19,23 @@ module.exports.getAllPosts = async (req, res, next) => {
 }
 
 module.exports.postDestination = async (req, res, next) => {
-  const data = req.body;
+
   try{
-    const post = await Destinations.create(data);
+      const data = req.body;
+      const slugified = slugify(data.title, {
+          replacement: "-",
+          lower: true
+      });
+    const post = await Destinations.create(
+        {
+            title : data.title,
+            slug : slugified,
+            description : data.description,
+            images : data.images,
+            city : data.city
+        }
+    );
+
     res.status(200).json({
         message: "Destination posted successfully",
         data: post,
@@ -37,13 +51,66 @@ module.exports.postDestination = async (req, res, next) => {
 }
 
 module.exports.getDestinationByCity = async (req, res, next) => {
-    const request = req.body;
+    const request = req.params;
 
     try{
-        res.send("trying", request)
+        const destination = await Destinations.findAll({
+            where: {
+                city: request.city
+            }
+        });
+        res.status(200).json({
+            message: "Destination found",
+            data: destination
+        });
     }catch(err){
         res.status(500).json({
-            message: err.message
+            message: "Error retrieving destination",
+            error: err
+        })
+    }
+}
+
+
+module.exports.deleteDestination = async (req, res, next) => {
+    const request = req.params;
+
+    try{
+        const destination = await Destinations.destroy({
+            where: {
+                id: request.id
+            }
+        });
+        if(!destination) res.status(404).json({ message: "Destination not found"});
+
+        res.status(200).json({
+            message: "Destination deleted Seccessfully"
+        });
+    }catch(err){
+        res.status(500).json({
+            message: "Error deleting destination",
+            error: err
+        })
+    }
+}
+
+
+module.exports.getDestinationBySlug = async (req, res, next) => {
+    const request = req.params;
+    try{
+        const destination = await Destinations.findAll({
+            where: {
+                slug: request.slug
+            }
+        });
+        res.status(200).json({
+            message: "Destination found",
+            data: destination
+        });
+    }catch(err){
+        res.status(500).json({
+            message: "Error retrieving destination",
+            error: err
         })
     }
 }
