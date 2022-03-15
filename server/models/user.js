@@ -30,7 +30,8 @@ module.exports = (sequelize, DataTypes) => {
     phone: DataTypes.INTEGER,
     isVerified:DataTypes.BOOLEAN,
     isAdmin:DataTypes.BOOLEAN,
-    otp:DataTypes.INTEGER
+    otp:DataTypes.INTEGER,
+    image: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'User',

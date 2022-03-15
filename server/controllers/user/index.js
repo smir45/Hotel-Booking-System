@@ -70,19 +70,16 @@ module.exports.createUser = async (req, res, next) => {
   const nameData = datas.name.split(" ").join("");
   const uniqueid = await bcrypt.hash(nameData, salt);
 
-  const otp = otpGenerator.generate(6, {
-    alphabets: false,
-    upperCase: false,
-    specialChars: false,
-  });
+//   generate six digit numeric otp
+    const otp = Math.floor(100000 + Math.random() * 900000);
+    console.log(otp);
 
   const userdata = new User({
     email: datas.email,
     password: hashedpassword,
     name: datas.name,
     phone: datas.phone,
-    VerificationOtp: otp,
-    DOB: "1996-01-01",
+    otp: otp,
     image: `https://avatars.dicebear.com/api/bottts/${uniqueid}.svg`,
   });
   try {
@@ -160,7 +157,12 @@ module.exports.updateUser = async (req, res) => {
 
   const datas = req.body;
   try {
-    const updatedUser = await user.update(datas);
+    const userAddress = await Address.findOne({
+        where: {
+            userId: id,
+        },
+    });
+    await userAddress.update(datas);
     res.status(200).json({
       message: "Updated Successfully",
       data: updatedUser,

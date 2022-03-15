@@ -3,6 +3,7 @@ const {checkPreferences} = require("joi");
 const router = express.Router();
 const {hotel} = require("../../models");
 const { Address } = require("../../models");
+const { hotel_reviews } = require("../../models");
 
 const {Currency} = require("../../models")
 const {hotelpostSchema} = require("../../validation");
@@ -24,6 +25,9 @@ module.exports.getHotels = async (req, res) => {
                 {
                     model: Address,
                     attributes: ["id", "city", "state", "country"],
+                },
+                {
+                    model: hotel_reviews,
                 }
             ],
 
