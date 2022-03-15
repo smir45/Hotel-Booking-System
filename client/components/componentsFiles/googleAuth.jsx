@@ -2,13 +2,12 @@ import React, {useState, useEffect} from "react";
 import GoogleLogin from 'react-google-login';
 import axios from 'axios';
 import cookie from "js-cookie";
-import { useRouter } from "next/router";
+import {useRouter} from "next/router";
 
 
 const GoogleAuthentication = (googleData) => {
     const [loginData, setLoginData] = useState(
-    localStorage.getItem('loginData') ? JSON.parse(localStorage.getItem('loginData')) : null
-
+        localStorage.getItem('loginData') ? JSON.parse(localStorage.getItem('loginData')) : null
     );
     const handleFailure = (response) => {
 
@@ -18,21 +17,23 @@ const GoogleAuthentication = (googleData) => {
 
     const handleSuccess = (response) => {
 
-        console.log("success logging in");
-        console.log(response);
-        const res = axios.post( 'http://localhost:8000/api/auth/user/google', {
+        const res = axios.post('http://localhost:8000/api/auth/user/google', {
             access_token: response.accessToken,
             email: response.profileObj.email,
             name: response.profileObj.familyName,
             image: response.profileObj.imageUrl,
         })
             .then(res => {
-                console.log(res);
-                console.log(res.data);
                 localStorage.setItem('loginData', JSON.stringify(res.data));
-                cookie.set('loginData', JSON.stringify(res.data));
+                cookie.set('token', JSON.stringify(res.data));
                 setLoginData(res.data);
-                router.push("/home");
+
+                console.log(res.data.message.success);
+                if (res.data.message.success === "Logged in successfully") {
+                    router.push("/home");
+                }
+
+
             })
             .catch(err => {
                 console.log(err);

@@ -1,5 +1,7 @@
 const express = require("express");
 const { User } = require("../../models");
+const { Address } = require("../../models");
+const { hotel_reviews } = require("../../models");
 const router = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -10,7 +12,9 @@ const { createAvatar } = require("@dicebear/avatars");
 const crypto = require("crypto");
 const nodemailer = require("nodemailer");
 const hbs = require("nodemailer-handlebars");
+
 require("dotenv").config();
+const db = require("../../models");
 
 const schema = Joi.object({
   name: Joi.string().min(6).required(),
@@ -21,14 +25,28 @@ const schema = Joi.object({
 
 module.exports.findAll = async (req, res, next) => {
   try {
-    const users = await User.findAll();
+    const users = await User.findAll(
+      // add another table data
+      {
+        include: [
+          {
+            model: Address,
+            attributes: ["country", "city", "state"],
+          },
+          {
+            model: hotel_reviews,
+            attributes: ["average", "stars", "review", "Comment"],
+          },
+        ],
+      }
+    );
     res.status(200).json({
       message: "success",
       data: users,
     });
   } catch (err) {
     res.status(400).json({
-      message: "fail",
+      message: err.message,
       data: err,
     });
   }
@@ -52,8 +70,11 @@ module.exports.createUser = async (req, res, next) => {
   const nameData = datas.name.split(" ").join("");
   const uniqueid = await bcrypt.hash(nameData, salt);
 
-  const otp = otpGenerator.generate(6, { alphabets: false, upperCase: false, specialChars: false });
-
+  const otp = otpGenerator.generate(6, {
+    alphabets: false,
+    upperCase: false,
+    specialChars: false,
+  });
 
   const userdata = new User({
     email: datas.email,
@@ -76,7 +97,7 @@ module.exports.createUser = async (req, res, next) => {
       from: process.env.EMAIL,
       to: `${datas.email}`,
       subject: "Verify your email",
-      text: '',
+      text: "",
       template: "verification",
       context: {
         otp: otp,
@@ -107,7 +128,6 @@ module.exports.createUser = async (req, res, next) => {
     console.log(err);
   }
 };
-
 
 // ------------------------------------------------------------------------------------------------------------------------------------
 
@@ -224,8 +244,8 @@ module.exports.userLogin = async (req, res, next) => {
 
 module.exports.userLogout = async (req, res) => {
   try {
-    console.log("trial")
-   res.send("trial")
+    console.log("trial");
+    res.send("trial");
   } catch (err) {
     res.status(400).json({
       message: "fail",
@@ -252,33 +272,32 @@ module.exports.getUserByUuid = async (req, res) => {
   }
 };
 
-
 module.exports.googleAuthentication = async (req, res, next) => {
   const { idToken } = req.body;
   try {
-      console.log("google auth")
-     const data =  req.body;
-      const googleLogin = jwt.sign(
-          {
-              data
-          },
-          process.env.TOKEN_SECRET,
-          {
-              expiresIn: Math.floor(Date.now() / 1000) + 60 * 60,
-          }
-      );
-      res.header("auth-token", googleLogin).json({
-          message: {
-              success: "Logged in successfully",
-          },
-          googleData: googleLogin,
-      });
-      console.log(data)
+    console.log("google auth");
+    const data = req.body;
+    const token = jwt.sign(
+      {
+        data,
+      },
+      process.env.TOKEN_SECRET,
+      {
+        expiresIn: Math.floor(Date.now() / 1000) + 60 * 60,
+      }
+    );
+    res.header("auth-token", token).json({
+      message: {
+        success: "Logged in successfully",
+      },
+      data: token,
+    });
+    // console.log(data)
     next();
   } catch (err) {
     res.status(400).json({
       message: "fail",
       data: err,
     });
-    }
+  }
 };

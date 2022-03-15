@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useRouter} from "next/router";
 import axios from 'axios';
 
@@ -11,9 +11,9 @@ const slug = () => {
 
     const router = useRouter();
     const destination = router.query.slug;
-    const  url = (`http://localhost:8000/api/destinations/${destination}`);
+    const url = (`http://localhost:8000/api/destinations/${destination}`);
 
-    useEffect( ()  => {
+    useEffect(() => {
 
         const fetchData = async () => {
             const result = await axios(url);
@@ -24,12 +24,12 @@ const slug = () => {
         };
 
         fetchData();
-    },[])
+    }, [])
     console.log(attraction);
     return (
         <div>
             {
-                attraction.map( (item, index) => {
+                attraction.map((item, index) => {
                     return (
                         <div key={index}>
                             <h1>{item.title}</h1>
