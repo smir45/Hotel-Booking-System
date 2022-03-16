@@ -2,9 +2,10 @@ const express = require("express");
 const {checkPreferences} = require("joi");
 const router = express.Router();
 const {hotel} = require("../../models");
-const { Address } = require("../../models");
-const { hotel_reviews } = require("../../models");
-const { facilities } = require("../../models");
+const {Address} = require("../../models");
+const {hotel_reviews} = require("../../models");
+const {User} = require("../../models");
+const {facilities} = require("../../models");
 
 const {Currency} = require("../../models")
 const {hotelpostSchema} = require("../../validation");
@@ -17,26 +18,29 @@ const fileUpload = require("express-fileupload");
 module.exports.getHotels = async (req, res) => {
     try {
         const hotel_data = await hotel.findAll({
-            include: [
-                {
-                    model: Currency,
-                    // as: "address",
-                    attributes: ["id", "name"],
-                },
-                {
-                    model: Address,
-                    attributes: ["id", "city", "state", "country"],
-                },
-                {
-                    model: hotel_reviews,
-                },{
-                    model: facilities,
-                }
-            ],
+                include: [
+                    {
+                        model: Currency,
+                        // as: "address",
+                        attributes: ["id", "name"],
+                    },
+                    {
+                        model: Address,
+                        attributes: ["id", "city", "state", "country"],
+                    },
+                    {
+                        model: hotel_reviews,
+                    },
+                    {
+                        model: facilities,
+                    },
 
-        }
+
+                ],
+
+            }
         );
-        
+
         res.send(hotel_data)
     } catch (err) {
         res.json(err);
@@ -50,18 +54,22 @@ module.exports.getAHotel = async (req, res, next) => {
                 slug: req.params.uniqueKey,
             },
             include: [{
-                model: Currency,  
-            },{
+                model: Currency,
+            }, {
                 model: Address,
-            },{
+            }, {
                 model: hotel_reviews,
             },
-            {
-                model: facilities,
-            }
+                {
+                    model: facilities,
+                },
+                {
+                    model: User,
+                    attributes: ["name", "image"]
+                }
 
-        ]
-        
+            ]
+
         })
         res.send(hotelData)
     } catch (err) {

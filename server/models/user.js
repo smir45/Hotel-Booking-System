@@ -16,6 +16,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'userId'
       })
 
+      User.hasMany(models.hotel, {
+        foreignKey: 'userId'
+      })
+
       User.hasMany(models.hotel_reviews, {
         // as: 'hotel_reviews',
         foreignKey: 'userId'
@@ -28,9 +32,9 @@ module.exports = (sequelize, DataTypes) => {
     email: DataTypes.STRING,
     password: DataTypes.STRING,
     phone: DataTypes.INTEGER,
-    isVerified:DataTypes.BOOLEAN,
-    isAdmin:DataTypes.BOOLEAN,
-    otp:DataTypes.INTEGER,
+    isVerified: DataTypes.BOOLEAN,
+    isAdmin: DataTypes.BOOLEAN,
+    otp: DataTypes.INTEGER,
     image: DataTypes.STRING,
   }, {
     sequelize,

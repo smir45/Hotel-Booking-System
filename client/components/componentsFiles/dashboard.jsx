@@ -14,7 +14,7 @@ import {useRouter} from "next/router";
 import Blog from "../../pages/blog";
 
 const DasboardNavigationElements = () => {
-    
+
     return (
         <>
             <header>
@@ -31,8 +31,8 @@ const DasboardNavigationElements = () => {
                         <FeaturesCard/>
                         <DashboardTrending/>
                         <Catagories/>
-                        <BestHotels/>
-                        {/* <Blog/> */}
+                        {/*<BestHotels/>*/}
+                        {/*<Blog/>*/}
                         <HowItWorks/>
                         <Footer/>
                     </div>
