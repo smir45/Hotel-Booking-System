@@ -4,6 +4,7 @@ const router = express.Router();
 const {hotel} = require("../../models");
 const { Address } = require("../../models");
 const { hotel_reviews } = require("../../models");
+const { facilities } = require("../../models");
 
 const {Currency} = require("../../models")
 const {hotelpostSchema} = require("../../validation");
@@ -28,6 +29,8 @@ module.exports.getHotels = async (req, res) => {
                 },
                 {
                     model: hotel_reviews,
+                },{
+                    model: facilities,
                 }
             ],
 
@@ -42,14 +45,25 @@ module.exports.getHotels = async (req, res) => {
 
 module.exports.getAHotel = async (req, res, next) => {
     try {
-        const hotel = await Hotel.findOne({
+        const hotelData = await hotel.findOne({
             where: {
-                uniqueKey: req.params.uniqueKey,
+                slug: req.params.uniqueKey,
             },
-        });
-        res.json(
-            hotel
-        );
+            include: [{
+                model: Currency,  
+            },{
+                model: Address,
+            },{
+                model: hotel_reviews,
+            },
+            {
+                model: facilities,
+            }
+
+        ]
+        
+        })
+        res.send(hotelData)
     } catch (err) {
         res.status(500).json(err);
         console.log(err);
