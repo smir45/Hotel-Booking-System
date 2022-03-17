@@ -18,47 +18,56 @@ import {
 } from "react-icons/fa";
 import GoogleApiWrapper from "../../components/componentsFiles/map";
 
-const hotelId = (props) => {
-    const [isLoading, setIsLoading] = useState(true);
-    const [places, setPlaces] = useState("");
-    const [datas, setDatas] = useState([]);
-    const router = useRouter();
-    const uniquekey = router.query.slug;
-    var resultdata;
+export const getStaticPaths = async ({query}) => {
+    const res = await fetch(`http://localhost:8000/api/hotels/`)
+    const data = await res.json();
 
-    const url = `hotels/${uniquekey}`;
-    useEffect(() => {
-        const fetchData = async () => {
-            // const result = await axios.get(url);
-            const result = await fetch(
-                "http://localhost:8000/api/hotels/this-is-hotel"
-            );
-            const resultData = await result.json();
-            // console.log(resultData);
-            setPlaces(resultData);
-            setIsLoading(false);
-        };
+    const paths = data.map(item => {
+        return {
+            params: {
+                slug: item.slug.toString()
+            }
+        }
+    });
+    return {
+        paths,
+        fallback: false,
 
-        fetchData();
-    }, []);
-    console.log(places);
+    }
+};
+
+export const getStaticProps = async (context) => {
+    const slug = context.params.slug;
+    const res = await fetch("http://localhost:8000/api/hotels/" + slug);
+    const data = await res.json();
+
+    return {
+        props: {
+            item: data
+        }
+    }
+}
+
+// const hotelId = ({item}) => {
+//     return (
+//         <div>
+//             <h1>{item.name}</h1>
+//             <h1>This is dynamic {item.slug}</h1>
+//         </div>
+//     )
+// }
+
+
+const hotelId = ({item}) => {
 
     const mapStyles = {
         width: "100%",
         height: "100%",
     };
-    if (isLoading) {
-        return (
-            <div>
-                <h1>loading</h1>
-            </div>
-        );
-    }
 
     return (
         <div>
             <div>
-                <h1>this is dynamic data {uniquekey}</h1>
                 <div className="w-full mt-5">
                     {/* <div className="flex w-10/12 mx-auto">
             <div
@@ -67,7 +76,7 @@ const hotelId = (props) => {
             >
               <img
                 className="w-full rounded-2xl"
-                src={places.images[0]}
+                src={item.images[0]}
                 alt=""
                 style={{
                   minHeight: "610px",
@@ -80,13 +89,13 @@ const hotelId = (props) => {
             <div className="">
               <img
                 className="w-full m-2 rounded-2xl"
-                src={places.images[1]}
+                src={item.images[1]}
                 alt=""
                 style={{ minHeight: "300px", maxHeight: "305px" }}
               />
               <img
                 className="w-full m-2 rounded-2xl"
-                src={places.images[2]}
+                src={item.images[2]}
                 alt=""
                 style={{ minHeight: "300px", maxHeight: "305px" }}
               />
@@ -94,13 +103,13 @@ const hotelId = (props) => {
             <div className="px-2">
               <img
                 className="w-full m-2 rounded-2xl"
-                src={places.images[3]}
+                src={item.images[3]}
                 alt=""
                 style={{ minHeight: "300px", maxHeight: "305px" }}
               />
               <img
                 className="w-full m-2 rounded-2xl"
-                src={places.images[4]}
+                src={item.images[4]}
                 alt=""
                 style={{ minHeight: "300px", maxHeight: "305px" }}
               />
@@ -110,14 +119,14 @@ const hotelId = (props) => {
                 <div className="w-10/12 mx-auto">
                     <div className="flex m-2">
                         <h1 className="text-3xl mx-2 text-primary font-extrabold">
-                            {places.title}
+                            {item.title}
                         </h1>
                         <p className="bg-pmry ml-2 p-2 text-white rounded-lg">
-                            {places.review_score}
+                            {item.review_score}
                         </p>
                         <div className="mx-2">
                             <p className="">
-                                {places.hotel_reviews.map((review, index) => (
+                                {item.hotel_reviews.map((review, index) => (
                                     <p key={index}>
                                         <strong>{review.review}</strong>
                                     </p>
@@ -135,7 +144,7 @@ const hotelId = (props) => {
                         </div>
                         <p className="mt-1 mx-2 ">
                             {[
-                                places.Addresses.map((address, index) => (
+                                item.Addresses.map((address, index) => (
                                     <p key={index}>
                                         {address.city}
                                         {", "}
@@ -151,7 +160,7 @@ const hotelId = (props) => {
                         <p className="text-lg" style={{lineHeight: "30px "}}>
                             <strong className=" my-2">Description: </strong>
                             <br/>
-                            {places.desc}
+                            {item.desc}
                         </p>
                         <div className="text-lg" style={{lineHeight: "30px "}}>
                             <strong className=" my-2 list-inside">
@@ -159,7 +168,7 @@ const hotelId = (props) => {
                             </strong>
                             <div className="grid grid-cols-3 gap-4">
                                 <div className="flex rounded-lg py-1 px-2">
-                                    {places.facilities.map((facility, index) => (
+                                    {item.facilities.map((facility, index) => (
                                         <div key={index} className="grid gap-4 grid-flow-col">
                                             <div className="grid grid-flow-col gap-4">
                                                 {facility &&
@@ -224,19 +233,19 @@ const hotelId = (props) => {
                             <div className="border p-2 border rounded-lg">
                                 <div>
                                     {
-                                        places.hotel_reviews.map((review, index) => (
+                                        item.hotel_reviews.map((review, index) => (
                                             <div key={index}>
                                                 <div className="flex justify-between">
-                                                    
+
                                                     <div className="flex">
                                                         <div className="flex justify-center items-center">
 
                                                             <img
-                                                                src={places.User.image}
+                                                                src={item.User.image}
                                                                 alt="profile"
                                                                 className="rounded-full h-12 m-1 w-12 border border-pmry p-1"/>
                                                             <p className="mx-2 font-bold"
-                                                               style={{color: "#707070"}}>{places.User.name}</p>
+                                                               style={{color: "#707070"}}>{item.User.name}</p>
                                                         </div>
                                                     </div>
                                                     <div className="flex">
@@ -267,7 +276,7 @@ const hotelId = (props) => {
                                 </p>
                                 <p className="p-2 text-lg font-bold">
                                     {" "}
-                                    Perfect for {places?.search_night} night stay!
+                                    Perfect for {item?.search_night} night stay!
                                 </p>
                                 <div className="p-2">
                                     <div className="">
@@ -278,7 +287,7 @@ const hotelId = (props) => {
                                             <p className="p-2">
                                                 <strong>Hotel Location: </strong>
                                                 {[
-                                                    places.Addresses.map((address, index) => (
+                                                    item.Addresses.map((address, index) => (
                                                         <p key={index}>
                                                             {address.city}
                                                             {", "}
@@ -295,14 +304,14 @@ const hotelId = (props) => {
                                             </div>
                                             <p className="p-2">
                                                 <strong>Distance: </strong>
-                                                {places.distance}
+                                                {item.distance}
                                             </p>
                                         </div>
                                     </div>
                                     <div>
                                         <p className="p-2">
                                             <strong>Top Features: </strong>
-                                            {places.facilities.map((facility, index) => (
+                                            {item.facilities.map((facility, index) => (
                                                 <p key={index}>
                                                     {facility &&
                                                         Object.entries(facility)
@@ -346,22 +355,22 @@ const hotelId = (props) => {
                                         <div>
                                             <div className="flex m-2">
                                                 <p className="bg-pmry ml-2 p-2 text-white rounded-tl-lg rounded-tr-lg rounded-bl-2xl">
-                                                    {places.review_score}
+                                                    {item.review_score}
                                                 </p>
                                                 <div className="mx-2">
                                                     <p className="">
-                                                        {places.hotel_reviews.map((review, index) => (
+                                                        {item.hotel_reviews.map((review, index) => (
                                                             <p key={index}>
                                                                 <strong>{review.review}</strong>
                                                             </p>
                                                         ))}
-                                                        <strong>{places.review_title}</strong>
+                                                        <strong>{item.review_title}</strong>
                                                     </p>
-                                                    <p className="">{places.review_count} reviews</p>
+                                                    <p className="">{item.review_count} reviews</p>
                                                     <div>
                             <span style={{color: "goldenrod"}}>
                               {[
-                                  places.hotel_reviews.map((review, index) => (
+                                  item.hotel_reviews.map((review, index) => (
                                       <p className="flex" key={index}>
                                           {[...Array(review.stars)].map((e, i) => (
                                               <span className="ml-1" key={i}>

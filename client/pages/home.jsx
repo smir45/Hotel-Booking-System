@@ -1,5 +1,7 @@
 import * as React from "react";
 import DashboardNavigation from "../components/componentsFiles/dashboard";
+import {getCookie} from ".././components/componentDatas/userdetails/userdataCookies";
+import jwt from "jsonwebtoken";
 
 const HomePage = () => {
     return (
@@ -21,6 +23,9 @@ const Home = () => {
         s1.setAttribute("crossorigin", "*");
         s0.parentNode.insertBefore(s1, s0);
     })();
+    const token = getCookie("token");
+    const decoded = jwt.decode(token);
+    localStorage.setItem("user_details", decoded);
     return (
         <main>
             <DashboardNavigation/>

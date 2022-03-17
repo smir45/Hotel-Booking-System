@@ -11,15 +11,14 @@ const slug = () => {
 
     const router = useRouter();
     const destination = router.query.slug;
-    const url = (`http://localhost:8000/api/destinations/${destination}`);
 
     useEffect(() => {
 
         const fetchData = async () => {
-            const result = await axios(url);
-            setData(result.data);
-            setAttraction(result.data.data);
-            setIsLoading(false);
+            const result = await fetch(`http://localhost:8000/api/destinations/${destination}`);
+            const resultData = await result.json();
+
+            setAttraction(resultData.data);
 
         };
 

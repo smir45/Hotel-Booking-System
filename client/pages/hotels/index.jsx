@@ -57,7 +57,7 @@ const searchDatas = () => {
                         {hotels.map((hotel, index) => (
                             <div key={hotel.id}>
                                 <div>
-                                    <Link href={`/hotels/${encodeURIComponent(hotel.slug)}`}>
+                                    <Link href={"/hotels/" + hotel.slug}>
                                         <div
                                             className="rounded-lg hover:cursor-pointer shadow-md hover:shadow-lg duration-1000 py-5 my-5 mx-auto flex w-4/5"
                                             style={{background: "#ffffff"}}
