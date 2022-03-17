@@ -1,42 +1,43 @@
 import React, {useState, useEffect} from 'react';
-import {useRouter} from "next/router";
-import axios from 'axios';
+
+export const getStaticPaths = async ({query}) => {
+    const res = await fetch(`http://localhost:8000/api/destinations/`)
+    const data = await res.json();
+
+    const paths = data.map(item => {
+        return {
+            params: {
+                slug: item.slug.toString()
+            }
+        }
+    });
+    return {
+        paths,
+        fallback: false,
+
+    }
+};
+
+export const getStaticProps = async (context) => {
+    const slug = context.params.slug;
+    const res = await fetch("http://localhost:8000/api/destinations/" + slug);
+    const data = await res.json();
 
 
-const slug = () => {
-    const [attraction, setAttraction] = useState([]);
-    const [data, setData] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
+    return {
+        props: {
+            item: data
+        }
+    }
+}
+const slug = ({item}) => {
 
-
-    const router = useRouter();
-    const destination = router.query.slug;
-
-    useEffect(() => {
-
-        const fetchData = async () => {
-            const result = await fetch(`http://localhost:8000/api/destinations/${destination}`);
-            const resultData = await result.json();
-
-            setAttraction(resultData.data);
-
-        };
-
-        fetchData();
-    }, [])
-    console.log(attraction);
     return (
         <div>
-            {
-                attraction.map((item, index) => {
-                    return (
-                        <div key={index}>
-                            <h1>{item.title}</h1>
-                            <p>{item.description}</p>
-                        </div>
-                    )
-                })
-            }
+            <head>
+                <title>{item.name}</title>
+            </head>
+            <h1> This is dynamic data {item.name}</h1>
         </div>
     );
 };

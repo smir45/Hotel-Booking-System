@@ -32,17 +32,26 @@ module.exports.postDestination = async (req, res, next) => {
 
     try {
         const data = req.body;
-        // const slugified = slugify(data.name, {
-        //     replacement: "-",
-        //     lower: true
-        // });
+        const slugified = slugify(data.name, {
+            replacement: "-",
+            lower: true
+        });
         const newDestination = await Destination.create({
             name: data.name,
-            desc: data.desc
+            desc: data.desc,
+            slug: slugified,
+            city: data.city,
+            image: data.image
 
+        });
+        const destination = await Destination.findOne({
+            where: {
+                slug: slugified
+            },
         });
         const newAddress = await images.create({
             name: data.image,
+            destinationId: destination.id
         });
         res.status(200).json({
             message: "Destination created successfully",
@@ -53,7 +62,6 @@ module.exports.postDestination = async (req, res, next) => {
             message: "Error creating destination",
             error: err
         });
-        console.log(err)
     }
 }
 
@@ -62,7 +70,7 @@ module.exports.getDestinationByCity = async (req, res, next) => {
     const request = req.params;
 
     try {
-        const destination = await Destinations.findAll({
+        const destination = await Destination.findAll({
             where: {
                 city: request.city
             }
@@ -84,7 +92,7 @@ module.exports.deleteDestination = async (req, res, next) => {
     const request = req.params;
 
     try {
-        const destination = await Destinations.destroy({
+        const destination = await Destination.destroy({
             where: {
                 id: request.id
             }
@@ -106,7 +114,7 @@ module.exports.deleteDestination = async (req, res, next) => {
 module.exports.getDestinationBySlug = async (req, res, next) => {
     const request = req.params;
     try {
-        const destination = await Destinations.findAll({
+        const destination = await Destination.findAll({
             where: {
                 slug: request.slug
             }

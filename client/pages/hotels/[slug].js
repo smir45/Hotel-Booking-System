@@ -41,6 +41,7 @@ export const getStaticProps = async (context) => {
     const res = await fetch("http://localhost:8000/api/hotels/" + slug);
     const data = await res.json();
 
+
     return {
         props: {
             item: data
@@ -48,25 +49,31 @@ export const getStaticProps = async (context) => {
     }
 }
 
-// const hotelId = ({item}) => {
-//     return (
-//         <div>
-//             <h1>{item.name}</h1>
-//             <h1>This is dynamic {item.slug}</h1>
-//         </div>
-//     )
-// }
-
 
 const hotelId = ({item}) => {
-
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+        setLoading(false);
+    }, []);
     const mapStyles = {
         width: "100%",
         height: "100%",
     };
 
+    if (loading) {
+        return (
+            <div className="flex justify-center items-center font-bold animate-spin duration-1000 text-3xl"
+                 style={{height: "100vh"}}>
+                <div className="border border-4 border-pmry p-5"></div>
+            </div>
+        )
+    }
+
     return (
         <div>
+            <heead>
+                <title>{item.title}</title>
+            </heead>
             <div>
                 <div className="w-full mt-5">
                     {/* <div className="flex w-10/12 mx-auto">
