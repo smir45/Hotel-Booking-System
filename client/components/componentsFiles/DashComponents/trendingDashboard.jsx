@@ -34,6 +34,8 @@ const DashboardTrendingElements = () => {
         // }
     }, []);
 
+    console.log(trendData)
+
     if (isLoading) {
         return (
             <div>
@@ -73,13 +75,13 @@ const DashboardTrendingElements = () => {
                                 >
                                     <img
                                         className="object-cover object-center w-full h-48 mx-auto rounded-lg"
-                                        src={data.images}
+                                        src={data.images.map((image) => image.name)}
                                         alt="avatar"
                                     />
 
                                     <div className="mt-2">
                                         <h3 className="text-lg font-bold text-gray-700 dark:text-gray-200 capitalize">
-                                            {data.title}
+                                            {data.name}
                                         </h3>
                                         {/* <span className="mt-1 font-medium text-gray-600 dark:text-gry-300">{data.description}</span> */}
                                     </div>

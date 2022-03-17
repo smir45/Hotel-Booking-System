@@ -1,22 +1,20 @@
 const express = require("express");
 const router = express.Router();
 const slugify = require("slugify");
-const {Destinations} = require("../../models");
+const {Destination} = require("../../models");
+const {images} = require("../../models");
 
 module.exports.getAllPosts = async (req, res, next) => {
     try {
-        const posts = await Destinations.findAll(
-            // {
-            //     include: [
-            //         {
-            //             model: Destinations,
-            //             as: "destinations",
-            //             through: {
-            //                 attributes: []
-            //             }
-            //         }
-            //     ]
-            // }
+        const posts = await Destination.findAll(
+            {
+                include: [
+                    {
+                        model: images,
+                        attributes: ["name"]
+                    }
+                ]
+            }
         )
         res.status(200).json(posts);
         console.log(posts);
@@ -34,25 +32,22 @@ module.exports.postDestination = async (req, res, next) => {
 
     try {
         const data = req.body;
-        const slugified = slugify(data.title, {
-            replacement: "-",
-            lower: true
-        });
-        const post = await Destinations.create(
-            {
-                title: data.title,
-                slug: slugified,
-                description: data.description,
-                images: data.images,
-                city: data.city
-            }
-        );
+        // const slugified = slugify(data.name, {
+        //     replacement: "-",
+        //     lower: true
+        // });
+        const newDestination = await Destination.create({
+            name: data.name,
+            desc: data.desc
 
-        res.status(200).json({
-            message: "Destination posted successfully",
-            data: post,
         });
-        console.log(post);
+        const newAddress = await images.create({
+            name: data.image,
+        });
+        res.status(200).json({
+            message: "Destination created successfully",
+            data: newDestination, newAddress
+        });
     } catch (err) {
         res.status(500).json({
             message: "Error creating destination",
@@ -61,6 +56,7 @@ module.exports.postDestination = async (req, res, next) => {
         console.log(err)
     }
 }
+
 
 module.exports.getDestinationByCity = async (req, res, next) => {
     const request = req.params;

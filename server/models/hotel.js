@@ -18,7 +18,9 @@ module.exports = (sequelize, DataTypes) => {
             hotel.hasMany(models.Currency, {
                 foreignKey: 'hotelId'
             })
-
+            hotel.hasMany(models.images, {
+                foreignKey: 'hotelId'
+            })
             hotel.hasMany(models.hotel_reviews, {
                 foreignKey: 'hotelId'
             })

@@ -10,6 +10,7 @@ const hotelsPost = require('./routes/hotels');
 const HostUserRoutes = require("./routes/user/host");
 const HostelRoutes = require('./routes/hostels');
 const RestaurentRoutes = require('./routes/destinations/restaurents');
+const ImageRoutes = require('./routes/destinations/image.routes');
 const FaqRoutes = require("./routes/faqs");
 const fs = require("fs");
 const bodyParser = require("body-parser");
@@ -23,6 +24,7 @@ app.use(morgan("tiny"));
 
 app.use("/api/auth/user", userRoutes);
 app.use("/api/destinations", postRoutes);
+app.use("/api/destinations", ImageRoutes);
 app.use("/api/auth/host/user", HostUserRoutes);
 app.use("/api/hotels", hotelsPost);
 app.use("/api/faq", FaqRoutes);
