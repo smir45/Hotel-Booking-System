@@ -47,9 +47,10 @@ const Destinations = () => {
                                 type="search" name="search" onChange={filterData} id="search"
                                 placeholder="Enter city to search.."/>
                         </div>
+
                         <div className="grid gap-8 mt-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 w-4/5 mx-auto">
                             {destinations.map(destination => (
-                                <Link href={`/destinations/${encodeURIComponent(destination.slug)}`}>
+                                <Link href={"/destinations/" + destination.slug}>
                                     <div key={destination.id}>
                                         <div
                                             className="w-full max-w-xs text-center hover:opacity-30 hover:cursor-pointer duration-1000">
@@ -60,7 +61,7 @@ const Destinations = () => {
                                                     alt={destination.name}/>
                                                 <div
                                                     className="p-1 text-white -my-8 font-bold backdrop-blur-sm w-full rounded-b-lg"
-                                                    style={{background: "rgba(255, 255, 255, .4)"}}>
+                                                    style={{background: "rgba(55, 84, 136, .5)"}}>
                                                     <h1>{destination.name}</h1>
                                                 </div>
 

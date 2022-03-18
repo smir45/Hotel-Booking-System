@@ -18,6 +18,10 @@ module.exports = (sequelize, DataTypes) => {
         as: 'hotel'
       })
 
+      Address.belongsTo(models.Destination, {
+        as: 'destination'
+      })
+
 
     }
   };

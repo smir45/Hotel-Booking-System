@@ -69,7 +69,6 @@ const searchDatas = () => {
                                                     alt=""
                                                 />
                                             </div>
-                                            {console.log("hotel")}
                                             <div className="w-full rounded-lg mx-3">
                                                 <div className="flex justify-between p-2">
                                                     <div>

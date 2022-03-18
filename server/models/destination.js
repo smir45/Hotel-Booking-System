@@ -14,6 +14,12 @@ module.exports = (sequelize, DataTypes) => {
             Destination.hasMany(models.images, {
                 foreignKey: 'destinationId'
             });
+            Destination.hasMany(models.hotel_reviews, {
+                foreignKey: 'destinationId'
+            });
+            Destination.hasMany(models.Address, {
+                foreignKey: 'destinationId'
+            });
         }
     };
     Destination.init({
