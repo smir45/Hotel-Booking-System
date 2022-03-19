@@ -34,8 +34,8 @@ module.exports = (sequelize, DataTypes) => {
         },
         average: DataTypes.STRING,
         stars: DataTypes.INTEGER,
-        review: DataTypes.STRING,
-        Comment: DataTypes.STRING,
+        review: DataTypes.TEXT,
+        Comment: DataTypes.TEXT,
     }, {
         sequelize,
         modelName: 'hotel_reviews',

@@ -46,6 +46,24 @@ module.exports.postImages = async (req, res) => {
     }
 }
 
+module.exports.postDestinationReviews = async (req, res) => {
+    try {
+        const data = req.body
+        const review = await hotel_reviews.create({
+            review: data.review,
+            rating: data.rating,
+            destinationId: data.destinationId,
+            userId: data.userId
+        })
+        res.status(200).json(review)
+    } catch (err) {
+        res.status(500).json({
+            message: "Error uploading  review",
+            error: err
+        });
+    }
+}
+
 module.exports.postDestination = async (req, res, next) => {
 
     try {

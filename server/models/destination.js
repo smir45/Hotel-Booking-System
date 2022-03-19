@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
     };
     Destination.init({
         name: DataTypes.STRING,
-        desc: DataTypes.STRING,
+        desc: DataTypes.TEXT,
         image: DataTypes.STRING,
         slug: DataTypes.STRING,
         city: DataTypes.STRING,

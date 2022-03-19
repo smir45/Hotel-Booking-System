@@ -53,7 +53,7 @@ const slug = ({item}) => {
                         }
                         <div>
 
-                            <div className="flex justify-center w-4/5 mx-auto mt-5 ">
+                            <div className="flex justify-center w-4/5 mx-auto my-5 ">
 
                                 <div className="w-2/5 border mx-5 " style={{height: "500px"}}>
                                     <div className="">
@@ -151,15 +151,30 @@ const slug = ({item}) => {
                                 <h1 className="capitalize w-9/12 my-5 mx-auto text-3xl text-primary font-bold">Explore {i.city}</h1>
                                 <DestinationSuggestion/>
                             </div>
-                            <div className="w-4/5 bg-blue-100 mx-auto mt-5 rounded-lg p-2">
+                            <div className="w-4/5 my-5 bg-blue-100 mx-auto mt-5 rounded-lg p-2">
                                 <div>
-                                    <h1 className="p-2 text-2xl font-bold text-primary">Reviews</h1>
-                                    <div className="flex">
-                                        <span className="my-2 text-2xl" style={{color: "#707070"}}><FiInfo/></span>
-                                        <p className="p-2" style={{color: "#707070"}}> Some reviews may have been
-                                            translated by Google
-                                            Translate</p>
+                                    <div className="flex justify-between">
+                                        <div className="w-4/5">
+                                            <h1 className="p-2 text-2xl font-bold text-primary">Reviews</h1>
+                                            <div className="flex w-4/5 ">
+                                                <span className="my-2 text-2xl"
+                                                      style={{color: "#707070"}}><FiInfo/></span>
+                                                <p className="p-2" style={{color: "#707070"}}> Some reviews may have
+                                                    been
+                                                    translated by Google
+                                                    Translate</p>
+
+                                            </div>
+
+                                        </div>
+                                        <div className="flex justify-center items-center">
+                                            <a href="/destinations/writereview"
+                                               className="bg-pmry text-white font-bold py-2 px-4 rounded-lg">
+                                                Write a Review
+                                            </a>
+                                        </div>
                                     </div>
+
                                     <div className="p-2 my-2" style={{background: "#ffffff"}}>
                                         {i.hotel_reviews.map(review => {
                                             return (
@@ -173,7 +188,14 @@ const slug = ({item}) => {
                                             )
                                         })}
                                         <div>
-                                            <h1>review sec</h1>
+                                            <p className="capitalize w-11/12 mx-auto"
+                                               style={{color: "#808080"}}><span
+                                                className="font-light">{i.hotel_reviews.map(rev => {
+                                                return (
+                                                    <p className="font-light"
+                                                       key={rev.id}>{rev.Comment}</p>
+                                                )
+                                            })}</span></p>
                                         </div>
                                     </div>
 
