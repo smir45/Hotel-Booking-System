@@ -1,6 +1,7 @@
 import "tailwindcss/tailwind.css";
 import React, {useState, useEffect} from "react";
 import {ToastProvider} from "react-toast-notifications";
+import 'mapbox-gl/dist/mapbox-gl.css'
 
 import {BarLoader} from "react-spinners";
 

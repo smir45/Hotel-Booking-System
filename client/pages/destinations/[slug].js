@@ -3,6 +3,7 @@ import Carousel from 'react-material-ui-carousel'
 import {Paper, Button} from '@mui/material'
 import DestinationSuggestion from '../../components/componentsFiles/DashComponents/suggestions/destinationSuggesting';
 import {FaCheck, FaInfoCircle, FaMapMarkerAlt, FaUserFriends} from 'react-icons/fa';
+import {FiInfo} from 'react-icons/fi';
 import GoogleApiWrapper from "../../components/componentsFiles/DashComponents/maps/descmap";
 
 export const getStaticPaths = async ({query}) => {
@@ -150,9 +151,33 @@ const slug = ({item}) => {
                                 <h1 className="capitalize w-9/12 my-5 mx-auto text-3xl text-primary font-bold">Explore {i.city}</h1>
                                 <DestinationSuggestion/>
                             </div>
-                            <div className="border border-pmry w-4/5 mx-auto my-2">
-                                <div className="flex">
-                                    <h1>Reviews</h1>
+                            <div className="w-4/5 bg-blue-100 mx-auto mt-5 rounded-lg p-2">
+                                <div>
+                                    <h1 className="p-2 text-2xl font-bold text-primary">Reviews</h1>
+                                    <div className="flex">
+                                        <span className="my-2 text-2xl" style={{color: "#707070"}}><FiInfo/></span>
+                                        <p className="p-2" style={{color: "#707070"}}> Some reviews may have been
+                                            translated by Google
+                                            Translate</p>
+                                    </div>
+                                    <div className="p-2 my-2" style={{background: "#ffffff"}}>
+                                        {i.hotel_reviews.map(review => {
+                                            return (
+                                                <div className="flex px-2 mx-auto" key={review.id}>
+                                                    <p className="my-2 text-primary font-bold text-2xl">{review.stars * 100 / 5 / 100 * 5}{" "}
+                                                        <span
+                                                            className="text-sm">/ 5</span></p>
+                                                    <p className="my-2 mx-2 text-primary font-bold text-2xl">{review.review}</p>
+                                                    <hr/>
+                                                </div>
+                                            )
+                                        })}
+                                        <div>
+                                            <h1>review sec</h1>
+                                        </div>
+                                    </div>
+
+
                                 </div>
                             </div>
                         </div>
