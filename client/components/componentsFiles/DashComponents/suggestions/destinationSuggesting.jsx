@@ -13,7 +13,8 @@ const DestinationSuggestion = () => {
         const fetchSuggestions = async () => {
             const response = await fetch(url);
             const data = await response.json();
-            setSuggestions(data.data);
+            const suggestDatas = data.data.slice(0, 4).reverse();
+            setSuggestions(suggestDatas);
             console.log(data);
         }
         fetchSuggestions();

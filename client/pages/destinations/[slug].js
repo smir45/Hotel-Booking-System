@@ -3,7 +3,7 @@ import Carousel from 'react-material-ui-carousel'
 import {Paper, Button} from '@mui/material'
 import DestinationSuggestion from '../../components/componentsFiles/DashComponents/suggestions/destinationSuggesting';
 import {FaCheck, FaInfoCircle, FaMapMarkerAlt, FaUserFriends} from 'react-icons/fa';
-import GoogleApiWrapper from '../../components/componentsFiles/map'
+import GoogleApiWrapper from "../../components/componentsFiles/DashComponents/maps/descmap";
 
 export const getStaticPaths = async ({query}) => {
     const res = await fetch(`http://localhost:8000/api/destinations/`)
@@ -100,8 +100,8 @@ const slug = ({item}) => {
                                             </div>
 
                                         </div>
-                                        <div className="border relative z-10" style={{height: "200px"}}>
-                                            {/*<GoogleApiWrapper/>*/}
+                                        <div className="border mt-2 relative z-10" style={{height: "200px"}}>
+                                            <GoogleApiWrapper/>
 
                                         </div>
 
@@ -149,6 +149,11 @@ const slug = ({item}) => {
                             <div>
                                 <h1 className="capitalize w-9/12 my-5 mx-auto text-3xl text-primary font-bold">Explore {i.city}</h1>
                                 <DestinationSuggestion/>
+                            </div>
+                            <div className="border border-pmry w-4/5 mx-auto my-2">
+                                <div className="flex">
+                                    <h1>Reviews</h1>
+                                </div>
                             </div>
                         </div>
                     </div>
