@@ -5,7 +5,7 @@ const {Destination} = require("../../models");
 const {images} = require("../../models");
 const {hotel_reviews} = require("../../models");
 const {Address} = require("../../models");
-
+const {User} = require("../../models");
 module.exports.getAllPosts = async (req, res, next) => {
     try {
         const posts = await Destination.findAll(
@@ -142,23 +142,12 @@ module.exports.getDestinationBySlug = async (req, res, next) => {
             where: {
                 slug: request.slug
             },
-            include: [
-                {
-                    model: images,
-                    attributes: ["name"]
-                },
-                {
-                    model: hotel_reviews,
+            include: [images, Address, hotel_reviews],
 
-                },
-                {
-                    model: Address,
-                }
-            ]
         });
         res.status(200).json({
             message: "Destination found",
-            data: destination
+            data: destination,
         });
     } catch (err) {
         res.status(500).json({

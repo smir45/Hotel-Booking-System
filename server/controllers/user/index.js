@@ -229,7 +229,7 @@ module.exports.userLogin = async (req, res, next) => {
         }
     );
 
-    if (user.isVerified === false) {
+    if (user.isVerified !== true) {
         return res.status(400).json({message: "Please verify your email"});
     }
 
