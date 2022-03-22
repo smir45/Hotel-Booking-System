@@ -42,8 +42,8 @@ module.exports = (sequelize, DataTypes) => {
         title: DataTypes.STRING,
         desc: DataTypes.STRING,
         distance: DataTypes.STRING,
-        longitude: DataTypes.INTEGER,
-        latitude: DataTypes.INTEGER,
+        longitude: DataTypes.STRING,
+        latitude: DataTypes.STRING,
         only_left: DataTypes.INTEGER,
         thumbnail: DataTypes.STRING,
         currency_id: {

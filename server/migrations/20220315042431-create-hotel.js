@@ -27,10 +27,10 @@ module.exports = {
         type: Sequelize.STRING
       },
       longitude: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       latitude: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       only_left: {
         type: Sequelize.INTEGER

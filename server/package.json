@@ -8,7 +8,7 @@
     "start": "nodemon server.js",
     "models-post": "npx sequelize-cli model:generate --name Post --attributes title:string,description:string",
     "models-user": "npx sequelize-cli model:generate --name User --attributes name:string,email:string,password:string",
-    "models-images": "npx sequelize-cli model:generate --name images --attributes name:string,src:string",
+    "models-admin": "npx sequelize-cli model:generate --name Admin --attributes name:string,email:string,password:string,phone:string",
     "migrate": "npx sequelize-cli db:migrate",
     "migrate:status": "npx sequelize-cli db:migrate:status",
     "migrate:rollback": "npx sequelize-cli db:migrate:undo",
