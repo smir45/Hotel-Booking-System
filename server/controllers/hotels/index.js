@@ -1,5 +1,5 @@
 const express = require("express");
-const {checkPreferences} = require("joi");
+const {checkPreferences, date} = require("joi");
 const router = express.Router();
 const {hotel} = require("../../models");
 const {Address} = require("../../models");
@@ -15,6 +15,9 @@ const axios = require("axios");
 require("dotenv").config();
 const imgur = require("imgur");
 const fileUpload = require("express-fileupload");
+const nodemailer = require("nodemailer");
+const hbs = require("nodemailer-handlebars");
+const crypto = require("crypto");
 module.exports.getHotels = async (req, res) => {
     try {
         const hotel_data = await hotel.findAll({
@@ -80,21 +83,45 @@ module.exports.getAHotel = async (req, res, next) => {
 
 module.exports.postHotels = async (req, res, next) => {
     try {
-        const datas = req.body;
-        const slugdata = datas.name.toLowerCase().replace(/ /g, "-");
-        const {error} = hotelpostSchema.validate(datas);
-        if (error) {
-            res.json(error.details[0].message);
-        } else {
-            const hotel = await Hotel.create({
+
+        const data = req.body;
+        const slugdata = data.title.toLowerCase().replace(/\s/g, "-")
+
+        const newHotel = new hotel(
+            {
                 slug: slugdata,
-                ...datas,
-            });
-            res.json({
-                message: "Successfully added a new hotel",
-                hotel,
-            });
-        }
+                title: data.title,
+                desc: data.desc,
+                distance: data.distance,
+                only_left: data.only_left,
+                currency_id: data.currency_id,
+                checkin: Date.now(),
+                checkout: Date.now(),
+                thumbnail: data.thumbnail,
+
+            }
+        )
+        const hotelData = await newHotel.save();
+        const hotellId = await hotel.findOne(
+            {
+                where: {
+                    slug: slugdata,
+                },
+                attributes: ["id"]
+            }
+        )
+        const thumbn = images.create(
+            {
+                name: data.thumbnail,
+                hotelId: hotellId.id,
+            }
+        )
+        res.json({
+            message: "Successfully added a new hotel",
+            data: hotelData
+        });
+
+
     } catch (err) {
         res.json(err);
     }
@@ -166,3 +193,59 @@ module.exports.postJsonHotel = async (req, res) => {
         console.log(err);
     }
 };
+
+module.exports.bookingHotel = async (req, res) => {
+    try {
+        const data = req.body;
+        const BookingId = crypto.randomBytes(10).toString('hex');
+
+        const newBooking = {
+            email: "smir.mishra1551@gmail.com",
+            user_id: 2,
+            hotel_id: 3,
+            checkin: Date.now(),
+            checkout: Date.now(),
+            total_price: "5000",
+            currency_id: "Rs",
+        }
+
+        const transporter = nodemailer.createTransport({
+            service: "gmail",
+            auth: {
+                user: process.env.EMAIL,
+                pass: process.env.PASSWORD,
+            },
+        });
+        const mailOptions = {
+            from: process.env.EMAIL,
+            to: `${newBooking.email}`,
+            subject: "Booking Confirmation",
+            text: "",
+            template: "booking",
+            context: {
+                Bookingid: `#${BookingId}`,
+                // total_price: newBooking.total_price,
+            },
+        };
+        transporter.use(
+            "compile",
+            hbs({
+                viewEngine: {
+                    partialsDir: "./views/",
+                    defaultLayout: "",
+                },
+                viewPath: "./views/",
+                extName: ".hbs",
+            })
+        );
+        transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+                console.log(error);
+            } else {
+                console.log("Email sent: " + info.response);
+            }
+        });
+    } catch (err) {
+        res.json(err);
+    }
+}

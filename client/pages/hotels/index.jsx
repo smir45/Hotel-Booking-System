@@ -65,7 +65,7 @@ const searchDatas = () => {
                                             <div className="h-52 w-96 mx-3">
                                                 <img
                                                     className="rounded-lg h-full w-full "
-                                                    src={hotel.images}
+                                                    src={hotel.thumbnail}
                                                     alt=""
                                                 />
                                             </div>
@@ -89,10 +89,10 @@ const searchDatas = () => {
                                                     <div className="flex">
                                                         <div className="my-1">
                                                             <p className="text-gray-500 font-bold text-lg">
-                                                                {hotel.hotel_reviews[0].review}
+                                                                {hotel.hotel_reviews[0].review || "No reviews"}
                                                             </p>
                                                             <p className="text-sm">
-                                                                {hotel.hotel_reviews[0].stars} reviews
+                                                                {hotel.hotel_reviews[0].stars || "0"} reviews
                                                             </p>
                                                         </div>
                                                         <div

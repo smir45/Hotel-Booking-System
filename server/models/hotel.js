@@ -40,7 +40,7 @@ module.exports = (sequelize, DataTypes) => {
         checkin: DataTypes.DATE,
         checkout: DataTypes.DATE,
         title: DataTypes.STRING,
-        desc: DataTypes.STRING,
+        desc: DataTypes.TEXT,
         distance: DataTypes.STRING,
         longitude: DataTypes.STRING,
         latitude: DataTypes.STRING,

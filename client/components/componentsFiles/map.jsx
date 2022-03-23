@@ -15,9 +15,10 @@ export class MapContainer extends Component {
                 zoom={14}
                 style={mapStyles}
                 initialCenter={{
-                    lat: 26.65632900033799,
-                    lng: 87.3021194613583
+                    lat: 26.45282812195282,
+                    lng: 87.27805615576436
                 }}
+
             >
                 <Marker
                     title={"Current location"}
@@ -34,5 +35,5 @@ export class MapContainer extends Component {
 
 export default GoogleApiWrapper({
     // apiKey: 'AIzaSyA4YKODPQEsXODTnV8v9LBPNf1yM9ICrHY'
-    apiKey: 'AIzaSyDHgR0jqZnHqY_R0x9wMgVWpVD9whs7wfI'
+    apiKey: 'AIzaSyD9XB9omWRPcQV8ss7HhMQtQMNgYtgDVGA'
 })(MapContainer);

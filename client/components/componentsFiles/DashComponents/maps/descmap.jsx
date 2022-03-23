@@ -1,38 +1,48 @@
-import React, {Component} from 'react';
-import {Map, GoogleApiWrapper, Marker} from 'google-maps-react';
+import React, { Component } from "react";
+import { Map, GoogleApiWrapper, Marker } from "google-maps-react";
+import mapData from "./mapData";
 
 const mapStyles = {
-    width: '31vw',
-    height: '200px',
-    position: 'relative',
+  width: "31vw",
+  height: "200px",
+  position: "relative",
 };
 
-export class DescMapContainer extends Component {
-    render() {
-        return (
-            <Map
-                google={this.props.google}
-                zoom={14}
-                style={mapStyles}
-                initialCenter={{
-                    lat: 26.65632900033799,
-                    lng: 87.3021194613583
-                }}
-            >
-                <Marker
-                    title={"Current location"}
-                    name={"Current location"}
-                    position={{
-                        lat: 26.65632900033799,
-                        lng: 87.3021194613583
-                    }}
-                />
-            </Map>
-        );
-    }
+export class DescMapContainer extends React.Component {
+  constructor(props) {
+    super({ ...props });
+  }
+  render() {
+    return (
+      <Map
+        google={this.props.google}
+        zoom={14}
+        style={mapStyles}
+        data={{
+        //   lat: this.props.latitude,
+        //   lng: this.props.longitude,
+            
+            lat: this.props.latitude,
+            lng: this.props.longitude,
+        }}
+      >
+        <Marker
+          title={"Current location"}
+          name={"Current location"}
+          position={{
+            // lat: this.props.latitude,
+            // lng: this.props.longitude,
+            lat: this.props.latitude,
+            lng: this.props.longitude,
+          }}
+        />
+      </Map>
+    );
+  }
 }
 
 export default GoogleApiWrapper({
-    // apiKey: 'AIzaSyA4YKODPQEsXODTnV8v9LBPNf1yM9ICrHY'
-    apiKey: 'AIzaSyDHgR0jqZnHqY_R0x9wMgVWpVD9whs7wfI'
+  // apiKey: 'AIzaSyA4YKODPQEsXODTnV8v9LBPNf1yM9ICrHY'
+  apiKey: "AIzaSyD9XB9omWRPcQV8ss7HhMQtQMNgYtgDVGA",
+  
 })(DescMapContainer);

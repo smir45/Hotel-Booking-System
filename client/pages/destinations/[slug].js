@@ -59,9 +59,11 @@ const slug = ({item}) => {
                                     <div className="">
                                         <div className="my-2 px-2">
                                             <h1 className="text-4xl font-bold text-primary">{i.name}</h1>
-                                            {i.hotel_reviews.map(review => {
+                                            {i.hotel_reviews.map((review, index) => {
                                                 return (
+
                                                     <div className="flex px-2 mx-auto" key={review.id}>
+                                                        {console.log(review)}
                                                         <p className="my-1 text-lg">{review.stars * 100 / 5 / 100 * 5}{" "}
                                                             <span
                                                                 className="text-sm text-primary">/ 5</span></p>
@@ -178,24 +180,35 @@ const slug = ({item}) => {
                                     <div className="p-2 my-2" style={{background: "#ffffff"}}>
                                         {i.hotel_reviews.map(review => {
                                             return (
-                                                <div className="flex px-2 mx-auto" key={review.id}>
-                                                    <p className="my-2 text-primary font-bold text-2xl">{review.stars * 100 / 5 / 100 * 5}{" "}
-                                                        <span
-                                                            className="text-sm">/ 5</span></p>
-                                                    <p className="my-2 mx-2 text-primary font-bold text-2xl">{review.review}</p>
-                                                    <hr/>
+                                                <div className=" p-2 mx-auto border my-5 rounded-lg " key={review.id}>
+                                                    <div className="flex">
+                                                        <p className="my-2 text-primary font-bold text-2xl">{review.stars * 100 / 5 / 100 * 5}{" "}
+                                                            <span
+                                                                className="text-sm">/ 5</span></p>
+                                                        <p className="my-2 mx-2 text-primary font-bold text-2xl">{review.review}</p>
+                                                    </div>
+
+
+                                                    <p className="capitalize w-11/12 mx-auto"
+                                                       style={{color: "#808080"}}><span
+                                                        className="font-light">{i.hotel_reviews.map(rev => {
+                                                        return (
+                                                            <p className="font-light"
+                                                               key={rev.id}>{rev.Comment}</p>
+                                                        )
+                                                    })}</span></p>
                                                 </div>
                                             )
                                         })}
                                         <div>
-                                            <p className="capitalize w-11/12 mx-auto"
-                                               style={{color: "#808080"}}><span
-                                                className="font-light">{i.hotel_reviews.map(rev => {
-                                                return (
-                                                    <p className="font-light"
-                                                       key={rev.id}>{rev.Comment}</p>
-                                                )
-                                            })}</span></p>
+                                            {/*<p className="capitalize w-11/12 mx-auto"*/}
+                                            {/*   style={{color: "#808080"}}><span*/}
+                                            {/*    className="font-light">{i.hotel_reviews.map(rev => {*/}
+                                            {/*    return (*/}
+                                            {/*        <p className="font-light"*/}
+                                            {/*           key={rev.id}>{rev.Comment}</p>*/}
+                                            {/*    )*/}
+                                            {/*})}</span></p>*/}
                                         </div>
                                     </div>
 

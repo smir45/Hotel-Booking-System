@@ -3,6 +3,9 @@ const {Admin} = require("../../models");
 const {Address} = require("../../models");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt")
+const nodemailer = require("nodemailer");
+const hbs = require("nodemailer-handlebars");
+require("dotenv").config();
 
 
 module.exports.createAdmin = async (req, res, next) => {
@@ -33,6 +36,44 @@ module.exports.createAdmin = async (req, res, next) => {
 
 
         })
+        // send emaill with otp
+        const transporter = nodemailer.createTransport({
+            service: "gmail",
+            auth: {
+                user: process.env.EMAIL,
+                pass: process.env.PASSWORD,
+            },
+        });
+        const mailOptions = {
+            from: process.env.EMAIL,
+            to: `${data.email}`,
+            subject: "Verify your email",
+            text: "",
+            template: "verification",
+            context: {
+                otp: Otp,
+                name: data.name.split(" ")[0],
+            },
+        };
+        transporter.use(
+            "compile",
+            hbs({
+                viewEngine: {
+                    partialsDir: "./views/",
+                    defaultLayout: "",
+                },
+                viewPath: "./views/",
+                extName: ".hbs",
+            })
+        );
+        transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+                console.log(error);
+            } else {
+                console.log("Email sent: " + info.response);
+            }
+        });
+        //save user
 
         const save = await newAdmin.save();
         res.status(201).json({
