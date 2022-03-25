@@ -1,6 +1,7 @@
 import { useState, useEffect, Component } from "react";
 import { useRouter } from "next/router";
 import axios from "../../axios";
+import Link from "next/link";
 import Loading from "../../components/componentsFiles/Loading";
 import {
   FaMapMarkerAlt,
@@ -56,7 +57,10 @@ const hotelId = ({ item }) => {
     const longitude = item.longitude;
     const latitude = item.latitude;
 
-    localStorage.setItem("hotel_coordinates", JSON.stringify({ longitude, latitude }));
+    localStorage.setItem(
+      "hotel_coordinates",
+      JSON.stringify({ longitude, latitude })
+    );
   }, []);
   const mapStyles = {
     width: "100%",
@@ -129,7 +133,7 @@ const hotelId = ({ item }) => {
           </div> */}
         </div>
         <div className="w-10/12 mx-auto">
-          <div className="flex m-2">
+          <div className="flex m-">
             <h1 className="text-3xl mx-2 text-primary font-extrabold">
               {item.title}
             </h1>
@@ -138,7 +142,7 @@ const hotelId = ({ item }) => {
             </p>
             <div className="mx-2">
               <p className="">
-                {item.hotel_reviews.map((review, index) => (
+                {item.hotel_reviews.slice(0, 1).map((review, index) => (
                   <p key={index}>
                     <strong>{review.review}</strong>
                   </p>
@@ -241,7 +245,7 @@ const hotelId = ({ item }) => {
               <div className="border p-2 border rounded-lg">
                 <div>
                   {item.hotel_reviews.map((review, index) => (
-                    <div key={index}>
+                    <div className="p-2 my-5" key={index}>
                       <div className="flex justify-between">
                         <div className="flex">
                           <div className="flex justify-center items-center">
@@ -369,26 +373,31 @@ const hotelId = ({ item }) => {
                         </p>
                         <div className="mx-2">
                           <p className="">
-                            {item.hotel_reviews.map((review, index) => (
-                              <p key={index}>
-                                <strong>{review.review}</strong>
-                              </p>
-                            ))}
+                            {console.log(item.hotel_reviews)}
+                            {item.hotel_reviews
+                              .slice(0, 1)
+                              .map((review, index) => (
+                                <p key={index}>
+                                  <strong>{review.review}</strong>
+                                </p>
+                              ))}
                             <strong>{item.review_title}</strong>
                           </p>
                           <p className="">{item.review_count} reviews</p>
                           <div>
                             <span style={{ color: "goldenrod" }}>
                               {[
-                                item.hotel_reviews.map((review, index) => (
-                                  <p className="flex" key={index}>
-                                    {[...Array(review.stars)].map((e, i) => (
-                                      <span className="ml-1" key={i}>
-                                        {<FaStar />}
-                                      </span>
-                                    ))}
-                                  </p>
-                                )),
+                                item.hotel_reviews
+                                  .slice(0, 1)
+                                  .map((review, index) => (
+                                    <p className="flex" key={index}>
+                                      {[...Array(review.stars)].map((e, i) => (
+                                        <span className="ml-1" key={i}>
+                                          {<FaStar />}
+                                        </span>
+                                      ))}
+                                    </p>
+                                  )),
                               ]}
                             </span>
                           </div>
@@ -397,12 +406,11 @@ const hotelId = ({ item }) => {
                     </div>
                   </div>
                   <div className="mt-10">
-                    <button
-                      className="w-full  bg-pmry text-white py-2"
-                      href="/booking"
-                    >
-                      Reserve
-                    </button>
+                    <Link href="/hotels/booking">
+                      <button className="w-full  bg-pmry text-white py-2">
+                        Reserve
+                      </button>
+                    </Link>
                   </div>
                 </div>
               </div>

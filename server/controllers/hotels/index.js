@@ -4,6 +4,7 @@ const router = express.Router();
 const {hotel} = require("../../models");
 const {Address} = require("../../models");
 const {hotel_reviews} = require("../../models");
+const {Bookings} = require("../../models");
 const {User} = require("../../models");
 const {facilities} = require("../../models");
 
@@ -18,6 +19,7 @@ const fileUpload = require("express-fileupload");
 const nodemailer = require("nodemailer");
 const hbs = require("nodemailer-handlebars");
 const crypto = require("crypto");
+const {where} = require("sequelize");
 module.exports.getHotels = async (req, res) => {
     try {
         const hotel_data = await hotel.findAll({
@@ -195,19 +197,47 @@ module.exports.postJsonHotel = async (req, res) => {
 };
 
 module.exports.bookingHotel = async (req, res) => {
-    try {
-        const data = req.body;
-        const BookingId = crypto.randomBytes(10).toString('hex');
-
-        const newBooking = {
-            email: "smir.mishra1551@gmail.com",
-            user_id: 2,
-            hotel_id: 3,
-            checkin: Date.now(),
-            checkout: Date.now(),
-            total_price: "5000",
-            currency_id: "Rs",
+    let data = req.body;
+    const BookingId = crypto.randomBytes(8).toString('hex').toUpperCase();
+    const userID = await User.findOne(
+        {
+            where: {
+                email: data.email,
+            },
+            attributes: ["id", "name"]
         }
+    )
+    const hotelID = await hotel.findOne(
+        {
+            where: {
+                slug: data.hotelSlug,
+            },
+            attributes: ["id", "title", "only_left"]
+        }
+    )
+    const availability = await hotel.update(
+        {
+            only_left: hotelID.only_left - 1,
+        },
+        {
+            where: {
+                id: hotelID.id,
+            }
+        }
+    )
+
+    // console.log(userID.id);
+    const newBooking = new Bookings({
+        userId: userID.id,
+        hotelId: hotelID.id,
+        checkin: Date.now(),
+        checkout: Date.now(),
+        no_of_person: data.no_of_person,
+        total_price: "5000",
+        currency_id: "Rs",
+        status: "booked",
+    });
+    try {
 
         const transporter = nodemailer.createTransport({
             service: "gmail",
@@ -218,13 +248,15 @@ module.exports.bookingHotel = async (req, res) => {
         });
         const mailOptions = {
             from: process.env.EMAIL,
-            to: `${newBooking.email}`,
+            to: `${data.email}`,
             subject: "Booking Confirmation",
             text: "",
             template: "booking",
             context: {
                 Bookingid: `#${BookingId}`,
-                // total_price: newBooking.total_price,
+                hotel: `${hotelID.title}`,
+                name: `${userID.name.split(" ")[0]}`,
+
             },
         };
         transporter.use(
@@ -245,6 +277,12 @@ module.exports.bookingHotel = async (req, res) => {
                 console.log("Email sent: " + info.response);
             }
         });
+        const booking = await newBooking.save();
+        res.status(200).json({
+            message: "Successfully booked",
+            data: booking,
+        });
+
     } catch (err) {
         res.json(err);
     }

@@ -33,6 +33,10 @@ module.exports = (sequelize, DataTypes) => {
                 foreignKey: 'userId'
             })
 
+            hotel.hasMany(models.Bookings, {
+                foreignKey: 'hotelId'
+            })
+
         }
     };
     hotel.init({
