@@ -207,6 +207,7 @@ module.exports.bookingHotel = async (req, res) => {
             attributes: ["id", "name"]
         }
     )
+    console.log(userID, "userID");
     const hotelID = await hotel.findOne(
         {
             where: {
