@@ -51,7 +51,7 @@ export default function NavHeaderDashboard() {
         return <div className="login-back-loading">Loading...</div>;
 
     }
-    console.log(verified)
+    localStorage.setItem("email", user.email);
     return (
         <main>
 

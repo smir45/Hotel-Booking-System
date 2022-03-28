@@ -7,7 +7,7 @@ import {
   FaInfoCircle,
   FaMapMarkerAlt,
   FaUserFriends,
-  FaRegCalendarAlt
+  FaRegCalendarAlt,
 } from "react-icons/fa";
 import { FiInfo } from "react-icons/fi";
 import GoogleApiWrapper from "../../components/componentsFiles/DashComponents/maps/descmap";
@@ -33,6 +33,7 @@ export const getStaticProps = async (context) => {
   const slug = context.params.slug;
   const res = await fetch("http://localhost:8000/api/destinations/" + slug);
   const data = await res.json();
+  
 
   return {
     props: {
@@ -51,6 +52,8 @@ const slug = ({ item }) => {
         return (
           <div key={i.id}>
             {localStorage.setItem("city", JSON.stringify(i.city))}
+            {localStorage.setItem("destination-slug", i.slug)}
+            {localStorage.setItem("destination-thumbnail", i.image)}
             <div>
               <div className="flex justify-center w-4/5 mx-auto my-5 ">
                 <div className="w-2/5 border mx-5 " style={{ height: "500px" }}>
@@ -153,9 +156,6 @@ const slug = ({ item }) => {
                         </span>
                       </p>
                     </div>
-                    {/*<div className="" style={{marginTop: "1vh", height: "200px"}}>*/}
-                    {/*    <GoogleApiWrapper className={{height: "100px", position: "relative"}}/>*/}
-                    {/*</div>*/}
                   </div>
                 </div>
                 <div className=" w-3/5">
@@ -180,8 +180,10 @@ const slug = ({ item }) => {
                   </Carousel>
                 </div>
               </div>
-              <div>
-                <h1 className="capitalize w-9/12 my-5 mx-auto text-3xl text-primary font-bold">
+              <div className="relative " style={{
+                borderTop: "1px solid rgba(0,0,0,0)",
+              }}>
+                <h1 className="capitalize w-9/12 my-5 pt-2 mx-auto text-3xl text-primary font-bold">
                   Explore {i.city}
                 </h1>
                 <DestinationSuggestion />
@@ -236,13 +238,13 @@ const slug = ({ item }) => {
                                 </p>
                               </div>
                               <div className="flex">
-                          <div className="flex justify-center items-center">
-                            <FaRegCalendarAlt className="text-primary" />
-                            <p className="mx-2 ">
-                              {new Date(review.updatedAt).toDateString()}
-                            </p>
-                          </div>
-                        </div>
+                                <div className="flex justify-center items-center">
+                                  <FaRegCalendarAlt className="text-primary" />
+                                  <p className="mx-2 ">
+                                    {new Date(review.updatedAt).toDateString()}
+                                  </p>
+                                </div>
+                              </div>
                             </div>
                             <p
                               className="capitalize w-11/12 mx-auto"

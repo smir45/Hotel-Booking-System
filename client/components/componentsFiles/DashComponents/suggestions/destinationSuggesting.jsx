@@ -19,16 +19,16 @@ const DestinationSuggestion = () => {
         }
         fetchSuggestions();
     }, []);
-    const handleChange = (e) => {
-        const value = e.target.value;
-        const filtered = suggestions.filter(suggestion => suggestion.name.toLowerCase().includes(value.toLowerCase()));
-        setFiltered(filtered);
-    }
+    // const handleChange = (e) => {
+    //     const value = e.target.value;
+    //     const filtered = suggestions.filter(suggestion => suggestion.name.toLowerCase().includes(value.toLowerCase()));
+    //     setFiltered(filtered);
+    // }
     return (
         <div>
-            <input className="none" disabled type="text" onChange={handleChange}/>
+            {/* <input className="none" disabled type="text" onChange={handleChange}/> */}
             <ul className="w-full overflow-hidden">
-                <div className="w-4/5 flex justify-center items-center mx-auto overflow-auto">
+                <div className="w-4/5 flex justify-center items-center mx-auto overflow-hidden">
                     {suggestions.map(suggestion => (
                         <div key={suggestion.id}>
                             <div
