@@ -7,6 +7,7 @@ import {
   FaInfoCircle,
   FaMapMarkerAlt,
   FaUserFriends,
+  FaRegCalendarAlt
 } from "react-icons/fa";
 import { FiInfo } from "react-icons/fi";
 import GoogleApiWrapper from "../../components/componentsFiles/DashComponents/maps/descmap";
@@ -49,7 +50,7 @@ const slug = ({ item }) => {
       {item.map((i) => {
         return (
           <div key={i.id}>
-            {localStorage.setItem("city", JSON.stringify(i.city))} 
+            {localStorage.setItem("city", JSON.stringify(i.city))}
             <div>
               <div className="flex justify-center w-4/5 mx-auto my-5 ">
                 <div className="w-2/5 border mx-5 " style={{ height: "500px" }}>
@@ -223,43 +224,36 @@ const slug = ({ item }) => {
                           className=" p-2 mx-auto border my-5 rounded-lg "
                           key={review.id}
                         >
-                          <div className="flex">
-                            <p className="my-2 text-primary font-bold text-2xl">
-                              {((review.stars * 100) / 5 / 100) * 5}{" "}
-                              <span className="text-sm">/ 5</span>
-                            </p>
-                            <p className="my-2 mx-2 text-primary font-bold text-2xl">
-                              {review.review}
+                          <div>
+                            <div className="flex justify-between w-11/12 mx-auto">
+                              <div className="flex">
+                                <p className="my-2 text-primary font-bold text-2xl">
+                                  {((review.stars * 100) / 5 / 100) * 5}{" "}
+                                  <span className="text-sm">/ 5</span>
+                                </p>
+                                <p className="my-2 mx-2 text-primary font-bold text-2xl">
+                                  {review.review}
+                                </p>
+                              </div>
+                              <div className="flex">
+                          <div className="flex justify-center items-center">
+                            <FaRegCalendarAlt className="text-primary" />
+                            <p className="mx-2 ">
+                              {new Date(review.updatedAt).toDateString()}
                             </p>
                           </div>
-
-                          <p
-                            className="capitalize w-11/12 mx-auto"
-                            style={{ color: "#808080" }}
-                          >
-                            <span className="font-light">
-                              {i.hotel_reviews.map((rev) => {
-                                return (
-                                  <p className="font-light" key={rev.id}>
-                                    {rev.Comment}
-                                  </p>
-                                );
-                              })}
-                            </span>
-                          </p>
+                        </div>
+                            </div>
+                            <p
+                              className="capitalize w-11/12 mx-auto"
+                              style={{ color: "#808080" }}
+                            >
+                              {review.Comment}
+                            </p>
+                          </div>
                         </div>
                       );
                     })}
-                    <div>
-                      {/*<p className="capitalize w-11/12 mx-auto"*/}
-                      {/*   style={{color: "#808080"}}><span*/}
-                      {/*    className="font-light">{i.hotel_reviews.map(rev => {*/}
-                      {/*    return (*/}
-                      {/*        <p className="font-light"*/}
-                      {/*           key={rev.id}>{rev.Comment}</p>*/}
-                      {/*    )*/}
-                      {/*})}</span></p>*/}
-                    </div>
                   </div>
                 </div>
               </div>

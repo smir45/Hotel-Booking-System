@@ -271,7 +271,7 @@ const hotelId = ({ item }) => {
                           <div className="flex justify-center items-center">
                             <FaRegCalendarAlt className="text-primary" />
                             <p className="mx-2 ">
-                              {new Date(review.createdAt).toDateString()}
+                              {new Date(review.updatedAt).toDateString()}
                             </p>
                           </div>
                         </div>
