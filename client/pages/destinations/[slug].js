@@ -128,7 +128,8 @@ const slug = ({ item }) => {
                       className="border mt-2 relative z-10"
                       style={{ height: "200px" }}
                     >
-                      <GoogleApiWrapper lon={"85.34868474871804"} lat={"27.710505082142905"} />
+                      <GoogleApiWrapper lon={i.Addresses.map(a => (a.longitude))} lat={i.Addresses.map(a => (a.latitude))} />
+                     
                     </div>
 
                     <div className="bg-blue-100 my-2 p-2">

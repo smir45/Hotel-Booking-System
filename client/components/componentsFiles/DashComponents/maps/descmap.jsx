@@ -2,14 +2,13 @@ import React, { Component } from "react";
 import { Map, GoogleApiWrapper, Marker } from "google-maps-react";
 
 const mapStyles = {
-  width: "30vw",
-  height: "300px",
+  width: "30.5vw",
+  height: "200px",
   position: "relative",
 };
 
 export class MapContainer extends Component {
   render() {
-    console.log(this.props.lon, "this.props.lon");
     return (
       <Map
         google={this.props.google}
