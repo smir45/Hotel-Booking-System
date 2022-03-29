@@ -177,7 +177,7 @@ const Writereview = () => {
               onChange={(e) => handleChange(e)}
             />
             <label htmlFor="checkbox">
-              By uploading these photos, I affirm that they belong to me and
+              By uploading this review, I affirm that they belong to me and
               that I agree to be bound by Accommod's{" "}
               <strong>Terms & Conditions</strong>
             </label>

@@ -165,6 +165,9 @@ const booking = () => {
               </div>
             </div>
             <div>
+              
+            </div>
+            <div>
               {/*<div className="w-full mx-5"><Paypal/></div>*/}
 
               <input

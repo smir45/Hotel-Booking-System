@@ -1,22 +1,22 @@
-const multer = require('multer')
-const fs = require('fs')
+const multer = require('multer');
 
-const imageFilter = (req,file,cb) => {
-    if(file.mimetype.startsWith("image")){
-        cb(null, true)
-    }else{
-        cb('Please upload image images', false)
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads');
+    },
+    filename: (req, file, cb) => {
+        cb(null, new Date().toISOString().replace(/:/g, '-') + '-' + file.originalname);
     }
+});
+const filefilter = (req, file, cb) => {
+    if (file.mimetype === 'image/png' || file.mimetype === 'image/jpg' 
+        || file.mimetype === 'image/jpeg'){
+            cb(null, true);
+        }else {
+            cb(null, false);
+        }
 }
 
-var storage = multer.diskStorage({
-    destination: (req,file,cb) => {
-        cb(null, __basedir + "/resources/assets/uploads")
-    },
-    filename: (req,file,cb) => {
-        cb(null,`${Date.now()}-${file.originalname}`)
-    }
-})
+const upload = multer({storage: storage, fileFilter: filefilter});
 
-var uploadFile = multer({storage: storage, fileFilter: imageFilter})
-module.exports = uploadFile
+module.exports = {upload}
