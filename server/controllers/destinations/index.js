@@ -109,20 +109,31 @@ module.exports.postDestination = async (req, res, next) => {
       slug: slugified,
       city: data.city,
       image: data.image,
+      state: data.state,
+      longitude: data.longitude,
+      latitude: data.latitude,
     });
     const destination = await Destination.findOne({
       where: {
         slug: slugified,
-      },
+      }
     });
     const newAddress = await images.create({
       name: data.image,
       destinationId: destination.id,
     });
+    const destinationAddress = await Address.create({
+      country: data.country,
+      city: data.city,
+      state: data.state,
+      destinationId: destination.id,
+
+    })
     res.status(200).json({
       message: "Destination created successfully",
       data: newDestination,
       newAddress,
+      destinationAddress,
     });
   } catch (err) {
     res.status(500).json({
@@ -170,7 +181,11 @@ module.exports.deleteDestination = async (req, res, next) => {
     });
     if (!destination)
       res.status(404).json({ message: "Destination not found" });
-
+    const imagess = await images.destroy({
+      where: {
+        destinationId: request.id,
+      },
+    });
     res.status(200).json({
       message: "Destination deleted Seccessfully",
     });
