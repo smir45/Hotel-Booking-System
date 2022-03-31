@@ -272,16 +272,13 @@ module.exports.bookingHotel = async (req, res) => {
 };
 
 module.exports.AddImages = async (req, res) => {
-  try{
-    const file = new images({
-        fileName: req.file.originalname,
-        filePath: req.file.path,
-        fileType: req.file.mimetype,
-        fileSize: fileSizeFormatter(req.file.size, 2) // 0.00
-    });
-    await file.save();
-    res.status(201).send('File Uploaded Successfully');
-}catch(error) {
+  try {
+    const { uploadFile } = require("../../middlewares/multer");
+   
+
+    console.log("req");
+  } catch (error) {
     res.status(400).send(error.message);
-}
-}
+    console.log(error);
+  }
+};

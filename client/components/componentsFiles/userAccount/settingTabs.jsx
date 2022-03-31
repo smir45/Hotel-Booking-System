@@ -40,7 +40,7 @@ const SettingTab = () => {
               <span style={{ color: "#000" }}>Email:</span> {user.email}
             </p>
             <p className="p-2 font-bold" style={{ color: "grey" }}>
-              <span style={{ color: "#000" }}>Phone:</span> code, {user.phone}{" "}
+              <span style={{ color: "#000" }}>Phone:</span>  {user.phone}{" "}
             </p>
             <p className="p-2 font-bold" style={{ color: "grey" }}>
               <span style={{ color: "#000" }}>Address:</span> {user.city},{" "}
