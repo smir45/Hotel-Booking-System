@@ -93,14 +93,12 @@ module.exports.getAllAdmin = async (req, res, next) => {
         const admin = await Admin.findAll(
             {
                 attributes: {
-                    exclude: ["password", "otp"]
+                    exclude: ["password", "otp", "createdAt", "updatedAt", "id"]
                 },
                 include: [
                     {
                         model: Address,
-                        attributes: {
-                            exclude: ["createdAt", "updatedAt"]
-                        }
+                        attributes: ["city", "state", "country"]
                     }
                 ]
             }
@@ -115,3 +113,39 @@ module.exports.getAllAdmin = async (req, res, next) => {
         })
     }
 }
+
+module.exports.Login = async (req, res, next) => {
+    const user = await Admin.findOne({
+      where: { email: req.body.email },
+    });
+    if (!user)
+      return res.status(400).json({ message: "Invalid email or username" });
+  
+    const validPassword = await bcrypt.compare(req.body.password, user.password);
+    if (!validPassword)
+      return res.status(400).json({ message: "Invalid Password" });
+    const token = jwt.sign(
+      {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        image: user.image,
+        phone: user.phone,
+        isAdmin: user.isAdmin,
+      },
+      process.env.TOKEN_SECRET,
+      {
+        expiresIn: Math.floor(Date.now() / 1000) + 60 * 60,
+        // expiresInMinutes: 1440,
+      }
+    );
+  
+    res.header("auth-token",token).json({
+      message: {
+        success: "Logged in successfully",
+      },
+      data: token,
+    });
+  
+    next();
+  };

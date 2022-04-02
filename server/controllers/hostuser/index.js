@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const Joi = require("joi");
 const { registrationschema, UpdateSchema } = require("../../validation");
-const { Hostusers } = require("../../models");
+const { Admin } = require("../../models");
 
 module.exports.CreateHostUser = async (req, res, next) => {
   const { error } = registrationschema.validate(req.body);
@@ -14,7 +14,7 @@ module.exports.CreateHostUser = async (req, res, next) => {
     });
   }
   const email = req.body.email;
-  const hostuser = await Hostusers.findOne({
+  const hostuser = await Admin.findOne({
     where: {
       email: email,
     },
@@ -24,7 +24,7 @@ module.exports.CreateHostUser = async (req, res, next) => {
   }
   const salt = await bcrypt.genSalt(10);
   const hashedpassword = await bcrypt.hash(req.body.password, salt);
-  const newHostuser = new Hostusers({
+  const newHostuser = new Admin({
     name: req.body.name,
     email: req.body.email,
     password: hashedpassword,
@@ -39,7 +39,7 @@ module.exports.CreateHostUser = async (req, res, next) => {
 };
 
 module.exports.GetHostUser = async (req, res) => {
-  const hostuser = await Hostusers.findOne({
+  const hostuser = await Admin.findOne({
     where: {
       uuid: req.params.uuid,
     },
@@ -52,7 +52,7 @@ module.exports.GetHostUser = async (req, res) => {
 
 module.exports.GetAllHosts = async (req, res) => {
   try {
-    const hostuser = await Hostusers.findAll();
+    const hostuser = await Admin.findAll();
     res.status(200).json(hostuser);
   } catch (err) {
     res.status(500).send(err);
@@ -61,7 +61,7 @@ module.exports.GetAllHosts = async (req, res) => {
 
 module.exports.UpdateAHost = async (req, res) => {
   const uuid = req.params.uuid;
-  const hostuser = await Hostusers.findOne({
+  const hostuser = await Admin.findOne({
     where: {
       uuid: uuid,
     },
@@ -77,7 +77,7 @@ module.exports.UpdateAHost = async (req, res) => {
     });
   }
   try {
-    const updatedHostuser = await Hostusers.update(
+    const updatedHostuser = await Admin.update(
       {
         ...req.body,
       },
@@ -95,7 +95,7 @@ module.exports.UpdateAHost = async (req, res) => {
 
 module.exports.DeleteAHost = async (req, res) => {
   const uuid = req.params.uuid;
-  const hostuser = await Hostusers.findOne({
+  const hostuser = await Admin.findOne({
     where: {
       uuid: uuid,
     },
@@ -104,7 +104,7 @@ module.exports.DeleteAHost = async (req, res) => {
     return res.status(404).json({ message: "hostuser not found" });
   }
   try {
-    const deletedHostuser = await Hostusers.destroy({
+    const deletedHostuser = await Admin.destroy({
       where: {
         uuid: uuid,
       },
@@ -115,38 +115,3 @@ module.exports.DeleteAHost = async (req, res) => {
   }
 };
 
-module.exports.Login = async (req, res, next) => {
-    const user = await Hostusers.findOne({
-      where: { email: req.body.email },
-    });
-    if (!user)
-      return res.status(400).json({ message: "Invalid email or username" });
-  
-    const validPassword = await bcrypt.compare(req.body.password, user.password);
-    if (!validPassword)
-      return res.status(400).json({ message: "Invalid Password" });
-    const token = jwt.sign(
-      {
-        id: user.id,
-        email: user.email,
-        name: user.name,
-        image: user.image,
-        phone: user.phone,
-        isAdmin: user.isAdmin,
-      },
-      process.env.TOKEN_SECRET,
-      {
-        expiresIn: Math.floor(Date.now() / 1000) + 60 * 60,
-        // expiresInMinutes: 1440,
-      }
-    );
-  
-    res.header("auth-token",token).json({
-      message: {
-        success: "Logged in successfully",
-      },
-      data: token,
-    });
-  
-    next();
-  };

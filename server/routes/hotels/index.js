@@ -10,7 +10,8 @@ const {
     postJsonHotel,
     deleteHotel,
     bookingHotel,
-    AddImages
+    AddImages,
+    addNewHotel
 } = require("../../controllers/hotels");
 // const userAuth = require("../../middlewares/userAuth");
 router.get("/", getHotels);
@@ -21,6 +22,5 @@ router.post('/postjson', postJsonHotel)
 router.delete('/hotelremove/:id', deleteHotel)
 router.post('/booking', bookingHotel)
 router.post('/addimages',upload.single("file"), AddImages)
-
 
 module.exports = router;

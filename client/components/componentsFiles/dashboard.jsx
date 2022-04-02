@@ -12,6 +12,7 @@ import Footer from "./footer";
 import {HowItWorks} from "./DashComponents/howitworks";
 import {useRouter} from "next/router";
 import Blog from "../../pages/blog";
+import SearchBarDashboard from "./DashComponents/searchBarDashboard";
 
 const DasboardNavigationElements = () => {
     var Tawk_API = Tawk_API || {},
@@ -39,10 +40,11 @@ const DasboardNavigationElements = () => {
                     <div className="w-screen overflow-x-auto" style={{height: "100vh"}}>
                         <DasboardBannerMain/>
                         <DashboardSearchBox/>
+                        {/*<SearchBarDashboard/>*/}
                         <FeaturesCard/>
                         <DashboardTrending/>
                         <Catagories/>
-                        {/*<BestHotels/>*/}
+                        <BestHotels/>
                         {/*<Blog/>*/}
                         <HowItWorks/>
                         <Footer/>

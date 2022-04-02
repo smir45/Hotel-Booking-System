@@ -41,25 +41,32 @@ const BestHotelsElements = () => {
                 >
                     Best Hotels
                 </h2>
+
+
                 <div className="flex justify-evenly">
                     {trendData.slice(0, 3).map((data, index) => (
-                        <Link href={`/hotels/${encodeURIComponent(data.uniqueKey)}`}>
+                        <Link href={`/hotels/${encodeURIComponent(data.slug)}`}>
                             <div className=" w-96 rounded-2xl my-5 shadow-lg" key={data.id}>
                                 <div>
                                     <img
                                         className="rounded-tl-2xl h-56 w-full rounded-tr-2xl"
-                                        src={data.images[1] && data.images[1]}
+                                        src={data.thumbnail}
                                         alt="img"
                                     />
                                 </div>
                                 {/*{console.log(data)}*/}
+                                {console.log(data, "data")}
                                 <div className="p-5 capitalize">
                                     <div className="flex">
                                         <p className="my-1 mr-1" style={{color: "grey"}}>
                                             <FiMapPin/>
                                         </p>
                                         <p style={{color: "grey"}}>
-                                            {data.city},&nbsp; {data.country}
+                                            {data.Addresses.map((address, index) => (
+                                                <span key={index}>
+                                                    <p>{address.city}{","}&nbsp;{address.country}</p>
+                                                </span>
+                                            ))}
                                         </p>
                                     </div>
                                     <div className="flex justify-between">

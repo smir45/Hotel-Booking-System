@@ -14,7 +14,7 @@ const Contents = {
 };
 
 const DashboardSearchBoxElements = () => {
-    const url = "http://localhost:8000/api/destinations/search/:city";
+
     const [data, setData] = React.useState({
         city_name: "",
         checkin: "",
@@ -24,24 +24,8 @@ const DashboardSearchBoxElements = () => {
     const [error, setError] = React.useState("");
     const searchHotels = (e) => {
         e.preventDefault();
-        Axios.post(url, {
-            city_name: data.city_name,
-            checkin: data.checkin,
-            checkout: data.checkout,
-            person: data.person,
-        })
-            .then((res) => {
-                // router.push({
-                //     pathname: "/hotels",
-                //     params: {
-                //         city: data.city_name,
-                //     },
-                // });
-            })
-            .catch((err) => {
-                setError(err.response.data.message);
-                console.log(err);
-            });
+        router.push('/destinations');
+
     };
     const handleChange = (e) => {
         const newdata = {...data};
@@ -49,6 +33,8 @@ const DashboardSearchBoxElements = () => {
         setData(newdata);
 
     };
+    localStorage.setItem("hotel_search_data", JSON.stringify(data));
+    console.log(data, "data");
     return (
         <main className="flex sm:flex-col justify-center mx-auto items-center py-2 pb-10 bg-gray-100 ">
             <div className="">

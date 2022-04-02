@@ -1,7 +1,9 @@
 const imageKit = require("../../utils/imagekit.config");
+const {Destination} = require("../../models");
 
 const ImageUpload = async (req, res, next) => {
   console.log("destinations", req.body.destinationId);
+  destinationId = req.body.destinationId;
   if (!req.files) {
     res.send("No file uploaded");
     return;
@@ -12,7 +14,7 @@ const ImageUpload = async (req, res, next) => {
       fileName: req.files.image.name,
       folder: "destinations",
     },
-    function (err, response) {
+    async function (err, response) {
       if (err) {
         console.log(err);
         return res.status(500).json({
@@ -25,12 +27,12 @@ const ImageUpload = async (req, res, next) => {
           src: url,
           transformation: [
             {
-              height: "100",
-              width: "100",
-              quality: "50",
+              height: "200",
+              width: "200",
+              quality: "150",
               format: "png",
-              overlayText: "ImageKit",
-              overlayTextColor: "purple",
+              overlayText: "Accommod",
+              overlayTextColor: "white",
               focus: "auto",
             },
           ],
@@ -40,6 +42,7 @@ const ImageUpload = async (req, res, next) => {
           data: modifiedUrl,
           message: "Successfully uploaded files",
         });
+        // console.log("newDestinationThumbnail", newDestinationThumbnail);
       }
     }
   );

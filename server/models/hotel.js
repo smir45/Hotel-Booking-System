@@ -37,6 +37,9 @@ module.exports = (sequelize, DataTypes) => {
                 foreignKey: 'hotelId'
             })
 
+            hotel.hasMany(models.Room, {
+                foreignKey: 'hotelId'
+            })
         }
     };
     hotel.init({

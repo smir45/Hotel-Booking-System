@@ -10,11 +10,10 @@ const dashboard = () => {
   const [error, setError] = useState(false);
   const user = getCookie("token");
   const userData = Jwt.decode(user);
-  // display error message if user is not admin and redirect to login page
   useEffect(() => {
     if (userData.isAdmin === false) {
       setError(true);
-      Router.push("/login");
+      router.push("/login");
     }
   }, []);
   console.log(userData);

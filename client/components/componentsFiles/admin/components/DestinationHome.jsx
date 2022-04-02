@@ -11,13 +11,14 @@ const DestinationHome = () => {
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios("http://localhost:8000/api/hotels");
-      const data = result.data.data.reverse();
+      const data = result.data;
       setTrending(data);
-      setTrendData(data.slice(0, 4));
     };
 
     fetchData();
+    
   }, []);
+  console.log(trendData, 'trendData');
   return (
     <div>
       <DestinationCard />

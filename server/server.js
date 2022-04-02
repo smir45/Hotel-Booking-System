@@ -3,7 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 const morgan = require("morgan");
-const { sequelize } = require("./models");
+const {sequelize} = require("./models");
 const userRoutes = require("./routes/user");
 const postRoutes = require("./routes/destinations");
 const hotelsPost = require("./routes/hotels");
@@ -33,6 +33,6 @@ app.use("/api/hostels", HostelRoutes);
 app.use("/api/restaurents", RestaurentRoutes);
 app.use("/api/image", imageUploadRoutes);
 app.listen(PORTT, () => {
-  // sequelize.sync({alter: true});
-  console.log(`Server running on port ${PORTT}`);
+    // sequelize.sync({alter: true});
+    console.log(`Server running on port ${PORTT}`);
 });

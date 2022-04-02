@@ -34,8 +34,6 @@ const DashboardTrendingElements = () => {
         // }
     }, []);
 
-    console.log(trendData)
-
     if (isLoading) {
         return (
             <div>
@@ -68,7 +66,7 @@ const DashboardTrendingElements = () => {
 
                     <div className="grid gap-8 mt-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                         {secdata.map((data) => (
-                            <Link href={`/hotels/${encodeURIComponent(data.title)}`}>
+                            <Link href={`/destinations/${encodeURIComponent(data.slug)}`}>
                                 <div
                                     className="w-full max-w-xs text-center hover:opacity-30 hover:cursor-pointer duration-1000"
                                     key={data.id}

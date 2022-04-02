@@ -14,25 +14,18 @@ const columns = [
     sortable: true,
   },
   {
-    field: "title",
+    field: "name",
     headerName: "Title",
     type: "text",
     width: 350,
     editable: false,
   },
   {
-    field: "description",
+    field: "desc",
     headerName: "Description",
     type: "text",
     width: 210,
     editable: false
-  },
-  {
-    field: "images",
-    headerName: "Image",
-    type: "text",
-    width: 210,
-    editable: false,
   },
   {
     field: "city",
@@ -97,7 +90,7 @@ export default function DestinationTableGrid() {
     fetchData();
   }, []);
 
-
+  console.log(destinations)
 
   return (
     <div className="shadow-xl mx-auto" style={{ height: 400, border: "none", width: "90%" }}>
