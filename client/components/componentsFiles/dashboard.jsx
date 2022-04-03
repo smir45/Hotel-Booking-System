@@ -27,6 +27,7 @@ const DasboardNavigationElements = () => {
         s0.parentNode.insertBefore(s1, s0);
     })();
 
+
     return (
         <>
             <header>
@@ -36,6 +37,8 @@ const DasboardNavigationElements = () => {
             </header>
             <div>
                 <div className="flex">
+                    <div>
+                    </div>
                     <NavHeaderDashboard/>
                     <div className="w-screen overflow-x-auto" style={{height: "100vh"}}>
                         <DasboardBannerMain/>
@@ -47,6 +50,7 @@ const DasboardNavigationElements = () => {
                         <BestHotels/>
                         {/*<Blog/>*/}
                         <HowItWorks/>
+
                         <Footer/>
                     </div>
                 </div>

@@ -121,6 +121,7 @@ const hotelId = ({item}) => {
                         </Carousel>
                     </div>
                 </div>
+                {console.log(item)}
                 <div className="w-10/12 mx-auto">
                     <div className="flex m-">
                         <h1 className="text-3xl mx-2 text-primary font-extrabold">
@@ -235,6 +236,53 @@ const hotelId = ({item}) => {
                                 </div>
                             </div>
                             <br/>
+                            <div className="my-5">
+                                {item.Rooms.map((room, index) => {
+                                    return (
+                                        <div className="bg-blue-50 p-5">
+                                            <p className="font-bold px-2 text-primary text-2xl">Room Description</p>
+                                            <div>
+                                        <span>
+                                            <h1 className="font-bold p-2">{room.catagory}</h1>
+                                             <span className="flex">
+                                                <p className="font-bold mx-2">Number of Beds<br/>
+                                                    <span className="font-light">{room.beds}</span></p>
+                                                 <p className="font-bold border-l-2 px-5 border-r-2 ">Non-refundable</p>
+
+                                                 <p className="px-5">
+                                                     {
+                                                         room.ac ?
+                                                             <p>Air Conditioner</p>
+                                                             :
+                                                             <p>No Air Conditioner</p>
+                                                     }
+                                                 </p>
+                                                 <p className="font-bold px-5 border-l-2 mx-2">Price per
+                                                    Night:</p>
+                                                 <p className="flex"> {item.Currencies.map((currency, index) => {
+                                                     return (
+                                                         <div key={currency.id}>
+                                                             <p className="font-light">&nbsp;{currency.name}</p>
+                                                         </div>
+                                                     )
+                                                 })}
+                                                     &nbsp; {room.price}
+                                                 </p>
+                                            </span>
+                                        </span>
+                                            </div>
+                                        </div>
+
+
+                                    );
+                                })}
+                                <div>
+
+
+                                </div>
+
+
+                            </div>
                             <div className="border p-2 border rounded-lg">
                                 <div>
                                     {item.hotel_reviews.map((review, index) => (

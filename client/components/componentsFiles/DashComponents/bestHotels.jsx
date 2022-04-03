@@ -54,8 +54,6 @@ const BestHotelsElements = () => {
                                         alt="img"
                                     />
                                 </div>
-                                {/*{console.log(data)}*/}
-                                {console.log(data, "data")}
                                 <div className="p-5 capitalize">
                                     <div className="flex">
                                         <p className="my-1 mr-1" style={{color: "grey"}}>

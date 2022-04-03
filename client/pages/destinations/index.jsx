@@ -30,7 +30,7 @@ const Destinations = () => {
         console.log(error);
     }
 
-    console.log(destinations);
+    // console.log(destinations);
     return (
         <div>
             <h1 className="text-center font-bold text-2xl text-primary my-2">Destinations</h1>

@@ -16,6 +16,7 @@ const fs = require("fs");
 const bodyParser = require("body-parser");
 const fileUpload = require("express-fileupload");
 const imageUploadRoutes = require("./routes/imageUpload");
+const {io} = require("./utils/socket.connection");
 
 const PORTT = process.env.PORT;
 app.use(fileUpload());
@@ -36,3 +37,4 @@ app.listen(PORTT, () => {
     // sequelize.sync({alter: true});
     console.log(`Server running on port ${PORTT}`);
 });
+io;

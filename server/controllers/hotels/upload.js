@@ -25,26 +25,39 @@ const ImageUpload = async (req, res, next) => {
                 const {url} = response;
                 const modifiedUrl = imageKit.url({
                     src: url,
-                    transformation: [
-                        {
-                            height: "200",
-                            width: "200",
-                            quality: "150",
-                            format: "png",
-                            overlayText: "Accommod",
-                            overlayTextColor: "white",
-                            focus: "auto",
+                });
+                const destination = await Destination.findOne({
+                    where: {
+                        id: destinationId,
+                    },
+                });
+                if (destination) {
+                    destination.image = modifiedUrl;
+                    await destination.save();
+                    return res.status(200).json({
+                        status: "success",
+                        message: "Image uploaded successfully.",
+                        data: {
+                            image: modifiedUrl,
                         },
-                    ],
-                });
-                res.json({
-                    status: "success",
-                    data: modifiedUrl,
-                    message: "Successfully uploaded files",
-                });
+                    });
+                } else {
+                    return res.status(404).json({
+                        status: "failed",
+                        message: "Destination not found.",
+                    });
+                }
+                // res.json({
+                //     status: "success",
+                //     data: modifiedUrl,
+                //     message: "Successfully uploaded files",
+                // });
             }
         }
     );
 };
 
-module.exports = ImageUpload;
+const ImagesUpload = async (req, res, next) => {
+    console.log(req.files, "this is multiple files");
+};
+module.exports = {ImageUpload, ImagesUpload};

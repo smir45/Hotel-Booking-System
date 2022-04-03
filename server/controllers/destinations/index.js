@@ -17,7 +17,7 @@ module.exports.getAllPosts = async (req, res, next) => {
             ],
         });
         res.status(200).json(posts);
-        console.log(posts);
+        // console.log(posts);
     } catch (err) {
         res.status(500).json({
             message: "Error retrieving destinations",
@@ -103,39 +103,38 @@ module.exports.postDestination = async (req, res, next) => {
             replacement: "-",
             lower: true,
         });
-        // const newDestination = await Destination.create({
-        //   name: data.name,
-        //   desc: data.desc,
-        //   slug: slugified,
-        //   city: data.city,
-        //   image: data.image,
-        //   state: data.state,
-        //   longitude: data.longitude,
-        //   latitude: data.latitude,
-        // });
-        // const destination = await Destination.findOne({
-        //   where: {
-        //     slug: slugified,
-        //   }
-        // });
-        // const newAddress = await images.create({
-        //   name: data.image,
-        //   destinationId: destination.id,
-        // });
-        // const destinationAddress = await Address.create({
-        //   country: data.country,
-        //   city: data.city,
-        //   state: data.state,
-        //   destinationId: destination.id,
-        //
-        // })
-        // res.status(200).json({
-        //   message: "Destination created successfully",
-        //   data: newDestination,
-        //   newAddress,
-        //   destinationAddress,
-        // });
-        console.log(data);
+        const newDestination = await Destination.create({
+            name: data.name,
+            desc: data.desc,
+            slug: slugified,
+            city: data.city,
+            image: data.image,
+            state: data.state,
+            longitude: data.longitude,
+            latitude: data.latitude,
+        });
+        const destination = await Destination.findOne({
+            where: {
+                slug: slugified,
+            }
+        });
+        const newAddress = await images.create({
+            name: data.image,
+            destinationId: destination.id,
+        });
+        const destinationAddress = await Address.create({
+            country: data.country,
+            city: data.city,
+            state: data.state,
+            destinationId: destination.id,
+
+        })
+        res.status(200).json({
+            message: "Destination created successfully",
+            data: newDestination,
+            newAddress,
+            destinationAddress,
+        });
     } catch (err) {
         res.status(500).json({
             message: "Error creating destination",
