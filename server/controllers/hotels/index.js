@@ -4,7 +4,7 @@ const router = express.Router();
 const {hotel} = require("../../models");
 const {Address} = require("../../models");
 const {hotel_reviews} = require("../../models");
-const {Bookings} = require("../../models");
+// const {Bookings} = require("../../models");
 const {User} = require("../../models");
 const {facilities} = require("../../models");
 const {images} = require("../../models");
@@ -23,7 +23,9 @@ const nodemailer = require("nodemailer");
 const hbs = require("nodemailer-handlebars");
 const crypto = require("crypto");
 const {where} = require("sequelize");
+const {Bookings} = require("../../models");
 const {Room} = require("../../models");
+const {Admin} = require("../../models");
 module.exports.getHotels = async (req, res) => {
     try {
         const hotel_data = await hotel.findAll({
@@ -218,7 +220,6 @@ module.exports.bookingHotel = async (req, res) => {
         }
     );
 
-    // console.log(userID.id);
     const newBooking = new Bookings({
         userId: userID.id,
         hotelId: hotelID.id,
@@ -229,17 +230,29 @@ module.exports.bookingHotel = async (req, res) => {
         currency_id: "Rs",
         status: "booked",
     });
+    const adminID = await hotel.findOne({
+        where: {
+            id: newBooking.hotelId,
+        },
+        attributes: ["adminId"],
+    });
+    const adminDetails = await Admin.findOne({
+        where: {
+            id: adminID.adminId,
+        },
+        attributes: ["email"],
+    });
     try {
-        const transporter = nodemailer.createTransport({
+        var transporter = nodemailer.createTransport({
             service: "gmail",
             auth: {
                 user: process.env.EMAIL,
                 pass: process.env.PASSWORD,
             },
         });
-        const mailOptions = {
+        var mailOptions = {
             from: process.env.EMAIL,
-            to: `${data.email}`,
+            to: (`${data.email}`),
             subject: "Booking Confirmation",
             text: "",
             template: "booking",
@@ -267,11 +280,54 @@ module.exports.bookingHotel = async (req, res) => {
                 console.log("Email sent: " + info.response);
             }
         });
+
+
+        // ------------------------------------------------------
+        var transporter = nodemailer.createTransport({
+            service: "gmail",
+            auth: {
+                user: process.env.EMAIL,
+                pass: process.env.PASSWORD,
+            },
+        });
+        var mailOptions = {
+            from: process.env.EMAIL,
+            to: (`${adminDetails.email}`),
+            subject: "Booking Confirmation",
+            text: "",
+            template: "verification",
+            context: {
+                Bookingid: `#${BookingId}`,
+                hotel: `${hotelID.title}`,
+                name: `${userID.name.split(" ")[0]}`,
+            },
+        };
+        transporter.use(
+            "compile",
+            hbs({
+                viewEngine: {
+                    partialsDir: "./views/",
+                    defaultLayout: "",
+                },
+                viewPath: "./views/",
+                extName: ".hbs",
+            })
+        );
+        transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+                console.log(error);
+            } else {
+                console.log("Email sent: " + info.response);
+            }
+        });
+
+
         const booking = await newBooking.save();
         res.status(200).json({
             message: "Successfully booked",
             data: booking,
         });
+
     } catch (err) {
         res.json(err);
     }
@@ -282,6 +338,36 @@ module.exports.AddImages = async (req, res) => {
 
 
         console.log("req");
+    } catch (error) {
+        res.status(400).send(error.message);
+        console.log(error);
+    }
+};
+
+
+module.exports.getUserHistory = async (req, res) => {
+    try {
+        const user = await User.findOne({
+            where: {
+                id: req.params.id,
+            },
+            attributes: ["id"],
+        });
+        const booking = await Bookings.findAll({
+            where: {
+                userId: user.id,
+            },
+            include: [
+                {
+                    model: hotel,
+                    attributes: ["id", "title", "slug", "updatedAt"],
+                },
+            ],
+        });
+        res.status(200).json({
+            message: "Successfully get user history",
+            data: booking, user
+        });
     } catch (error) {
         res.status(400).send(error.message);
         console.log(error);

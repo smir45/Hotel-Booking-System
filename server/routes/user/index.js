@@ -1,22 +1,22 @@
 const express = require("express");
 const router = express.Router();
 const {
-  findAll,
-  createUser,
-  findUser,
-  updateUser,
-  deleteUser,
-  userLogin,
-  userLogout,
-  getUserByUuid,
+    findAll,
+    createUser,
+    findUser,
+    updateUser,
+    deleteUser,
+    userLogin,
+    userLogout,
+    getUserByUuid,
     googleAuthentication,
-  uploadImage,
+    uploadImage,
 } = require("../../controllers/user");
 const {
-  emailVerification,
-  verifyResetOtp,
-  sendResetOtp,
-  resetPassword,
+    emailVerification,
+    verifyResetOtp,
+    sendResetOtp,
+    resetPassword,
 } = require("../../controllers/user/emailverification");
 router.get("/", findAll);
 router.post("/create", createUser);

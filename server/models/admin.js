@@ -14,6 +14,10 @@ module.exports = (sequelize, DataTypes) => {
             Admin.hasMany(models.Address, {
                 foreignKey: 'adminId',
             });
+
+            Admin.hasMany(models.hotel, {
+                foreignKey: 'adminId',
+            });
         }
     };
     Admin.init({

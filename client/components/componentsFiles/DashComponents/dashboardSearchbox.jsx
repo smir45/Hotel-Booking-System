@@ -85,7 +85,9 @@ const DashboardSearchBoxElements = () => {
                         />
                     </div>
                     <div>
-                        <p className="p-2 select-none text-white">search</p>
+                        <p className="p-2 select-none" style={{
+                            color: "#f5f5f5",
+                        }}>search</p>
 
                         <button
                             onSubmit={(e) => searchHotels(e)}

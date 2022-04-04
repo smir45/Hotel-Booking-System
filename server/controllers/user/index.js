@@ -12,6 +12,7 @@ const {createAvatar} = require("@dicebear/avatars");
 const crypto = require("crypto");
 const nodemailer = require("nodemailer");
 const hbs = require("nodemailer-handlebars");
+const {Bookings} = require("../../models");
 
 require("dotenv").config();
 const db = require("../../models");
@@ -302,3 +303,4 @@ module.exports.googleAuthentication = async (req, res, next) => {
         });
     }
 };
+

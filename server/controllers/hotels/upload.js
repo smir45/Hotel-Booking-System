@@ -60,4 +60,6 @@ const ImageUpload = async (req, res, next) => {
 const ImagesUpload = async (req, res, next) => {
     console.log(req.files, "this is multiple files");
 };
+
+
 module.exports = {ImageUpload, ImagesUpload};
