@@ -45,7 +45,7 @@ const SignupElements = () => {
     };
     const {addToast} = useToasts()
 
-
+    console.log(data)
     return (
         <>
 

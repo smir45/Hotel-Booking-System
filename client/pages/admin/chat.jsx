@@ -3,22 +3,24 @@ import NavHeaderDashboard from "../../components/componentsFiles/header";
 import React, {useState, useEffect} from "react";
 import ChatMsg from "@mui-treasury/components/chatMsg/ChatMsg";
 import {io} from "socket.io-client";
+import socketIOClient from "socket.io-client";
 
-const DefaultChatMsg = () => {
+const Chat = () => {
+
     const [user, setUser] = useState(null);
-    const [messages, setMessages] = React.useState([]);
     const [text, setText] = useState("");
     const [socket, setSocket] = React.useState(null);
+    const [messages, setMessages] = useState([]);
     const [receivedMessage, setReceivedMessage] = React.useState([]);
-
-
     useEffect(() => {
         const socket = io("http://localhost:8000");
         setSocket(socket);
         socket.on("message", (message) => {
             setReceivedMessage([...receivedMessage, message]);
         });
+        console.log(socket);
     }, []);
+    console.log(receivedMessage);
     const handleSend = (e) => {
         e.preventDefault();
         setMessages([...messages, text]);
@@ -27,7 +29,6 @@ const DefaultChatMsg = () => {
     };
     return (
         <div className="flex">
-            <NavHeaderDashboard/>
             <div
                 className="w-4/5  mx-auto my-2"
 
@@ -41,12 +42,12 @@ const DefaultChatMsg = () => {
                     <div
                         className="p-5 overflow-y-scroll"
                     >
-                        <ChatMsg avatar={""} messages={receivedMessage}/>
+                        <ChatMsg avatar={""} messages={[...receivedMessage]}/>
                         <ChatMsg
                             side={"right"}
-                            messages={
-                                messages
-                            }
+                            messages={[
+                                ...messages,
+                            ]}
                         />
                     </div>
                 </div>
@@ -82,4 +83,4 @@ const DefaultChatMsg = () => {
     );
 };
 
-export default DefaultChatMsg;
+export default Chat;

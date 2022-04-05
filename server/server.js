@@ -16,7 +16,16 @@ const fs = require("fs");
 const bodyParser = require("body-parser");
 const fileUpload = require("express-fileupload");
 const imageUploadRoutes = require("./routes/imageUpload");
-const {io} = require("./utils/socket.connection");
+
+const http = require("http");
+const socketio = require("socket.io");
+const server = http.createServer(app);
+const io = socketio(server, {
+    cors: {
+        origin: "*",
+        methods: "GET,POST",
+    }
+});
 
 const PORTT = process.env.PORT;
 app.use(fileUpload());
@@ -33,8 +42,21 @@ app.use("/api/faq", FaqRoutes);
 app.use("/api/hostels", HostelRoutes);
 app.use("/api/restaurents", RestaurentRoutes);
 app.use("/api/image", imageUploadRoutes);
-app.listen(PORTT, () => {
+server.listen(PORTT, () => {
     // sequelize.sync({alter: true});
     console.log(`Server running on port ${PORTT}`);
 });
-io;
+
+
+io.on('connection', (socket) => {
+    console.log('a user connected')
+    ;
+    socket.on("chat", data => {
+        socket.broadcast.emit("message", data);
+        // socket.emit('message', data)
+    });
+
+    socket.on('disconnect', () => {
+        console.log('user disconnected')
+    })
+})
