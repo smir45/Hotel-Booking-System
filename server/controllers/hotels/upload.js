@@ -26,32 +26,11 @@ const ImageUpload = async (req, res, next) => {
                 const modifiedUrl = imageKit.url({
                     src: url,
                 });
-                const destination = await Destination.findOne({
-                    where: {
-                        id: destinationId,
-                    },
+                res.json({
+                    status: "success",
+                    data: modifiedUrl,
+                    message: "Successfully uploaded files",
                 });
-                if (destination) {
-                    destination.image = modifiedUrl;
-                    await destination.save();
-                    return res.status(200).json({
-                        status: "success",
-                        message: "Image uploaded successfully.",
-                        data: {
-                            image: modifiedUrl,
-                        },
-                    });
-                } else {
-                    return res.status(404).json({
-                        status: "failed",
-                        message: "Destination not found.",
-                    });
-                }
-                // res.json({
-                //     status: "success",
-                //     data: modifiedUrl,
-                //     message: "Successfully uploaded files",
-                // });
             }
         }
     );
