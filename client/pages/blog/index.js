@@ -31,7 +31,7 @@ const BlogData = () => {
                             </div>
                             <div className="w-4/5 mt-5 mx-auto">
                                 <a className="float-right font-xl py-2 flex px-5 rounded-lg bg-pmry text-white"
-                                   href="/blog/newblog"><span className="my-1 mx-2"><FaEdit/></span>Write a Blog</a>
+                                   href="/blog/postblog"><span className="my-1 mx-2"><FaEdit/></span>Write a Blog</a>
                             </div>
                         </div>
 
