@@ -10,7 +10,9 @@ import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+
 import {
+  FaSignOutAlt,
   FaHome,
   FaUserAlt,
   FaMapMarker,
@@ -26,6 +28,7 @@ import Link from "next/router";
 import Index from '../../index'
 
 import HomeElements from '../elements/homeelements';
+import router from "next/router";
 
 const drawerWidth = 240;
 
@@ -107,6 +110,12 @@ export default function NavDrawer() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+  const logOut = (e) => {
+    e.preventDefault();
+    document.cookie = "token= ;"
+    router.push("/login");
+}
+
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -189,6 +198,24 @@ export default function NavDrawer() {
             <a className="flex" href="/admin/owner">
               <ListItemIcon className="mt-1 text-2xl">
                 <FaUserLock />
+              </ListItemIcon>
+              <ListItemText primary="Owner" />
+            </a>
+          </ListItem>
+        </List>
+
+        <List className="hover:bg-pmry hover:text-white">
+          <ListItem button key="Owner">
+            <a className="flex" href="/admin/owner">
+              <ListItemIcon className="mt-1 text-2xl">
+              <form onSubmit={(e) => logOut(e)}>
+                            <button
+                                className="">
+                                <FaSignOutAlt/>
+
+                                <span className="font-medium"></span>
+                            </button>
+                        </form>
               </ListItemIcon>
               <ListItemText primary="Owner" />
             </a>

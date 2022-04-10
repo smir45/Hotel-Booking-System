@@ -5,28 +5,31 @@ import {useToasts} from "react-toast-notifications";
 
 const AddDestination = () => {
     const [error, setError] = useState(false);
-    const [data, setData] = useState({
-        name: "",
-        desc: "",
-        image: [],
-        city: "",
-        country: "",
-        state: "",
-    });
+    const [data, setData] = useState()
+    const [title, setTitle] = useState("");
+    const [desc, setDesc] = useState("");
+    const [image, setImage] = useState(null);
+    const [city, setCity] = useState("");
+    const [country, setCountry] = useState("");
+    const [state, setState] = useState("");
 
     const addDestination = (e) => {
-        const url = "http://localhost:8000/api/destinations/post";
+        const url = "http://localhost:8000/api/hotels/post";
         e.preventDefault();
-        Axios.post(url, {
-            name: data.name,
-            desc: data.desc,
-            image: data.image,
-            city: data.city,
-            country: data.country,
-            state: data.state,
+        const formData = new FormData();
+        formData.append("title", title);
+        formData.append("desc", desc);
+        formData.append("city", city);
+        formData.append("country", country);
+        formData.append("state", state);
+        formData.append("image", image);
+        Axios.post(url, formData, {
+            headers: {
+                "Content-Type": "multipart/form-data"
+            }
         })
             .then((res) => {
-                if (res.data.message === "Destination posted successfully") {
+                if (res?.data.message === "Destination posted successfully") {
                     addToast(res.data.message, {
                         appearance: "success",
                     });
@@ -47,29 +50,10 @@ const AddDestination = () => {
             });
     };
     const handleChange = (e) => {
-        const newdata = {
-            name: data.name,
-            desc: data.desc,
-            city: data.city,
-            country: data.country,
-            state: data.state,
-        };
-        newdata[e.target.id] = e.target.value;
-        setData({
-                ...newdata,
-
-                image: e.target.files[0]
-            }
+        setImage(e.target.files[0]
         );
     };
-    const handleImage = (e) => {
-        const NewImage = {
-            image: data.image,
-        };
-        // NewImage[e.target.id] = e.target.files[0];
-        // setData({...data, ...NewImage});
-    }
-    console.log(data);
+    console.log(image);
     const {addToast} = useToasts()
     return (
 
@@ -80,13 +64,13 @@ const AddDestination = () => {
                     <div>
                         <label className="p-2">Title</label><br/>
                         <input className="border mx-2 p-3 rounded" style={{width: "500px", background: "#f5f5f5"}}
-                               required type="text" id="name" value={data.name} onChange={(e) => handleChange(e)}/>
+                               required type="text" id="title" onChange={(e) => setTitle(e.target.value)}/>
                     </div>
                     <div>
                         <label className="p-2">Description</label><br/>
                         <input className="border mx-2 p-3 rounded" style={{width: "500px", background: "#f5f5f5"}}
-                               required type="text" id="desc" value={data.desc}
-                               onChange={(e) => handleChange(e)}/>
+                               required type="text" id="desc"
+                               onChange={(e) => setDesc(e.target.value)}/>
                     </div>
                     <div>
                         <label className="p-2">Image</label><br/>
@@ -96,18 +80,18 @@ const AddDestination = () => {
                     <div>
                         <label className="p-2">City</label><br/>
                         <input className="border mx-2 p-3 rounded" style={{width: "500px", background: "#f5f5f5"}}
-                               required type="text" id="city" value={data.city} onChange={(e) => handleChange(e)}/>
+                               required type="text" id="city" onChange={(e) => setCity(e.target.value)}/>
                     </div>
                     <div>
                         <label className="p-2">Country</label><br/>
                         <input className="border mx-2 p-3 rounded" style={{width: "500px", background: "#f5f5f5"}}
-                               required type="text" id="country" value={data.country}
-                               onChange={(e) => handleChange(e)}/>
+                               required type="text" id="country"
+                               onChange={(e) => setCountry(e.target.value)}/>
                     </div>
                     <div>
                         <label className="p-2">State</label><br/>
                         <input className="border mx-2 p-3 rounded" style={{width: "500px", background: "#f5f5f5"}}
-                               required type="text" id="state" value={data.state} onChange={(e) => handleChange(e)}/>
+                               required type="text" id="state" onChange={(e) => setState(e.target.value)}/>
                     </div>
 
                     <button className="border py-3 mb-5 rounded mx-auto mx-2 mt-4 bg-pmry hover:bg-blue-800 text-white"

@@ -4,6 +4,7 @@ import {getCookie} from ".././components/componentDatas/userdetails/userdataCook
 import jwt from "jsonwebtoken";
 import React, {useState, useEffect} from "react";
 import {io} from 'socket.io-client';
+import router from "next/router";
 
 const HomePage = () => {
     return (
@@ -14,30 +15,15 @@ const HomePage = () => {
 };
 
 const Home = () => {
-    const [user, setUser] = useState(null);
-    const [socket, setSocket] = useState(null);
-    const [notifications, setNotifications] = useState([]);
-
     const token = getCookie("token");
     const decoded = jwt.decode(token);
     localStorage.setItem("user_details", decoded);
-    // useEffect(() => {
-    //     setSocket(io("http://localhost:5500"));
-    //
-    // }, []);
-    //
-    // useEffect(() => {
-    //     socket?.emit("newUser", {
-    //         user: decoded.user_id
-    //     });
-    //     socket?.on("onlineUsers", (data) => {
-    //         console.log(data);
-    //         setNotifications(data);
-    //     });
-    // }, [socket, user]);
+    if(decoded?.isAdmin === true){
+        router.push("/admin/dashboard");
+    }
     return (
         <main>
-            <DashboardNavigation user={user?.id} socket={socket}/>
+            <DashboardNavigation/>
         </main>
     );
 };

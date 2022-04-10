@@ -39,6 +39,9 @@ export default function NavHeaderDashboard() {
         }
         setUser(jwt.decode(getCookie("token")));
         setVerified(user.isVerified);
+        if(user.isAdmin === true){
+            return router.push("/admin/dashboard");
+        }
 
         if (!verified) {
             return router.push("/verification");

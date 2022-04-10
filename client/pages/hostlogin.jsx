@@ -1,4 +1,4 @@
-import React,{ useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import cookie from "js-cookie";
 import { useRouter } from "next/router";
 import { AiFillLock } from "react-icons/ai";
@@ -6,7 +6,6 @@ import { useToasts } from "react-toast-notifications";
 
 const HostLogin = () => {
   const { addToast } = useToasts();
-
 
   const [email, setEmail] = useState("");
   const [error, setError] = useState(false);
@@ -25,32 +24,25 @@ const HostLogin = () => {
       }),
     });
 
-
-
     const res2 = await res.json();
     if (res2.message === "Invalid email or username") {
       return addToast(res2.message, { appearance: "error" });
-    }else if (res2.message === "Invalid Password") {
-
+    } else if (res2.message === "Invalid Password") {
       setError(true);
       return addToast(res2.message, { appearance: "error" });
     }
     if (res2.message === "Please verify your email") {
       addToast(res2.message, { appearance: "error" });
       setTimeout(() => {
-            localStorage.setItem("email", JSON.stringify(email));
-            router.push("/verify");
-          }
-          , 1000);
-    }
-    else {
+        localStorage.setItem("email", JSON.stringify(email));
+        router.push("/verify");
+      }, 1000);
+    } else {
       addToast(res2.message.success, { appearance: "success" });
       cookie.set("token", res2.data);
       cookie.set("user", res2.user);
       router.push("/admin/dashboard");
     }
-
-
   };
   return (
     <>
@@ -58,7 +50,10 @@ const HostLogin = () => {
         <div className="flex justify-center h-screen">
           <div
             className="hidden bg-cover lg:block lg:w-2/3"
-            style={{backgroundImage: "url(https://images.unsplash.com/photo-1509822929063-6b6cfc9b42f2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80"}}
+            style={{
+              backgroundImage:
+                "url(https://images.unsplash.com/photo-1509822929063-6b6cfc9b42f2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80",
+            }}
           >
             <div className="flex items-center h-full px-20 bg-gray-900 bg-opacity-40">
               <div>

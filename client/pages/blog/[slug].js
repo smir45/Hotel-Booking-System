@@ -14,7 +14,7 @@ export const getStaticPaths = async () => {
 
 
 export async function getStaticProps(context) {
-    const res = await fetch(`http://localhost:8000/api/blog/post/get/${context.params.slug}`);
+    const res = await fetch(`http://localhost:8000/api/blog/post/get/${context.params.id}`);
     const post = await res.json();
     console.log(post);
     return {
@@ -30,7 +30,7 @@ const BlogPost = ({ post }) => {
     return (
         <div>
             <h1>Trial</h1>ß
-            {/* <h1>{post.title}</h1> */}
+            <h1>{post.title}</h1>
         </div>
     )
 }

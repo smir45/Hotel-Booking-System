@@ -43,7 +43,9 @@ io.on('connection', (socket) => {
 const PORTT = process.env.PORT;
 app.use(fileUpload());
 app.use(cors());
-app.use(bodyParser.json());
+app.disable('etag');
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(morgan("tiny"));
 app.use(express.static(__dirname + "/public"));
 app.use("/api/auth/user", userRoutes);

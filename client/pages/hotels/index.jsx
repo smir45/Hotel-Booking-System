@@ -32,7 +32,7 @@ const searchDatas = () => {
         <>
             <div
                 className="border w-full "
-                style={{background: "#f5f5f5f5", padding: "5px", height: "100vh"}}
+                style={{background: "#f5f5f5f5", padding: "5px", minHeight: "100vh"}}
             >
                 {isLoading ? (
                     <div className="flex justify-center items-center h-screen">

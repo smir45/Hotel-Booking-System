@@ -38,7 +38,7 @@ export const Catagories = () => {
                         </h6>
                     </div>
                 </Link>
-                <Link href="/hostels">
+                <Link href="/blog">
                     <div
                         className="text-center hover:bg-pmry hover:text-white duration-700 hover:cursor-pointer rounded-2xl">
                         <div

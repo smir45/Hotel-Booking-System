@@ -8,7 +8,7 @@
     "start": "nodemon server.js",
     "models-post": "npx sequelize-cli model:generate --name Post --attributes title:string,description:string",
     "models-faq": "npx sequelize-cli model:generate --name faq --attributes title:string,description:string",
-    "models-blog": "npx sequelize-cli model:generate --name Blog --attributes title:string,description:text",
+    "models-message": "npx sequelize-cli model:generate --name Message --attributes text:string,userId:integer",
     "models-user": "npx sequelize-cli model:generate --name User --attributes name:string,email:string,password:string",
     "models-room": "npx sequelize-cli model:generate --name Room --attributes price:string,catagory:string,beds:integer,ac:boolean,occupied:boolean",
     "models-booking": "npx sequelize-cli model:generate --name Bookings --attributes checkin:date,checkout:date,no_of_person:integer,price:string,status:string",

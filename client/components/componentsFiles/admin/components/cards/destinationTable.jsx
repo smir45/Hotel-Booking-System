@@ -37,7 +37,7 @@ const columns = [
   {
     field: "slug",
     headerName: "Slug",
-    width: 100,
+    width: 300,
     editable: false,
   },
   {
@@ -93,12 +93,12 @@ export default function DestinationTableGrid() {
   console.log(destinations)
 
   return (
-    <div className="shadow-xl mx-auto" style={{ height: 400, border: "none", width: "90%" }}>
+    <div className="shadow-xl mx-auto" style={{ height: "75vh", border: "none", width: "90%" }}>
       <DataGrid
         rows={rows}
         columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
+        pageSize={11}
+        rowsPerPageOptions={[11]}
         checkboxSelection
         disableSelectionOnClick
 

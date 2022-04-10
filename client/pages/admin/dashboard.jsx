@@ -5,17 +5,16 @@ import Jwt from "jsonwebtoken";
 import Router from "next/router";
 import { AiFillLock } from "react-icons/ai";
 import router from "next/router";
-
+import { useToasts } from "react-toast-notifications";
 const dashboard = () => {
+  const {addToast} = useToasts();
   const [error, setError] = useState(false);
   const user = getCookie("token");
   const userData = Jwt.decode(user);
-  useEffect(() => {
-    if (userData.isAdmin === false) {
-      setError(true);
-      router.push("/login");
-    }
-  }, []);
+  if (userData?.isAdmin === false) {
+    setError(true);
+    router.push("/login");
+  }
   console.log(userData);
   return (
     <div>
