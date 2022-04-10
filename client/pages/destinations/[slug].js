@@ -163,8 +163,8 @@ const slug = ({item}) => {
                                     <Carousel
                                         animation={"slide"}
                                         duration={500}
-                                        indicators={false}
-                                        navButtonsAlwaysVisible={true}
+                                        indicators={true}
+                                        // navButtonsAlwaysVisible={true}
                                     >
                                         {i.images.map((img) => {
                                             return (

@@ -104,7 +104,6 @@ const hotelId = ({item}) => {
                             animation={"slide"}
                             duration={300}
                             indicators={false}
-                            navButtonsAlwaysVisible={true}
                         >
                             {/*{i.images.map((img) => {*/}
                             {/*    return (*/}

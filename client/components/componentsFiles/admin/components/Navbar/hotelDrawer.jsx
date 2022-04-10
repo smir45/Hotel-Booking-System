@@ -26,6 +26,7 @@ import Link from "next/router";
 import axios from "axios";
 
 import HomeElements from '../elements/homeelements';
+import HotelsTable from '../cards/hotelsTable';
 
 const drawerWidth = 240;
 
@@ -203,6 +204,7 @@ export default function HotelsDrawer() {
         <DrawerHeader />
         <Typography paragraph>
           <h1>Hotels</h1>
+              <HotelsTable />
         </Typography>
       </Box>
     </Box>
