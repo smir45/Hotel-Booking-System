@@ -46,12 +46,10 @@ const ImagesUpload = async (req, res, next) => {
     return;
   }
 
-  console.log(hotelId)
-  const slugifiedTitle = slugify(hotelId, {
-    replacement: "-",
-    remove: /[*+~.()'"!:@]/g,
-    lower: true,
-  });
+  
+  const slugifiedTitle = hotelId.toLowerCase().replace(/\s/g, "-");
+  
+  console.log(slugifiedTitle)
   const hotelData = await hotel.findOne({
     where: {
       slug: slugifiedTitle,
