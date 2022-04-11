@@ -4,17 +4,27 @@ import axios from "axios";
 import SettingTab from "../components/componentsFiles/userAccount/settingTabs";
 import Khalti from "../components/componentsFiles/DashComponents/khalti/khalti";
 import {FaCalendarAlt} from "react-icons/fa";
-
+import { getCookie } from "../components/componentDatas/userdetails/userdataCookies";
+import jwt from "jsonwebtoken";
 const paymentinfo = () => {
     const [history, setHistory] = React.useState([]);
     const [loading, setLoading] = React.useState(false);
+    const [user, setUser] = React.useState([]);
 
     React.useEffect(() => {
         setLoading(true);
-        axios.get(`http://localhost:8000/api/hotels/user/history/2`).then(res => {
+        const token = getCookie("token");
+        const decoded = jwt.decode(token);
+        setUser(decoded);
+        try{
+            const res = axios.get(`http://localhost:8000/api/hotels/user/history/2`).then(res => {
             setHistory(res.data.data.reverse());
             setLoading(false);
         });
+        }catch(err){
+            console.log(err);
+        }
+
     }, []);
     return (
         <main
@@ -64,7 +74,7 @@ const paymentinfo = () => {
                                 <div>
                                     <div className="shadow-lg my-5 p-5">
                                         <h1 className="font-bold text-xl text-pmry">
-                                            {h.hotel.title}
+                                            {h.hotel?.title}
                                         </h1>
                                         <p>{h.status}</p>
                                         <p className="flex">Checkin Date: &nbsp;
