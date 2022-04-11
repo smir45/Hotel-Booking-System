@@ -47,8 +47,8 @@ const DasboardNavigationElements = () => {
                         <FeaturesCard/>
                         <DashboardTrending/>
                         <Catagories/>
-                        {/*<BestHotels/>*/}
-                        {/*<Blog/>*/}
+                        <BestHotels/>
+                        {/* <Blog/> */}
                         <HowItWorks/>
 
                         <Footer/>

@@ -45,14 +45,13 @@ const Hotelimages = () => {
     setHotelId(localStorage.getItem("addedhotelId"));
   };
   return (
-    <div>
-      <h1>Hotel Images</h1>
+    <div className="flex h-[100vh] justify-center items-center">
+      
       <form action="" onSubmit={(e) => addHotelData(e)}>
+      <h1 className="text-2xl my-5 text-center text-primary">Upload Hotel Images</h1>
         <div>
-          <label className="p-2 text-2xl text-center">Upload Images</label>
-          <br />
           <input
-            className="border mx-2 p-3 rounded"
+            className="border mx-2 p-5 rounded"
             style={{ width: "500px", background: "#f5f5f5" }}
             required
             type="file"
@@ -62,7 +61,7 @@ const Hotelimages = () => {
           />
         </div>
         
-        <button type="submit">btn</button>
+        <button className="p-5 text-white bg-pmry w-[500px] ml-2" type="submit">Submit</button>
       </form>
     </div>
   );

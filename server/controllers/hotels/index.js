@@ -113,7 +113,7 @@ module.exports.postHotels = async (req, res, next) => {
       {
         file: req.files.image.data,
         fileName: req.files.image.name,
-        folder: "destinations",
+        folder: "hotels",
       },
       async function (err, response) {
         if (err) {
