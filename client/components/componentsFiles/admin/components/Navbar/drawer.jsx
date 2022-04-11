@@ -16,7 +16,7 @@ import {
   FaHome,
   FaUserAlt,
   FaMapMarker,
-  FaUserLock,
+  FaCommentDots,
   FaHotel,
 } from "react-icons/fa";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
@@ -195,9 +195,9 @@ export default function NavDrawer() {
 
         <List className="hover:bg-pmry hover:text-white">
           <ListItem button key="Owner">
-            <a className="flex" href="/admin/owner">
+            <a className="flex" href="/admin/chat">
               <ListItemIcon className="mt-1 text-2xl">
-                <FaUserLock />
+                <FaCommentDots />
               </ListItemIcon>
               <ListItemText primary="Owner" />
             </a>

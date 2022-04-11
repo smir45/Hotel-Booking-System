@@ -27,6 +27,7 @@ import axios from "axios";
 
 import HomeElements from '../elements/homeelements';
 import HotelsTable from '../cards/hotelsTable';
+import HotelsAdmin from "../cards/hotelsadmin";
 
 const drawerWidth = 240;
 
@@ -203,8 +204,7 @@ export default function HotelsDrawer() {
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
         <Typography paragraph>
-          <h1>Hotels</h1>
-              <HotelsTable />
+          <HotelsAdmin/>
         </Typography>
       </Box>
     </Box>

@@ -90,7 +90,6 @@ export default function DestinationTableGrid() {
     fetchData();
   }, []);
 
-  console.log(destinations)
 
   return (
     <div className="shadow-xl mx-auto" style={{ height: "75vh", border: "none", width: "90%" }}>

@@ -18,7 +18,6 @@ const DestinationHome = () => {
     fetchData();
     
   }, []);
-  console.log(trendData, 'trendData');
   return (
     <div>
       <DestinationCard />

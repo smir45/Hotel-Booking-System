@@ -23,22 +23,15 @@ const Hotelimages = () => {
       },
     })
       .then((res) => {
-        if (res?.data.message === "Destination posted successfully") {
-          addToast(res.data.message, {
-            appearance: "success",
-          });
           setTimeout(() => {
             router.push("/admin/hotels");
           }, 1000);
-        } else {
-          setError(true);
-        }
-        router.push("/admin/hotels");
       })
       .catch((err) => {
         setError(err);
         console.log(err);
       });
+      router.push("/admin/hotels");
   };
   const handleChange = (e) => {
     setImages([...e.target.files]);
