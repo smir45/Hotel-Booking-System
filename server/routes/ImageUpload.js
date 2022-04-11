@@ -7,5 +7,5 @@ const multer = require("multer");
 
 
 router.post("/upload_file", upload.single("image"), ImageUpload);
-router.post("/upload_files", upload.array("image"), ImagesUpload);
+router.post("/upload_files", ImagesUpload);
 module.exports = router;

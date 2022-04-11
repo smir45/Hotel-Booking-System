@@ -46,6 +46,10 @@ module.exports.getHotels = async (req, res) => {
         {
           model: facilities,
         },
+        {
+           model: images,
+           attributes: ["name"],
+        },
       ],
     });
 
@@ -82,6 +86,10 @@ module.exports.getAHotel = async (req, res, next) => {
           model: User,
           attributes: ["name", "image"],
         },
+        {
+          model: images,
+          attributes: ["name"],
+       },
       ],
     });
     res.send(hotelData);
@@ -158,7 +166,6 @@ module.exports.postHotels = async (req, res, next) => {
         }
       }
     );
-
   } catch (err) {
     res.json(err);
     console.log(err);
