@@ -1,6 +1,8 @@
 const imageKit = require("../../utils/imagekit.config");
 const { images } = require("../../models");
+const { hotel } = require("../../models");
 const { link } = require("fs");
+const slugify = require("slugify");
 
 const ImageUpload = async (req, res, next) => {
   console.log("destinations", req.body.destinationId);
@@ -38,11 +40,23 @@ const ImageUpload = async (req, res, next) => {
 };
 
 const ImagesUpload = async (req, res, next) => {
-  // console.log(req.files)
+  const {hotelId} = req.body;
   if (!req.files) {
     res.send("No file uploaded");
     return;
   }
+
+  console.log(hotelId)
+  const slugifiedTitle = slugify(hotelId, {
+    replacement: "-",
+    remove: /[*+~.()'"!:@]/g,
+    lower: true,
+  });
+  const hotelData = await hotel.findOne({
+    where: {
+      slug: slugifiedTitle,
+    },
+  });
   req.files.image.map((file) => {
     imageKit.upload(
       {
@@ -61,14 +75,13 @@ const ImagesUpload = async (req, res, next) => {
           const { url } = response;
 
           const hotel = await images.create({
-            hotelId: req.body.hotelId,
+            hotelId: hotelData.id,
             name: url,
           });
         }
       }
     );
 
-    // console.log(file.data.buffer.toString("base64"));
   });
 };
 

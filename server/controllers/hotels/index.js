@@ -158,6 +158,13 @@ module.exports.postHotels = async (req, res, next) => {
             name: modifiedUrl,
             hotelId: hotellId.id,
           });
+          const facilitiesData = await facilities.create({
+            wifi: data.wifi,
+            parking: data.parking,
+            pets: data.pets,
+            swimming_pool: data.swimming_pool,
+            hotelId: hotellId.id,
+          })
           res.json({
             status: "success",
             data: modifiedUrl,

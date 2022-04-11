@@ -34,12 +34,12 @@ const AddHotel = () => {
                         appearance: "success",
                     });
                     setTimeout(() => {
-                        router.push("/admin/destinations");
+                        router.push("/admin/hotelimages");
                     }, 1000);
                 } else {
                     setError(true);
                 }
-                router.push('/admin/destinations');
+                router.push('/admin/hotelimages');
             })
             .catch((err) => {
                 setError(err.response.data.message);

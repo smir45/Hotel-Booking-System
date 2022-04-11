@@ -71,7 +71,7 @@ const searchDatas = () => {
                             return (
                               <img
                                 src={img.name}
-                                className=" mx-auto mt-2 bg-pmry"
+                                className=" mx-auto max-h-[200px] mt-2 bg-pmry"
                               />
                             );
                           })}
