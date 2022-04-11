@@ -47,8 +47,8 @@ module.exports.getHotels = async (req, res) => {
           model: facilities,
         },
         {
-           model: images,
-           attributes: ["name"],
+          model: images,
+          attributes: ["name"],
         },
       ],
     });
@@ -89,7 +89,7 @@ module.exports.getAHotel = async (req, res, next) => {
         {
           model: images,
           attributes: ["name"],
-       },
+        },
       ],
     });
     res.send(hotelData);
@@ -164,7 +164,7 @@ module.exports.postHotels = async (req, res, next) => {
             pets: data.pets,
             swimming_pool: data.swimming_pool,
             hotelId: hotellId.id,
-          })
+          });
           res.json({
             status: "success",
             data: modifiedUrl,
@@ -236,26 +236,47 @@ module.exports.postImage = async (req, res) => {
   }
 };
 
-module.exports.postJsonHotel = async (req, res) => {
-  // import json file
-  const jsonfile = require("../../json/bookin_hotels.json");
+module.exports.postReview = async (req, res) => {
   try {
-    const datas = jsonfile;
-    const uniqueArray = datas.filter(function (elem, pos) {
-      return datas.indexOf(elem) == pos;
+    const data = req.body;
+    const slug = req.body.slug.toLowerCase().replace(/\s/g, "-");
+    const userDetails = await User.findOne({
+      where: {
+        email: data.email,
+      },
     });
-    // bulk create
-    const hotel = await Hotel.bulkCreate(uniqueArray);
-
-    res.send(hotel);
+    console.log(data)
+    const hotelDetails = await hotel.findOne({
+      where: {
+        slug: slug,
+      },
+    });
+    const newReview = new hotel_reviews({
+      average: data.stars,
+      stars: data.stars,
+      review: data.review,
+      Comment: data.comment,
+      hotelId: hotelDetails.id,
+      userId: userDetails.id,
+    });
+    const reviewData = await newReview.save();
+    console.log(hotelDetails)
+    res.status(200).json({
+      message: "Review created successfully",
+      data: reviewData,
+    });
   } catch (err) {
-    res.json(err);
     console.log(err);
+    res.status(500).json({
+      message: "Error uploading  review",
+      error: err,
+    });
   }
 };
 
 module.exports.bookingHotel = async (req, res) => {
   let data = req.body;
+  console.log(data.email)
   const BookingId = crypto.randomBytes(8).toString("hex").toUpperCase();
   const userID = await User.findOne({
     where: {
@@ -266,7 +287,7 @@ module.exports.bookingHotel = async (req, res) => {
   console.log(userID, "userID");
   const hotelID = await hotel.findOne({
     where: {
-      slug: data.hotelSlug,
+      slug: data.slug,
     },
     attributes: ["id", "title", "only_left"],
   });

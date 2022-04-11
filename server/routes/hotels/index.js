@@ -7,7 +7,7 @@ const {
     postHotels,
     postImage,
     getAHotel,
-    postJsonHotel,
+    postReview,
     deleteHotel,
     bookingHotel,
     AddImages,
@@ -18,7 +18,7 @@ router.get("/", getHotels);
 router.post("/post", postHotels);
 router.get("/:uniqueKey", getAHotel);
 router.post('/postimage', postImage)
-router.post('/postjson', postJsonHotel)
+router.post('/postreview', postReview)
 router.delete('/hotelremove/:id', deleteHotel)
 router.post('/booking', bookingHotel)
 router.post('/addimages', upload.single("file"), AddImages)

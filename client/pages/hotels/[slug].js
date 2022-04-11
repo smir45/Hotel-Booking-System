@@ -279,41 +279,65 @@ const hotelId = ({ item }) => {
                 })}
                 <div></div>
               </div>
-              <div className="border p-2 border rounded-lg">
-                <div>
+              <div className="border p-2 bg-blue-50 rounded-lg">
+              <div className="flex justify-between ">
+                    <div className="w-4/5">
+                      <h1 className="p-2 text-2xl font-bold text-primary">
+                        Reviews
+                      </h1>
+                      <div className="flex w-4/5 ">
+                        <span
+                          className="my-2 text-2xl"
+                          style={{ color: "#707070" }}
+                        >
+                          <FiInfo />
+                        </span>
+                        <p className="p-2" style={{ color: "#707070" }}>
+                          {" "}
+                          Some reviews may have been translated by Google
+                          Translate
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex justify-center items-center">
+                      <a
+                        href="/hotels/writeareview"
+                        className="bg-pmry text-white font-bold py-2 px-4 rounded-lg"
+                      >
+                        Write a Review
+                      </a>
+                    </div>
+                  </div>
+                <div className="border p-2 bg-[#ffff] rounded-lg">
                   {item.hotel_reviews.map((review, index) => (
                     <div className="p-2 my-5" key={index}>
-                      <div className="flex justify-between">
-                        <div className="flex">
-                          <div className="flex justify-center items-center">
-                            <img
-                              src={item.User.image}
-                              alt="profile"
-                              className="rounded-full h-12 m-1 w-12 border border-pmry p-1"
-                            />
+                     <div>
+                            <div className="flex justify-between w-11/12 mx-auto">
+                              <div className="flex">
+                                <p className="my-2 text-primary font-bold text-2xl">
+                                  {((review.stars * 100) / 5 / 100) * 5}{" "}
+                                  <span className="text-sm">/ 5</span>
+                                </p>
+                                <p className="my-2 mx-2 text-primary font-bold text-2xl">
+                                  {review.review}
+                                </p>
+                              </div>
+                              <div className="flex">
+                                <div className="flex justify-center items-center">
+                                  <FaRegCalendarAlt className="text-primary" />
+                                  <p className="mx-2 ">
+                                    {new Date(review.updatedAt).toDateString()}
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
                             <p
-                              className="mx-2 font-bold"
-                              style={{ color: "#707070" }}
+                              className="capitalize w-11/12 mx-auto"
+                              style={{ color: "#808080" }}
                             >
-                              {item.User.name}
+                              {review.Comment}
                             </p>
                           </div>
-                        </div>
-                        <div className="flex">
-                          <div className="flex justify-center items-center">
-                            <FaRegCalendarAlt className="text-primary" />
-                            <p className="mx-2 ">
-                              {new Date(review.updatedAt).toDateString()}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      <p
-                        className="text-base ml-2 p-2"
-                        style={{ color: "#808080" }}
-                      >
-                        {review.Comment}
-                      </p>
                     </div>
                   ))}
                 </div>

@@ -15,22 +15,23 @@ import {useToasts} from 'react-toast-notifications'
 
 const booking = () => {
   const router = useRouter();
-  const [value, setValue] = React.useState({
-    fname: "",
-    lname: "",
-    email: "",
-    phone: "",
-  });
+  const [fname, setFname] = useState("");
+  const [lname, setLname] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = React.useState("");
   const hotel_name = localStorage.getItem("hotel_name");
   const hotel_slug = localStorage.getItem("hotel_address_zip");
 
   const booking = (e) => {
       e.preventDefault();
-      Axios.post("http://localhost:8000/api/hotels/booking", {
-        email: value.email,
-        hotelSlug: hotel_slug,
-        no_of_person: 1,
-      })
+      const formData = new FormData();
+      formData.append("fname", fname);
+      formData.append("lname", lname);
+      formData.append("phone", phone);
+      formData.append("email", email);
+      formData.append("slug", hotel_slug);
+      formData.append("no_of_person", 1);
+      Axios.post("http://localhost:8000/api/hotels/booking", formData)
       .then((res) => {
         addToast("Booked Successfully Pleace check your email", {
           appearance: 'success'
@@ -44,11 +45,6 @@ const booking = () => {
         console.log(err);
       });
       
-  };
-  const handleChange = (e) => {
-    const value = { ...value };
-    value[e.target.id] = e.target.value;
-    setValue(value);
   };
   const {addToast} = useToasts()
   return (
@@ -98,7 +94,7 @@ const booking = () => {
                   name="fname"
                   required
                   id="fname"
-                  onChange={(e) => handleChange(e)}
+                  onChange={(e) => setFname(e.target.value)}
                 />
                 <h1>
                   Last name{" "}
@@ -111,7 +107,7 @@ const booking = () => {
                   name="lname"
                   required
                   id="lname"
-                  onChange={(e) => handleChange(e)}
+                  onChange={(e) => setLname(e.target.value)}
                 />
                 
                 <h1>
@@ -125,7 +121,7 @@ const booking = () => {
                   name="phone"
                   required
                   id="phone"
-                  onChange={(e) => handleChange(e)}
+                  onChange={(e) => setPhone(e.target.value)}
                 />
                 <h1>
                   Email{" "}
@@ -138,7 +134,7 @@ const booking = () => {
                   name="email"
                   required
                   id="email"
-                  onChange={(e) => handleChange(e)}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </form>
             </div>
