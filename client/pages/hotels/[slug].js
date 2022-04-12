@@ -302,7 +302,7 @@ const hotelId = ({ item }) => {
                     <div className="flex justify-center items-center">
                       <a
                         href="/hotels/writeareview"
-                        className="bg-pmry text-white font-bold py-2 px-4 rounded-lg"
+                        className="bg-pmry text-white w-[160px] font-bold py-2 px-4 rounded-lg"
                       >
                         Write a Review
                       </a>
