@@ -105,74 +105,85 @@ module.exports.postHotels = async (req, res, next) => {
     const slugdata = data.title.toLowerCase().replace(/\s/g, "-");
     var modifiedUrl;
 
+    const newHotel = new hotel({
+      slug: slugdata,
+      title: data.title,
+      desc: data.desc,
+      distance: data.distance,
+      only_left: data.only_left,
+      currency_id: data.currency_id,
+      checkin: Date.now(),
+      checkout: Date.now(),
+      city: data.city,
+      state: data.state,
+      country: data.country,
+    });
+    const hotelData = await newHotel.save();
+    const hotellId = await hotel.findOne({
+      where: {
+        slug: slugdata,
+      },
+      attributes: ["id"],
+    });
+    const newAddress = Address.create({
+      city: data.city,
+      state: data.state,
+      country: data.country,
+      hotelId: hotellId.id,
+    });
+
+    const facilitiesData = await facilities.create({
+      wifi: data.wifi,
+      parking: data.parking,
+      pets: data.pets,
+      swimming_pool: data.swimming_pool,
+      hotelId: hotellId.id,
+    });
+    // -----------------------------------------------------------------------
+
     if (!req.files) {
       res.send("No file uploaded");
       return;
     }
-    imageKit.upload(
-      {
-        file: req.files.image.data,
-        fileName: req.files.image.name,
-        folder: "hotels",
-      },
-      async function (err, response) {
-        if (err) {
-          console.log(err);
-          return res.status(500).json({
-            status: "failed",
-            message: "An error occured during file upload. Please try again.",
-          });
-        } else {
-          const { url } = response;
-          modifiedUrl = imageKit.url({
-            src: url,
-          });
-          const newHotel = new hotel({
-            slug: slugdata,
-            title: data.title,
-            desc: data.desc,
-            distance: data.distance,
-            only_left: data.only_left,
-            currency_id: data.currency_id,
-            checkin: Date.now(),
-            checkout: Date.now(),
-            thumbnail: modifiedUrl,
-            city: data.city,
-            state: data.state,
-            country: data.country,
-          });
-          const hotelData = await newHotel.save();
-          const hotellId = await hotel.findOne({
-            where: {
-              slug: slugdata,
-            },
-            attributes: ["id"],
-          });
-          const newAddress = Address.create({
-            city: data.city,
-            state: data.state,
-            country: data.country,
-            hotelId: hotellId.id,
-          });
-          const thumbn = images.create({
-            name: modifiedUrl,
-            hotelId: hotellId.id,
-          });
-          const facilitiesData = await facilities.create({
-            wifi: data.wifi,
-            parking: data.parking,
-            pets: data.pets,
-            swimming_pool: data.swimming_pool,
-            hotelId: hotellId.id,
-          });
-          res.json({
-            status: "success",
-            data: modifiedUrl,
-            message: "Successfully uploaded files",
-          });
+
+    req.files.image.map((file) => {
+      imageKit.upload(
+        {
+          file: file.data,
+          fileName: file.name,
+          folder: "Destinations",
+        },
+        async (err, response) => {
+          if (err) {
+            console.log(err);
+            return res.status(500).json({
+              status: "failed",
+              message: "An error occured during file upload. Please try again.",
+            });
+          } else {
+            const { url } = response;
+            modifiedUrl = url;
+
+            const thumbn = images.create({
+              name: modifiedUrl,
+              hotelId: hotellId.id,
+            });
+            const destinationUpdated = await hotel.update(
+              {
+                thumbnail: modifiedUrl,
+              },
+              {
+                where: {
+                  id: hotellId.id,
+                },
+              }
+            );
+          }
         }
-      }
-    );
+      );
+    });
+
+    // -----------------------------------------------------------------------
   } catch (err) {
     res.json(err);
     console.log(err);
@@ -245,7 +256,7 @@ module.exports.postReview = async (req, res) => {
         email: data.email,
       },
     });
-    console.log(data)
+    console.log(data);
     const hotelDetails = await hotel.findOne({
       where: {
         slug: slug,
@@ -260,7 +271,7 @@ module.exports.postReview = async (req, res) => {
       userId: userDetails.id,
     });
     const reviewData = await newReview.save();
-    console.log(hotelDetails)
+    console.log(hotelDetails);
     res.status(200).json({
       message: "Review created successfully",
       data: reviewData,
@@ -276,7 +287,7 @@ module.exports.postReview = async (req, res) => {
 
 module.exports.bookingHotel = async (req, res) => {
   let data = req.body;
-  console.log(data.email)
+  console.log(data.email);
   const BookingId = crypto.randomBytes(8).toString("hex").toUpperCase();
   const userID = await User.findOne({
     where: {

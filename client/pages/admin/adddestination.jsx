@@ -80,7 +80,7 @@ const AddDestination = () => {
                     <div>
                         <label className="p-2">Description</label>
                         <br/>
-                        <input
+                        <textarea
                             className="border mx-2 p-3 rounded"
                             style={{width: "500px", background: "#f5f5f5"}}
                             required

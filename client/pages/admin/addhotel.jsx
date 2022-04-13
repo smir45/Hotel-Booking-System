@@ -8,7 +8,7 @@ const AddHotel = () => {
   const [data, setData] = useState();
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState([]);
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
   const [state, setState] = useState("");
@@ -26,7 +26,9 @@ const AddHotel = () => {
     formData.append("city", city);
     formData.append("country", country);
     formData.append("state", state);
-    formData.append("image", image);
+    image.map((item) => {
+      formData.append("image", item);
+    })
     formData.append("parking", parking);
     formData.append("wifi", wifi);
     formData.append("pets", pets);
@@ -43,12 +45,12 @@ const AddHotel = () => {
           });
           
           setTimeout(() => {
-            router.push("/admin/hotelimages");
+            router.push("/admin/hotels");
           }, 1000);
         } else {
           setError(true);
         }
-        router.push("/admin/hotelimages");
+        router.push("/admin/hotels");
       })
       .catch((err) => {
         setError(err);
@@ -56,8 +58,7 @@ const AddHotel = () => {
       });
   };
   const handleChange = (e) => {
-    setImage(e.target.files[0]);
-    localStorage.setItem("addedhotelId", title);
+    setImage([...e.target.files]);
   };
   console.log(parking);
   const { addToast } = useToasts();
@@ -94,7 +95,7 @@ const AddHotel = () => {
           <div>
             <label className="p-2">Description</label>
             <br />
-            <input
+            <textarea
               className="border mx-2 p-3 rounded"
               style={{ width: "500px", background: "#f5f5f5" }}
               required
@@ -111,6 +112,7 @@ const AddHotel = () => {
               style={{ width: "500px", background: "#f5f5f5" }}
               required
               type="file"
+              multiple
               id="image"
               onChange={(e) => handleChange(e)}
             />
