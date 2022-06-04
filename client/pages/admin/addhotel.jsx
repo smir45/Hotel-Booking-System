@@ -39,6 +39,7 @@ const AddHotel = () => {
       },
     })
       .then((res) => {
+        router.push("/admin/hotels");
         if (res?.data.message === "Destination posted successfully") {
           addToast(res.data.message, {
             appearance: "success",
@@ -49,8 +50,9 @@ const AddHotel = () => {
           }, 1000);
         } else {
           setError(true);
+          router.push("/admin/hotels");
         }
-        router.push("/admin/hotels");
+        
       })
       .catch((err) => {
         setError(err);

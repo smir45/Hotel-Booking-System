@@ -28,11 +28,11 @@ const AddDestination = () => {
             },
         })
             .then((res) => {
+
                 if (res?.message === "Attraction added successfully") {
                     addToast(res.message, {
                         appearance: "success",
                     });
-                        router.push("/admin/destinations");
                 } else {
                     setError(true);
                 }

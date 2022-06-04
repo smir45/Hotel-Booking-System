@@ -24,6 +24,8 @@ const booking = () => {
 
   const booking = (e) => {
       e.preventDefault();
+      // validate the form
+      if (fname === "" || lname === "" || phone === "" || email === "") return alert("Please fill all the fields");
       const formData = new FormData();
       formData.append("fname", fname);
       formData.append("lname", lname);

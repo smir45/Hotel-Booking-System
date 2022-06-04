@@ -11,14 +11,19 @@ const DefaultChatMsg = () => {
     const [socket, setSocket] = React.useState(null);
     const [receivedMessage, setReceivedMessage] = React.useState([]);
 
-
     useEffect(() => {
         const socket = io("http://localhost:8000");
+        
         setSocket(socket);
         socket.on("message", (message) => {
             setReceivedMessage([...receivedMessage, message]);
+            console.log(message)
         });
+        
     }, []);
+
+    
+
     const handleSend = (e) => {
         e.preventDefault();
         setMessages([...messages, text]);

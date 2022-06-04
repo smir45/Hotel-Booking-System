@@ -21,12 +21,6 @@ const DashboardSearchBoxElements = () => {
         checkout: "",
         person: "",
     });
-    const [error, setError] = React.useState("");
-    const searchHotels = (e) => {
-        e.preventDefault();
-        router.push('/destinations');
-
-    };
     const handleChange = (e) => {
         const newdata = {...data};
         newdata[e.target.id] = e.target.value;
@@ -88,14 +82,15 @@ const DashboardSearchBoxElements = () => {
                         <p className="p-2 select-none" style={{
                             color: "#f5f5f5",
                         }}>search</p>
-
+                        <Link href="/hotels">
                         <button
-                            onSubmit={(e) => searchHotels(e)}
+                            // onSubmit={(e) => searchHotels(e)}
                             type="submit"
                             className="mx-1  rounded shadow-lg py-5 px-16 bg-pmry text-white font-bold md:w-full sm:w-full xsm:w-full fold:w-full hover:bg-blue-700 hover:transition-all hover:duration-900"
                         >
                             Search
                         </button>
+                        </Link>
                     </div>
                 </form>
             </div>

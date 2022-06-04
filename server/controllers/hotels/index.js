@@ -337,10 +337,11 @@ module.exports.bookingHotel = async (req, res) => {
   });
   try {
     var transporter = nodemailer.createTransport({
-      service: "gmail",
+      host: "smtp.mailtrap.io",
+      port: 2525,
       auth: {
-        user: process.env.EMAIL,
-        pass: process.env.PASSWORD,
+        user: "29adeee43c4543",
+        pass: "bc9d27d8c27b8b",
       },
     });
     var mailOptions = {
@@ -370,16 +371,17 @@ module.exports.bookingHotel = async (req, res) => {
       if (error) {
         console.log(error);
       } else {
-        console.log("Email sent: " + info.response);
+        console.log("Email sent: " + info.response + " " + data.email);
       }
     });
 
     // ------------------------------------------------------
     var transporter = nodemailer.createTransport({
-      service: "gmail",
+      host: "smtp.mailtrap.io",
+      port: 2525,
       auth: {
-        user: process.env.EMAIL,
-        pass: process.env.PASSWORD,
+        user: "29adeee43c4543",
+        pass: "bc9d27d8c27b8b",
       },
     });
     var mailOptions = {
@@ -455,6 +457,47 @@ module.exports.getUserHistory = async (req, res) => {
       message: "Successfully get user history",
       data: booking,
       user,
+    });
+  } catch (error) {
+    res.status(400).send(error.message);
+    console.log(error);
+  }
+};
+
+module.exports.searchHotelFromCity = async (req, res) => {
+  const { city } = req.params;
+  try {
+    const hotels = await hotel.findAll({
+      include: [
+        {
+          model: Currency,
+          // as: "address",
+          attributes: ["id", "name"],
+        },
+        {
+          model: Address,
+          attributes: ["id", "city", "state", "country"],
+        },
+        {
+          model: hotel_reviews,
+        },
+        {
+          model: facilities,
+        },
+        {
+          model: images,
+          attributes: ["name"],
+        },
+      ],
+    });
+    const filteredHotels = hotels.filter((hotel) => {
+      return hotel.Addresses.map((address) => {
+        return address.city === city;
+      });
+    });
+    res.status(200).json({
+      message: "Successfully get user history",
+      data: filteredHotels,
     });
   } catch (error) {
     res.status(400).send(error.message);

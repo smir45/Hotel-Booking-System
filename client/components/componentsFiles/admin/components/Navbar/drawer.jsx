@@ -161,7 +161,7 @@ export default function NavDrawer() {
           </ListItem>
         </List>
         <List className="hover:bg-pmry hover:text-white">
-          <ListItem button key="Manage Users">
+          <ListItem button key="User">
             <a className="flex" href="/admin/users">
               <ListItemIcon className="mt-1 text-2xl">
                 <FaUserAlt />
@@ -194,7 +194,7 @@ export default function NavDrawer() {
         </List>
 
         <List className="hover:bg-pmry hover:text-white">
-          <ListItem button key="Owner">
+          <ListItem button key="Chat">
             <a className="flex" href="/admin/chat">
               <ListItemIcon className="mt-1 text-2xl">
                 <FaCommentDots />
@@ -205,7 +205,7 @@ export default function NavDrawer() {
         </List>
 
         <List className="hover:bg-pmry hover:text-white">
-          <ListItem button key="Owner">
+          <ListItem button key="Log Out">
             <a className="flex" href="/admin/owner">
               <ListItemIcon className="mt-1 text-2xl">
               <form onSubmit={(e) => logOut(e)}>

@@ -12,6 +12,7 @@ const {
     bookingHotel,
     AddImages,
     getUserHistory,
+    searchHotelFromCity
 } = require("../../controllers/hotels");
 // const userAuth = require("../../middlewares/userAuth");
 router.get("/", getHotels);
@@ -23,5 +24,6 @@ router.delete('/hotelremove/:id', deleteHotel)
 router.post('/booking', bookingHotel)
 router.post('/addimages', upload.single("file"), AddImages)
 router.get('/user/history/:id', getUserHistory)
+router.get('/search/:city', searchHotelFromCity)
 
 module.exports = router;
