@@ -19,7 +19,7 @@ const BlogData = () => {
     return (
         <>
             
-            <div className="bg-[#EEF6FC]">
+            <div className="bg-[#EEF6FC] h-[100vh]">
                 <section className="text-gray-600 body-font">
                     <div className="container px-5 py-24 mx-auto max-w-7x1">
                         <div className="flex flex-wrap w-full mb-4 p-4">

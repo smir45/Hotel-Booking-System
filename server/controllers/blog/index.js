@@ -60,6 +60,35 @@ module.exports.getBlogs = async (req, res) => {
   });
 };
 
+module.exports.deleteBlog = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const blogs = await Blog.findOne({
+      where: {
+        id,
+      }
+    })
+    if (!blogs) res.status(404).json({ message: "Blog not found" });
+
+    const blog = await Blog.destroy({
+      where: {
+        id : id,
+      },
+    });
+    res.status(200).json({
+      status: "success",
+      message: "Blog deleted successfully",
+      data: blog,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      status: "failed",
+      message: "An error occured during blog deletion. Please try again.",
+    });
+  }
+}
+
 module.exports.createBlog = async (req, res) => {
   const { title, description } = req.body;
   try {
