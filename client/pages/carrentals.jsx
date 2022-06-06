@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import router from "next/router";
 import axios from "axios";
-
+import Loading from "../components/componentsFiles/loading";
 const carRentals = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [cars, setCars] = useState([]);
@@ -48,7 +48,7 @@ const carRentals = () => {
     });
   }, []);
   if (isLoading) {
-    return <div className="login-back-loading">Loading...</div>;
+    return <div className="flex justify-center items-center h-[100vh] "><Loading/></div>;
   }
   return (
     <div style={{ background: "#f5f5f5f5" }}>

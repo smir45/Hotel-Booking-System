@@ -117,3 +117,29 @@ module.exports.createBlog = async (req, res) => {
     });
   }
 };
+
+
+module.exports.getBlogBySlug = async (req, res) => {
+  const { slug } = req.params;
+  try {
+    const blog = await Blog.findOne({
+      where: {
+        slug,
+      },
+    });
+
+    if (!blog) res.status(404).json({ message: "Blog not found" });
+
+    res.status(200).json({
+      status: "success",
+      message: "Blog fetched successfully",
+      data: blog,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      status: "failed",
+      message: "An error occured during blog fetching. Please try again.",
+    });
+  }
+}

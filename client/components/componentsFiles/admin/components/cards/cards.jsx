@@ -8,10 +8,10 @@ const Cards = () => {
               <div class="flex items-center">
                 <div class="flex-shrink-0">
                   <span class="text-2xl sm:text-3xl leading-none font-bold text-gray-900">
-                    2,340
+                    56
                   </span>
                   <h3 class="text-base font-normal text-gray-500">
-                    New products this week
+                    Total Number of Hotels
                   </h3>
                 </div>
                 <div class="ml-5 w-0 flex items-center justify-end flex-1 text-green-500 text-base font-bold">
@@ -35,10 +35,10 @@ const Cards = () => {
               <div class="flex items-center">
                 <div class="flex-shrink-0">
                   <span class="text-2xl sm:text-3xl leading-none font-bold text-gray-900">
-                    5,355
+                    50
                   </span>
                   <h3 class="text-base font-normal text-gray-500">
-                    Visitors this week
+                    Total number of Bookings
                   </h3>
                 </div>
                 <div class="ml-5 w-0 flex items-center justify-end flex-1 text-green-500 text-base font-bold">
@@ -62,10 +62,10 @@ const Cards = () => {
               <div class="flex items-center">
                 <div class="flex-shrink-0">
                   <span class="text-2xl sm:text-3xl leading-none font-bold text-gray-900">
-                    385
+                    38
                   </span>
                   <h3 class="text-base font-normal text-gray-500">
-                    User signups this week
+                    Total Number of Destinations
                   </h3>
                 </div>
                 <div class="ml-5 w-0 flex items-center justify-end flex-1 text-red-500 text-base font-bold">

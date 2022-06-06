@@ -167,7 +167,7 @@ module.exports.updateUser = async (req, res) => {
             message: "Updated Successfully",
             data: updatedUser,
         });
-        console.log("updated");
+        console.log(id,"updated");
     } catch (err) {
         res.status(400).json({
             message: "fail",

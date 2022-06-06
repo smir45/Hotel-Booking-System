@@ -16,6 +16,7 @@ import {
   FaMapMarker,
   FaUserLock,
   FaHotel,
+  FaSignOutAlt
 } from "react-icons/fa";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
@@ -149,16 +150,6 @@ export default function DestinationDrawer() {
             </a>
           </ListItem>
         </List>
-        <List className="hover:bg-pmry hover:text-white">
-          <ListItem button key="Manage Users">
-            <a className="flex" href="/admin/users">
-              <ListItemIcon className="mt-1 text-2xl">
-                <FaUserAlt />
-              </ListItemIcon>
-              <ListItemText primary="Manage Users" />
-            </a>
-          </ListItem>
-        </List>
 
         <List className="hover:bg-pmry hover:text-white  bg-pmry text-white">
           <ListItem button key="Destinations">
@@ -183,10 +174,17 @@ export default function DestinationDrawer() {
         </List>
 
         <List className="hover:bg-pmry hover:text-white">
-          <ListItem button key="Owner">
-            <a className="flex" href="/admin/owner">
+          <ListItem button key="Log Out">
+            <a className="flex" href="/login">
               <ListItemIcon className="mt-1 text-2xl">
-                <FaUserLock />
+              <form onSubmit={(e) => logOut(e)}>
+                            <button
+                                className="">
+                                <FaSignOutAlt/>
+
+                                <span className="font-medium"></span>
+                            </button>
+                        </form>
               </ListItemIcon>
               <ListItemText primary="Owner" />
             </a>

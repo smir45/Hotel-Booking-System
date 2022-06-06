@@ -78,7 +78,7 @@ const searchDatas = () => {
                         </Carousel>
                       </div>
                       <div className="w-full rounded-lg mx-3">
-                        <div className="flex justify-between p-2">
+                        <div className="">
                           <div>
                             <h3 className="text-primary text-2xl font-bold">
                               {hotel.title}
@@ -97,53 +97,13 @@ const searchDatas = () => {
                                 )),
                               ]}
                             </span>
-                          </div>
-                          <div className="flex">
-                            <div className="my-1">
-                              <p className="text-gray-500 font-bold text-lg">
-                                {hotel.hotel_reviews.review || "No reviews"}
-                              </p>
-                              <p className="text-sm">
-                                {hotel.hotel_reviews.stars || "0"} reviews
-                              </p>
-                            </div>
-                            <div className="bg-pmry p-2 text-white rounded-br-lg rounded-t-lg mx-2 my-1">
-                              <p className="text-gray-500 font-bold text-lg">
-                                {/* {hotel.review_score} */}
+                            <div>
+                              <p className="text-gray-500 mx-5 mt-2 font-bold text-2xl text-primary">
+                                <p>RS: 1500</p>
                               </p>
                             </div>
                           </div>
                         </div>
-                        {/*{console.log(hotel)}*/}
-                        <span
-                          className="flex mx-3"
-                          style={{ color: "goldenrod" }}
-                        >
-                          {[...Array(hotel.hotel_reviews.stars)].map((e, i) => (
-                            <span key={i}>
-                              <FaStar /> <br />
-                            </span>
-                          ))}
-                        </span>
-                        <div>
-                          <p
-                            className="border flex py-1 px-2 mx-3 font-bold bg-gray-300"
-                            style={{ width: "fit-content" }}
-                          >
-                            <span className="mt-1 text-lg mx-1">
-                              <FaParking />
-                            </span>
-                            {hotel.parking || "Parking not available"}
-                          </p>
-                          <p className="text-gray-500 mx-5 font-bold text-2xl text-primary float-right">
-                            {hotel.Currencies.map((currency, index) => (
-                              <span key={index}>
-                                <p>{currency.name}</p>
-                              </span>
-                            ))}
-                          </p>
-                        </div>
-                        <a href="/"></a>
                       </div>
                       <p></p>
                     </div>

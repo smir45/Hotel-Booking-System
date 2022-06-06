@@ -54,7 +54,7 @@ export default function NavHeaderDashboard() {
         return <div className="login-back-loading">Loading...</div>;
 
     }
-    localStorage.setItem("email", user.email);
+    localStorage.setItem("email", user?.email);
     return (
         <main>
 
@@ -205,12 +205,12 @@ export default function NavHeaderDashboard() {
                     <div className="flex items-center px-4 -mx-2">
                         <img
                             className="object-cover mx-2 rounded-full h-9 w-9"
-                            src={user.image}
+                            src={user?.image}
                             alt="avatar"
                         />
 
                         <h4 className="mx-2 font-medium text-gray-800 dark:text-gray-200 hover:underline">
-                            {user.name}
+                            {user?.name}
                         </h4>
                     </div>
                 </div>

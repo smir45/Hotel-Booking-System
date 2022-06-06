@@ -1,6 +1,6 @@
 import * as React from "react";
 import Link from "next/link";
-import {FaBed, FaHome, FaQuestionCircle, FaBloggerB, FaMapMarkerAlt} from "react-icons/fa";
+import {FaBed, FaHome,FaBusAlt, FaQuestionCircle, FaBloggerB, FaMapMarkerAlt} from "react-icons/fa";
 import {MdRestaurantMenu, MdMoreHoriz} from "react-icons/md";
 import {BsBuilding} from "react-icons/bs";
 
@@ -50,15 +50,15 @@ export const Catagories = () => {
                         </h6>
                     </div>
                 </Link>
-                <Link href="/restaurants">
+                <Link href="/carrentals">
                     <div
                         className="text-center hover:bg-pmry hover:text-white duration-700 hover:cursor-pointer rounded-2xl">
                         <div
                             className="flex items-center text-4xl justify-center w-10 h-10 mx-auto mb-4 rounded-full bg-indigo-50 sm:w-12 sm:h-12">
-                            <MdRestaurantMenu/>
+                            <FaBusAlt/>
                         </div>
                         <h6 className="mb-2 text-sm font-bold leading-5 tracking-wider uppercase">
-                            restaurant
+                            Transportation
                         </h6>
                     </div>
                 </Link>
